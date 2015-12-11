@@ -25,7 +25,7 @@ EndIF
     inputValue  = CurrentQuestion.iteration(ar[i].Index).InputValue()
     caption     = ar[i].Caption
     image		= ar.ResourceURL[i]
-    index		= ar[i].Order
+    index		= i
     inputName	= CurrentQuestion.iteration(ar[i].Index).InputName()
    	%}
       <div class="responseItem" data-index="{%= index %}" data-value="{%= inputValue %}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >
@@ -53,7 +53,7 @@ EndIF
                     inputValue  = CurrentQuestion.iteration(ar[i].Index).InputValue()
                     caption     = ar[i].Caption
                     image		= ar.ResourceURL[i]
-                    index		= ar[i].Order
+                    index		= i
                     inputName	= CurrentQuestion.iteration(ar[i].Index).InputName()
                     %}
                       <div class="responseItemClone" data-index="{%= index %}" data-value="{%= inputValue %}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >

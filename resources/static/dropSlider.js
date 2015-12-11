@@ -36,9 +36,9 @@ put all items in this container too
 			iteration = 0,
 			total_images = $container.find("img").length,
 			unitDP = decimalPlaces(options.unitStep),
-			images_loaded = 0;
-
-
+			images_loaded = 0,
+			items = options.items;
+		
 		$(this).css({'max-width':options.maxWidth,'width':options.controlWidth});
 		/*if ( isInLoop ) $(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});*/
 
@@ -48,10 +48,6 @@ put all items in this container too
 		} else if ( options.controlAlign === "right" ) {
 			$(this).css({'margin':'0 0 0 auto'});
 		}
-
-		// Global variables
-		var $container = $(this),
-			items = options.items;
 
 		// Check for images and resize
 		$container.find('.caption img').each(function forEachImage() {
@@ -102,7 +98,8 @@ put all items in this container too
 			var maxHeight = Math.max.apply(null, $(".responseItem").map(function () {
 					return $(this).height();
 				}).get());
-			$('.startArea, .responseItem, .responseItemClone').height( maxHeight );
+			$('.responseItem, .responseItemClone').height( maxHeight );
+			$('.startArea').height( $('.responseItem').outerHeight() );
 			
 			// Make all responses same height
 			var maxWidth = $('.responseItem').map(function() {
@@ -150,6 +147,13 @@ put all items in this container too
 				  cursor: "move"
 				});
 				$(this).attr('data-ontarget',true);
+				
+				// bring to front when hovering
+				$(this).hover( function() {
+					$(this).css('z-index',1000);
+				}, function() {
+					$(this).css('z-index','');
+				});
 			});
 			
 			//$('.lineContainer').css('padding','0 ' + ($('.responseItemClone').eq(0).outerWidth()/2) + 'px');
@@ -334,18 +338,16 @@ put all items in this container too
 		
 		/**/
 		//check if has a value
+		$('.responseItemClone').hide();
 		$('.responseItem').each(function(index) { 
 			
 			// var val = Math.round((finalMidPosition - minX) / tickSize),
 			var iteration = $(this).data('index')-1,
 				val = items[iteration].element.val(),
 				range = 100,
-				sliderDiv = $('.drop'),
-				sliderWidth = sliderDiv.outerWidth(),
-				position = sliderDiv.position(),
-				minX = position.left,
+				sliderWidth = $('.sliderMiddle .lineContainer').outerWidth() - $(this).outerWidth(),
 				tickSize = sliderWidth / range,
-				POSX = ((val * tickSize) + minX) - Math.round($(this).outerWidth() / 2);				
+				POSX = (val * tickSize);				
 			
 			if ( val != '' ) {
 				
@@ -355,16 +357,20 @@ put all items in this container too
 					x2 = x1 + $('.drop').width() - 2,
 					y2 = y1 + $('.drop').height();
 									
-				$(this).draggable( "option", "revert", false ).css({top: destination, left:POSX});
-				$(this).attr('data-ontarget',true);
-				$(this).draggable( "option", { axis: "x", containment: [ x1, y1, x2, y2 ] } );
-				$(this).show();
+				//$(this).draggable( "option", "revert", false ).css({top: destination, left:POSX});
+				//$(this).attr('data-ontarget',true);
+				//$(this).draggable( "option", { axis: "x", containment: [ x1, y1, x2, y2 ] } );
+				
+				$(this).hide();
+				$('.responseItemClone').eq(iteration).draggable( "option", { axis: "x", containment: '.sliderMiddle .lineContainer' } );
+				$('.responseItemClone').eq(iteration).css('left',POSX+'px').show();
+				$('.responseItemClone').eq(iteration).show();
 			
 			}
-
+			
 		});
 		
-		$('.responseItemClone').hide();
+		
 
 		if ( stackResponses ) {
 			$('.responseItem[data-ontarget=false]').hide();
@@ -388,8 +394,7 @@ put all items in this container too
 			// check each and adjust if smaller
 			$container.find(target).each(function(index, element) {
                 if ( $(this).outerHeight() < maxLabelHeight ) $(this).outerHeight(maxLabelHeight);
-            });
-
+            });			
 		}
 
 		function layoutAdjust() {
