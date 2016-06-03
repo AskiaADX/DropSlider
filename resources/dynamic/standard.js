@@ -1,4 +1,4 @@
-﻿/* standard.js */
+/* standard.js */
 $(window).load(function() {
 	$('#adc_{%= CurrentADC.InstanceId %}').adcDropSlider({
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
@@ -11,8 +11,8 @@ $(window).load(function() {
 		forceImageSize : '{%= CurrentADC.PropValue("forceImageSize") %}',
 		labelWidth : '{%= CurrentADC.PropValue("labelWidth") %}',
 		unitStep : {%= CurrentADC.PropValue("unitStep") %},
-		minValue : {%= CurrentADC.PropValue("minValue") %},
-		maxValue : {%= CurrentADC.PropValue("maxValue") %},
+		minValue : {%= CurrentQuestion.MinValue %},
+		maxValue : {%= CurrentQuestion.MaxValue %},
 		isInLoop: {%= (CurrentADC.PropValue("isInLoop") = "1") %},
 		leftLabelText : {%= (CurrentADC.PropValue("leftLabelText") <> "") %},
 		rightLabelText : {%= (CurrentADC.PropValue("rightLabelText") <> "") %},

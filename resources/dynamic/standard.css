@@ -1,4 +1,4 @@
-﻿/* standard.css */
+/* standard.css */
 {%
 Dim responseColourPrimary =CurrentADC.PropValue("responseColourPrimary")
 Dim responseColourSecondary =CurrentADC.PropValue("responseColourSecondary")
@@ -79,6 +79,9 @@ Dim labelFontColour =CurrentADC.PropValue("labelFontColour")
 Dim labelBorderColour =CurrentADC.PropValue("labelBorderColour")
 Dim labelBorderThickness =CurrentADC.PropValue("labelBorderThickness")
 Dim labelBorderStyle =CurrentADC.PropValue("labelBorderStyle")
+
+Dim baseColourPrimary =CurrentADC.PropValue("baseColourPrimary")
+Dim baseColourSecondary =CurrentADC.PropValue("baseColourSecondary")
 
 Dim showValue =CurrentADC.PropValue("showValue")
 
@@ -681,6 +684,58 @@ EndIF
 #adc_{%= CurrentADC.InstanceId%} .lineContainer { 
 	position:relative;
 	border:none !important;
-	background: url("https://research.verveengine.co.uk/Flash/kobo/imgs/line.gif") #fff repeat-x scroll left center !important;
+    
+}
+
+#adc_{%= CurrentADC.InstanceId%} .bg {
+    background: rgb({%= baseColourPrimary%}); 
+    background: -moz-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%, rgb({%= baseColourSecondary%}) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb({%= baseColourPrimary%})), color-stop(100%,rgb({%= baseColourSecondary%}))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* IE10+ */
+	background: linear-gradient(to right,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= baseColourPrimary.ToHexa()%}, endColorstr={%= baseColourSecondary.ToHexa()%},GradientType=0 ); /* IE6-8 */
+    display: block;
+    height: 10px;
+    position: absolute;
+    top: calc(50% - 5px);
+    width: 100%;
 }
 #adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { border:none !important; background:none !important; }
+
+.tooltip {
+    position: absolute;
+    z-index: 1020;
+    display: block;
+    padding: 5px;
+    font-size: 11px;
+    visibility: visible;
+    margin-top: -2px;
+    bottom:120%;
+    margin-left: -2em;
+}
+
+.tooltip .tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-top: 5px solid #000000;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.tooltip-inner {
+    max-width: 200px;
+    padding: 3px 8px;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    background-color: #000000;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+}

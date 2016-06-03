@@ -1,4 +1,4 @@
-﻿{%
+{%
 Dim inputName = CurrentQuestion.InputName()
 Dim inputValue
 Dim caption
@@ -61,6 +61,7 @@ EndIF
                         <div style="clear:both"></div>
                       </div>
                     {% Next %}
+                    <div class="bg"></div>
                 </td>
                 
             {% IF CurrentADC.PropValue("rightLabelText") <> "" and CurrentADC.PropValue("displayLabelText") <> "none" Then %}

@@ -170,14 +170,26 @@ put all items in this container too
 				minX = position.left,
 				maxX = minX + sliderWidth,
 				tickSize = sliderWidth / range;
+			
+            // check
+            var initialValue = 2012;
+            var sliderTooltip = function(event, ui) {
+                var curValue = ui.value || initialValue;
+                var tooltip = '<div class="tooltip"><div class="tooltip-inner">' + curValue + '</div><div class="tooltip-arrow"></div></div>';
 
+                $('.ui-slider-handle').html(tooltip);
+
+            }
+            
 			// Activate the UI slider
 			sliderDiv.slider({
 				min: 0,
 				max: range,
 				create : function(){
 					$(this).find(".ui-slider-handle").hide();
-				}
+                    sliderToolTip;
+				},
+                slide: sliderTooltip
 			});
 			
 			//Set slider as droppable
