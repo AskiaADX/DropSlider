@@ -1,5 +1,6 @@
 {%
 Dim inputName = CurrentQuestion.InputName()
+Dim responseTextPosition = CurrentADC.PropValue("responseTextPosition")
 Dim inputValue
 Dim caption
 Dim inputId
@@ -29,7 +30,15 @@ EndIF
     inputName	= CurrentQuestion.iteration(ar[i].Index).InputName()
    	%}
       <div class="responseItem" data-index="{%= index %}" data-value="{%= inputValue %}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >
-        <div class="response_text">{%= caption %}</div>
+        {% IF responseTextPosition = "top" Then %}
+          <span class="response_text">{%:= caption %}</span>
+        {% EndIF %}
+        {% IF image <> "" Then %}
+            <img src="{%= image %}" />
+        {% EndIF %}
+        {% IF responseTextPosition = "bottom" Then %}
+          <span class="response_text">{%:= caption %}</span>
+        {% EndIF %}
         <div style="clear:both"></div>
       </div>
     {% Next %}
@@ -48,19 +57,6 @@ EndIF
             
             	<td align="left" class="lineContainer">
                 	<div class="drop"></div>
-                    {%
-                    For i = 1 To ar.Count
-                    inputValue  = CurrentQuestion.iteration(ar[i].Index).InputValue()
-                    caption     = ar[i].Caption
-                    image		= ar.ResourceURL[i]
-                    index		= i
-                    inputName	= CurrentQuestion.iteration(ar[i].Index).InputName()
-                    %}
-                      <div class="responseItemClone" data-index="{%= index %}" data-value="{%= inputValue %}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >
-                        <div class="response_text">{%= caption %}</div>
-                        <div style="clear:both"></div>
-                      </div>
-                    {% Next %}
                     <div class="bg"></div>
                 </td>
                 

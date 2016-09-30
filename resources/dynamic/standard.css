@@ -121,6 +121,13 @@ IF responseWidth = "" Then
 	responseWidth = "auto"
 EndIF
 
+Dim tooltipWidth =CurrentADC.PropValue("tooltipWidth")
+Dim tooltipImageWidth =CurrentADC.PropValue("tooltipImageWidth")
+Dim tooltipBgColour =CurrentADC.PropValue("tooltipBgColour")
+Dim tooltipFontColour =CurrentADC.PropValue("tooltipFontColour")
+Dim showTooltipCaption =CurrentADC.PropValue("showTooltipCaption")
+Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
+
 %}
 
 /* General */
@@ -170,7 +177,7 @@ EndIF
 		float:none;
 	{% Else %}
 		margin: {%= responseMargin%};
-		float:left;
+		float:{%= responseAlign%};
 	{% EndIF %}	
 	
 	z-index: 100;
@@ -207,83 +214,7 @@ EndIF
 	padding:{%= responseImagePadding%};
 }
 
-
-
-
-
-
-/* Reponses */
-#adc_{%= CurrentADC.InstanceId%} .responseItemClone
-{   
-	box-sizing:border-box;
-	position:absolute;
-	top:0px;
-	/* Decoration */
-	{% IF borderThickness = "none" Then %}
-		border: none;
-	{% Else %}
-		border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%});
-	{% EndIF %}	
-	background: rgb({%= responseColourPrimary%}); 
-	background: -moz-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%, rgb({%= responseColourSecondary%}) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= responseColourPrimary%})), color-stop(100%,rgb({%= responseColourSecondary%}))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= responseColourPrimary.ToHexa()%}, endColorstr={%= responseColourSecondary.ToHexa()%},GradientType=0 ); /* IE6-8 */
-	
-	/* Effects */
-	-webkit-border-radius:	{%= borderRadius%}; 
-	-moz-border-radius:		{%= borderRadius%}; 
-	-khtml-border-radius:	{%= borderRadius%}; 
-	border-radius:			{%= borderRadius%};
-	
-	-webkit-box-shadow: {%= responseShadow%};
-	-moz-box-shadow: {%= responseShadow%};
-	box-shadow: {%= responseShadow%};
-	
-	text-align: center;
-		
-	height: {%= responseHeight%};
-	width: {%= responseWidth%};
-	
-	padding: {%= responsePadding%};
-	
-	z-index: 100;
-}
-
-#adc_{%= CurrentADC.InstanceId%} .responseItemClone:hover
-{
-	
-	/* Decoration */
-	{% IF showResponseHoverBorder = "1" Then %}
-		border: {%= responseHoverBorderThickness%} {%= responseHoverBorderStyle%} rgb({%= responseHoverBorderColour%});
-	{% EndIF %}
-	{% IF showResponseHoverColour = "1" Then %}
-		background: rgb({%= responseHoverColourPrimary%}) !important;
-		background: -moz-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%, rgb({%= responseHoverColourSecondary%}) 100%) !important; /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= responseHoverColourPrimary%})), color-stop(100%,rgb({%= responseHoverColourSecondary%}))) !important; /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* IE10+ */
-		background: linear-gradient(to bottom,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= responseHoverColourPrimary.ToHexa()%}', endColorstr='{%= responseHoverColourSecondary.ToHexa()%}',GradientType=0 ) !important; /* IE6-8 */
-	{% EndIF %}
-	-webkit-box-shadow: {%= responseHoverShadow%};
-	-moz-box-shadow: {%= responseHoverShadow%};
-	box-shadow: {%= responseHoverShadow%};
-}
-
-#adc_{%= CurrentADC.InstanceId%} .responseItemClone img
-{  
-	pointer-events:none;
-	margin:0px auto;
-	vertical-align:middle;
-	padding:{%= responseImagePadding%};
-}
-
-#adc_{%= CurrentADC.InstanceId%} .response_text 
+#adc_{%= CurrentADC.InstanceId%} .responseItem .response_text 
 { 
 	pointer-events:none;
 	display:{%= displayResponseText%};
@@ -633,7 +564,7 @@ EndIF
 	font-size:{%= fontSize%};
 	padding:{%= captionPadding%};
 }
-
+/*
 #adc_{%= CurrentADC.InstanceId%} .noUi-horizontal {
 	height: {%= sliderBaseHeight%}px;
 }
@@ -641,19 +572,18 @@ EndIF
 	width: {%= sliderHandleWidth%}px;
 	height: {%= sliderHandleHeight%}px;
 	left: -{%= halfHandleWidth%}px;
-	top: {%= halfHandleHeight%}px; /* Coming out as -- */
+	top: {%= halfHandleHeight%}px; 
 }
 #adc_{%= CurrentADC.InstanceId%} .noUi-vertical .noUi-handle {
 	width: {%= sliderHandleWidth%}px;
 	height: {%= sliderHandleHeight%}px;
 	left: -{%= halfHandleWidth%}px;
-	top: {%= halfHandleHeight%}px; /* Coming out as -- */
-}
+	top: {%= halfHandleHeight%}px; 
+}*/
 
 #adc_{%= CurrentADC.InstanceId%} img {
 	padding:{%= imagePadding%};
-	vertical-align: middle;
-		
+	vertical-align: middle;	
 }
 
 
@@ -704,23 +634,56 @@ EndIF
 }
 #adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { border:none !important; background:none !important; }
 
-.tooltip {
+#adc_{%= CurrentADC.InstanceId%} .tooltip {
     position: absolute;
     z-index: 1020;
-    display: block;
-    padding: 5px;
+    display: block !important;
+    padding: 5px 0;
     font-size: 11px;
-    visibility: visible;
     margin-top: -2px;
     bottom:120%;
-    margin-left: -2em;
+    margin-left: -{%= (tooltipWidth.ToNumber()/2) - 1 %}px;
+    opacity: 1;
 }
 
-.tooltip .tooltip-arrow {
+#adc_{%= CurrentADC.InstanceId%} .tooltip .response_text 
+{ 
+	pointer-events:none;
+	font-size:{%= fontSize%};
+	text-align:{%= responseTextAlign%};
+	color:rgb({%= tooltipFontColour%});
+	padding:{%= responseTextPadding%};
+	line-height:{%= responseTextLineHeight%};
+    
+    {% IF showTooltipCaption = "0" Then %}
+    	display:none;
+    {% EndIF %}
+	
+	{% IF responseTextPosition = "left" or responseTextPosition = "right" Then %}
+		float: {%= responseTextPosition%};
+	{% EndIF %}
+	
+	word-wrap: break-word;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .tooltip img
+{  
+	pointer-events:none;
+	margin:0px auto;
+	vertical-align:middle;
+	float:{%= responseImageAlignment%};
+	padding:{%= responseImagePadding%};
+    
+    {% IF showTooltipImage = "0" Then %}
+    	display:none;
+    {% EndIF %}
+}
+
+#adc_{%= CurrentADC.InstanceId%} .tooltip .tooltip-arrow {
     bottom: 0;
     left: 50%;
     margin-left: -5px;
-    border-top: 5px solid #000000;
+    border-top: 5px solid rgb({%= tooltipBgColour %});
     border-right: 5px solid transparent;
     border-left: 5px solid transparent;
     position: absolute;
@@ -728,14 +691,55 @@ EndIF
     height: 0;
 }
 
-.tooltip-inner {
-    max-width: 200px;
+#adc_{%= CurrentADC.InstanceId%} .tooltip-inner {
+    max-width: {%= tooltipWidth %}px;
+    width: {%= tooltipWidth %}px;
     padding: 3px 8px;
-    color: #ffffff;
+    color: rgb({%= tooltipFontColour %});
     text-align: center;
     text-decoration: none;
-    background-color: #000000;
+    background-color: rgb({%= tooltipBgColour %});
     -webkit-border-radius: 4px;
        -moz-border-radius: 4px;
             border-radius: 4px;
 }
+
+#adc_{%= CurrentADC.InstanceId%} .tooltip-inner img { height:auto; width:{%= tooltipImageWidth %}px; }
+/*
+.ui-slider {
+    background: black repeat-x bottom left;
+    border-bottom: 1px solid #EBEAE5;
+    height: 15px;
+    margin: 0;
+    padding: 0px;
+}
+
+.ui-slider-handle {
+    background: #ED6B51;
+    border-bottom: 1px solid #a8a79f;
+    border-right: 1px solid #a8a79f;
+    height: 20px;
+    width: 10px;
+    margin: 0;
+    padding: 0px;
+    display: inline-block;
+}
+
+.ui-slider-range {
+    height: 10px;
+    border-bottom: 3px solid red;
+    position: relative;
+}
+
+.ui-slider-handle {
+    background: #ED6B51 !important;
+    border-bottom: 1px solid #a8a79f !important;
+    border-right: 1px solid #a8a79f !important;
+    height: 20px !important;
+    width: 10px !important;
+    margin: 0 !important;
+    padding: 0px !important;
+    display: inline-block !important;
+    top: -4px !important;
+}
+*/

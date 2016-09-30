@@ -30,3 +30,8 @@
 .drop { 
 	display:block; height:100px; box-sizing:border-box; margin:0px auto;
 }
+
+.clear { clear:both; }
+
+.ui-state-focus { z-index:1000 !important; }
+.ui-state-hover { z-index:1010 !important; }
