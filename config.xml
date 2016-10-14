@@ -7,9 +7,33 @@
   <info>
     <name>adc2-dropSlider</name>
     <guid>75419bde-c158-45fe-a9b7-68cd4c6bb9b0</guid>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <date>2015-09-24</date>
-    <description><![CDATA[v1.0.0 -]]></description>
+    <description><![CDATA[
+		v1.0.0 -
+		v1.0.1 - Fixed tooltip text centering
+                - Fixed response centering when layout set to center
+                - Fixed spacing between responses and slider
+                - Changed caption text-alignment to center
+                - Fixed caption drop on mobile
+                - Added Touch UI for mobile drag
+                - Added button to remove responses from slider
+                - Changed cursor to pointer for handle and responses
+                - Change image resize to be based on responseItem size or tooltip size
+                - Added parameters to style base
+                - Added paramaters to style handle
+                - show markers
+                - only show pips (hide marker labels)
+                - alternating markers esp for single choice question
+                - highlight chosen number or label MAKE AN OPTION
+                - fixed pip highlighting
+                - Added Prefix/Suffix to markers
+                - Added marker distance
+                - Added marker text font-size
+                - Added marker text distance
+                - Added marker line height
+                - Fixed vertical position of handle on wide base
+	]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -20,7 +44,7 @@
     <style width="400" height="300" />
     <constraints>
       <constraint on="questions" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="true" single="false" />
-      <constraint on="controls" responseblock="true" textbox="false" label="false" listbox="false" radiobutton="false" />
+      <constraint on="controls" responseblock="true" textbox="false" label="false" listbox="false" radiobutton="false" checkbox="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
   </info>
@@ -55,6 +79,9 @@
       <content fileName="jquery-1.11.3.min.js" type="javascript" mode="share" position="head" />
       <content fileName="jquery-migrate-1.2.1.min.js" type="javascript" mode="share" position="head" />
       <content fileName="jquery-ui.min.js" type="javascript" mode="share" position="head" />
+      <content fileName="jquery.ui.touch-punch.min.js" type="javascript" mode="share" position="head" />
+      <content fileName="jquery-ui-slider-pips.min.js" type="javascript" mode="share" position="head" />
+      <content fileName="jquery-ui-slider-pips.min.css" type="css" mode="share" position="head" />
       <content fileName="dropSlider.js" type="javascript" mode="static" position="head" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_numeric.js" type="javascript" mode="dynamic" position="none" />
@@ -139,12 +166,8 @@
           <option value="right" text="Right" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="responseAlign" name="Response Alignment" type="string" mode="static">
-        <description><![CDATA[
-          
-	          Set alignment of responses
-	        
-        ]]></description>
+      <property xsi:type="standardProperty" id="responseAlign" name="Response Alignment" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Set alignment of responses]]></description>
         <value><![CDATA[center]]></value>
         <options>
           <option value="left" text="Left" />
@@ -494,6 +517,53 @@
       </property>
     </category>
     <category id="sliderSettings" name="Slider Settings">
+      <property xsi:type="standardProperty" id="baseHeight" name="Base Height" type="number" mode="static">
+        <description><![CDATA[
+          
+          Slider base height
+        
+        ]]></description>
+        <value><![CDATA[10]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="baseBorderColour" name="Base Border Colour" type="color" mode="static">
+        <description><![CDATA[
+          
+            Border colour for the base
+          
+        ]]></description>
+        <value><![CDATA[161,167,173]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="baseBorderThickness" name="Base Border Thickness" type="string" mode="static">
+        <description><![CDATA[
+          
+	          The thickness of the border around the base
+	        
+        ]]></description>
+        <value><![CDATA[none]]></value>
+        <options>
+          <option value="none" text="None" />
+          <option value="1px" text="1px" />
+          <option value="2px" text="2px" />
+          <option value="3px" text="3px" />
+          <option value="4px" text="4px" />
+          <option value="5px" text="5px" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="baseBorderStyle" name="Base Border Style" type="string" mode="static">
+        <description><![CDATA[
+          
+	          The style of the border around the base
+	        
+        ]]></description>
+        <value><![CDATA[solid]]></value>
+        <options>
+          <option value="none" text="None" />
+          <option value="solid" text="Solid" />
+          <option value="dashed" text="Dashed" />
+          <option value="dotted" text="Dotted" />
+          <option value="double" text="Double" />
+        </options>
+      </property>
       <property xsi:type="standardProperty" id="baseDropHoverColour" name="Base Drop Hover Colour" type="color" mode="static">
         <description><![CDATA[
           
@@ -517,6 +587,82 @@
           
         ]]></description>
         <value><![CDATA[247,247,247]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="handleColour" name="Hande Colour" type="color" mode="dynamic" require="true" visible="true" colorFormat="rgb">
+        <description><![CDATA[The colour of the handle]]></description>
+        <value><![CDATA[246,246,246]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="handleBorderColour" name="Handle Border Colour" type="color" mode="dynamic" require="true" visible="true" colorFormat="rgb">
+        <description><![CDATA[The handle border colour]]></description>
+        <value><![CDATA[197,197,197]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="handleBorderRadius" name="Handle Border Radius" type="string" mode="static">
+        <description><![CDATA[
+          
+	          The amount of curve on the handle corners
+	        
+        ]]></description>
+        <value><![CDATA[2px]]></value>
+        <options>
+          <option value="0px" text="0" />
+          <option value="2px" text="2" />
+          <option value="5px" text="5" />
+          <option value="10px" text="10" />
+          <option value="15px" text="15" />
+          <option value="20px" text="20" />
+          <option value="25px" text="25" />
+          <option value="30px" text="30" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="handleWidth" name="Handle Width" type="number" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[The handle width]]></description>
+        <value><![CDATA[19.2]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="handleHeight" name="Handle Height" type="number" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[The handle height]]></description>
+        <value><![CDATA[19.2]]></value>
+      </property>
+    </category>
+    <category id="markers" name="Markers">
+      <property xsi:type="standardProperty" id="showMarkers" name="Show Markers" type="boolean" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Whether or not to show the markers]]></description>
+        <value><![CDATA[false]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="showMarkerLabels" name="Show Marker Labels" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[label]]></value>
+        <options>
+          <option value="label" text="Yes" />
+          <option value="false" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="alternateMarkers" name="Alternate Markers" type="boolean" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Whether or not to alternate the markers above and below the slider]]></description>
+        <value><![CDATA[false]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerPrefix" name="Marker Prefix" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerSuffix" name="Marker Suffix" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerDistance" name="Marker Distance" type="number" require="false" visible="true">
+        <description><![CDATA[Distance of markers from base]]></description>
+        <value><![CDATA[20]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerTextDistance" name="Marker Text Distance" type="number" require="false" visible="true">
+        <description><![CDATA[Distance of text from markers]]></description>
+        <value><![CDATA[5]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerFontsize" name="Marker Font size" type="number" require="false" visible="true">
+        <description><![CDATA[The font size of the markers]]></description>
+        <value><![CDATA[12]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerLineHeight" name="Marker Line Height" type="number" require="false" visible="true">
+        <description><![CDATA[The line height of the markers]]></description>
+        <value><![CDATA[12]]></value>
       </property>
     </category>
     <category id="labels" name="Labels">
@@ -640,36 +786,6 @@
         </options>
       </property>
     </category>
-    <category id="images" name="Images">
-      <property xsi:type="standardProperty" id="imagePadding" name="Image Padding" type="string" mode="static">
-        <description><![CDATA[
-          Padding around images
-        ]]></description>
-        <value><![CDATA[10px]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="maxImageWidth" name="Max Image Width" type="number" mode="static" require="false" visible="true">
-        <description><![CDATA[Set max image width]]></description>
-        <value><![CDATA[100]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="maxImageHeight" name="Max Image Height" type="number" mode="static">
-        <description><![CDATA[
-          Set max image height
-        ]]></description>
-        <value><![CDATA[100]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="forceImageSize" name="Force image size" type="string" mode="static">
-        <description><![CDATA[
-          Force height or width for all images
-        ]]></description>
-        <value><![CDATA[width]]></value>
-        <options>
-          <option value="no" text="No" />
-          <option value="width" text="Force width" />
-          <option value="height" text="Force height" />
-          <option value="both" text="Force both" />
-        </options>
-      </property>
-    </category>
     <category id="Tooltip" name="Tooltip">
       <property xsi:type="standardProperty" id="tooltipWidth" name="Tooltip Width" type="number" mode="dynamic" require="false" visible="true">
         <description><![CDATA[Width of tooltip]]></description>
@@ -691,9 +807,27 @@
         ]]></description>
         <value><![CDATA[1]]></value>
       </property>
+      <property xsi:type="standardProperty" id="tooltipFontSize" name="Tooltip Font Size" type="string" mode="static">
+        <description><![CDATA[
+          The font size for the tooltip
+        ]]></description>
+        <value><![CDATA[12px]]></value>
+      </property>
       <property xsi:type="standardProperty" id="tooltipFontColour" name="Tooltip Font Colour" type="color" mode="dynamic" require="true" visible="true" colorFormat="rgb">
         <description><![CDATA[Tooltip font colour]]></description>
         <value><![CDATA[255,255,255]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="tooltipTextPadding" name="Tooltip Text Padding" type="string" mode="static">
+        <description><![CDATA[
+          The padding for the text in for the tooltip
+        ]]></description>
+        <value><![CDATA[0px]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="tooltipImagePadding" name="Tooltip Image Padding" type="string" mode="static">
+        <description><![CDATA[
+          The padding for the image in for the tooltip
+        ]]></description>
+        <value><![CDATA[0px]]></value>
       </property>
     </category>
   </properties>

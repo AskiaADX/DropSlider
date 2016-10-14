@@ -52,6 +52,8 @@ Dim textAlign =CurrentADC.PropValue("textAlign")
 Dim imageAlign =CurrentADC.PropValue("imageAlign")
 Dim displayLabelText =CurrentADC.PropValue("displayLabelText")
 
+Dim baseHeight =CurrentADC.PropValue("baseHeight")
+
 Dim labelTextPadding =CurrentADC.PropValue("labelTextPadding")
 Dim labelTextLineHeight =CurrentADC.PropValue("labelTextLineHeight")
 
@@ -82,6 +84,9 @@ Dim labelBorderStyle =CurrentADC.PropValue("labelBorderStyle")
 
 Dim baseColourPrimary =CurrentADC.PropValue("baseColourPrimary")
 Dim baseColourSecondary =CurrentADC.PropValue("baseColourSecondary")
+Dim baseBorderColour =CurrentADC.PropValue("baseBorderColour")
+Dim baseBorderThickness =CurrentADC.PropValue("baseBorderThickness")
+Dim baseBorderStyle =CurrentADC.PropValue("baseBorderStyle")
 
 Dim showValue =CurrentADC.PropValue("showValue")
 
@@ -111,6 +116,18 @@ EndIF
 Dim imagePadding =CurrentADC.PropValue("imagePadding")
 
 Dim sliderBaseGradientDirection =CurrentADC.PropValue("sliderBaseGradientDirection")
+Dim handleColour =CurrentADC.PropValue("handleColour")
+Dim handleBorderColour =CurrentADC.PropValue("handleBorderColour")
+Dim handleBorderRadius =CurrentADC.PropValue("handleBorderRadius")
+Dim handleWidth =CurrentADC.PropValue("handleWidth")
+Dim handleHeight =CurrentADC.PropValue("handleHeight")
+Dim alternateMarkers =CurrentADC.PropValue("alternateMarkers")
+Dim markerDistance =CurrentADC.PropValue("markerDistance")
+Dim markerFontsize =CurrentADC.PropValue("markerFontsize")
+Dim markerTextDistance =CurrentADC.PropValue("markerTextDistance")
+Dim markerLineHeight =CurrentADC.PropValue("markerLineHeight")
+
+
 
 Dim stackResponses =CurrentADC.PropValue("stackResponses")
 
@@ -124,7 +141,11 @@ EndIF
 Dim tooltipWidth =CurrentADC.PropValue("tooltipWidth")
 Dim tooltipImageWidth =CurrentADC.PropValue("tooltipImageWidth")
 Dim tooltipBgColour =CurrentADC.PropValue("tooltipBgColour")
+Dim tooltipFontSize =CurrentADC.PropValue("tooltipFontSize")
 Dim tooltipFontColour =CurrentADC.PropValue("tooltipFontColour")
+Dim tooltipTextPadding =CurrentADC.PropValue("tooltipTextPadding")
+Dim tooltipImagePadding =CurrentADC.PropValue("tooltipImagePadding")
+
 Dim showTooltipCaption =CurrentADC.PropValue("showTooltipCaption")
 Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 
@@ -140,6 +161,8 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 #adc_{%= CurrentADC.InstanceId%} .responseItem
 {   
 	
+    cursor:pointer;
+    
 	box-sizing:border-box;
 	/* Decoration */
 	{% IF borderThickness = "none" Then %}
@@ -178,6 +201,9 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 	{% Else %}
 		margin: {%= responseMargin%};
 		float:{%= responseAlign%};
+    	{% IF responseAlign = "center" Then %}
+    		display:inline-block;
+    	{% EndIF %}	
 	{% EndIF %}	
 	
 	z-index: 100;
@@ -263,6 +289,12 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 
 #adc_{%= CurrentADC.InstanceId%} .slider tr, #adc_{%= CurrentADC.InstanceId%} .slider tr td { 
 	min-height:0;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .startArea {
+	{% IF responseAlign = "center" Then %}
+		text-align:center;
+	{% EndIF %}
 }
 
 #adc_{%= CurrentADC.InstanceId%} .sliderLabel { 
@@ -361,12 +393,7 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 #adc_{%= CurrentADC.InstanceId%} .leftLabel .sliderLabel {
 	position:relative;
 	display:block;
-	
-	{% IF CurrentADC.PropValue("textAlign") = "lr" Then %}
-		text-align:left;
-	{% ElseIF CurrentADC.PropValue("textAlign") = "rl" Then %}
-		text-align:right;
-	{% EndIF %}
+	text-align:center;
 	
 	/* disable highlight text */
 	-moz-user-select: none; 
@@ -377,185 +404,13 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 #adc_{%= CurrentADC.InstanceId%} .rightLabel .sliderLabel {
 	position:relative;
 	display:block;
-
-	{% IF CurrentADC.PropValue("textAlign") = "lr" Then %}
-		text-align:right;
-	{% ElseIF CurrentADC.PropValue("textAlign") = "rl" Then %}
-		text-align:left;
-	{% EndIF %}
-	
-	/* disable highlight text */
-	-moz-user-select: none; 
-	-webkit-user-select: none; 
-	-ms-user-select:none; 
-	user-select:none;
-}
-
-#adc_{%= CurrentADC.InstanceId%} .noUiSlider {
-	{% IF CurrentADC.PropValue("sliderOrientation") = "vertical" Then %}
-		display:block;
-		height: {%= sliderHeight%};
-	{% EndIF %}
-	z-index:2;
-}
-
-#adc_{%= CurrentADC.InstanceId%} .noUiSlider,
-#adc_{%= CurrentADC.InstanceId%} .leftLabel, 
-#adc_{%= CurrentADC.InstanceId%} .rightLabel {
-
-}
-
-#adc_{%= CurrentADC.InstanceId%} .noUi-target {
-	/* border */
-	{% IF CurrentADC.PropValue("sliderBaseBorderThickness") = "none" Then %}
-		border: none;
-	{% Else %}
-		border: {%= sliderBaseBorderThickness%} {%= sliderBaseBorderStyle%} rgb({%= sliderBaseBorderColour%});
-	{% EndIF %}	
-	/* border-radius */	
-	-webkit-border-radius:	{%= sliderBaseBorderRadius%}; 
-	-moz-border-radius:		{%= sliderBaseBorderRadius%}; 
-	-khtml-border-radius:	{%= sliderBaseBorderRadius%}; 
-	border-radius:			{%= sliderBaseBorderRadius%};
-}
-
-#adc_{%= CurrentADC.InstanceId%} .noUi-background {
-	
-	cursor:pointer;
-	
-	/* background */
-	{% IF CurrentADC.PropValue("sliderBaseGradientDirection") = "ltr" Then %}
-		background: rgb({%= sliderBasePrimaryColour%});
-		background: -moz-linear-gradient(left,  rgb({%= sliderBasePrimaryColour%}) 0%, rgb({%= sliderBaseSecondaryColour%}) 100%); 
-		background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb({%= sliderBasePrimaryColour%})), color-stop(100%,rgb({%= sliderBaseSecondaryColour%})));
-		background: -webkit-linear-gradient(left,  rgb({%= sliderBasePrimaryColour%}) 0%,rgb({%= sliderBaseSecondaryColour%}) 100%);
-		background: -o-linear-gradient(left,  rgb({%= sliderBasePrimaryColour%}) 0%,rgb({%= sliderBaseSecondaryColour%}) 100%);
-		background: -ms-linear-gradient(left,  rgb({%= sliderBasePrimaryColour%}) 0%,rgb({%= sliderBaseSecondaryColour%}) 100%);
-		background: linear-gradient(to right,  rgb({%= sliderBasePrimaryColour%}) 0%,rgb({%= sliderBaseSecondaryColour%}) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= sliderBasePrimaryColour.ToHexa()%}', endColorstr='{%= sliderBaseSecondaryColour.ToHexa()%}',GradientType=1 );
-
-	{% Else %}
-		background: rgb({%= sliderBaseSecondaryColour%}); 
-		background: -moz-linear-gradient(top,  rgb({%= sliderBaseSecondaryColour%}) 0%, rgb({%= sliderBasePrimaryColour%}) 100%);
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= sliderBaseSecondaryColour%})), color-stop(100%,rgb({%= sliderBasePrimaryColour%})));
-		background: -webkit-linear-gradient(top,  rgb({%= sliderBaseSecondaryColour%}) 0%,rgb({%= sliderBasePrimaryColour%}) 100%); 
-		background: -o-linear-gradient(top,  rgb({%= sliderBaseSecondaryColour%}) 0%,rgb({%= sliderBasePrimaryColour%}) 100%);
-		background: -ms-linear-gradient(top,  rgb({%= sliderBaseSecondaryColour%}) 0%,rgb({%= sliderBasePrimaryColour%}) 100%); 
-		background: linear-gradient(to bottom,  rgb({%= sliderBaseSecondaryColour%}) 0%,rgb({%= sliderBasePrimaryColour%}) 100%); 
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= sliderBaseSecondaryColour.ToHexa()%}, endColorstr={%= sliderBasePrimaryColour.ToHexa()%},GradientType=0 );
-	{% EndIF %}
-	
-	box-shadow:none !important;
-	
-	/*position:relative;*/
-}
-
-#adc_{%= CurrentADC.InstanceId%} .noUi-handle {
-	
-	cursor:pointer;
-	
-	/* border */
-	{% IF CurrentADC.PropValue("sliderHandleBorderThickness") = "none" OR CurrentADC.PropValue("hideHandleBG") = "1" Then %}
-		border: none;
-	{% Else %}
-		border: {%= sliderHandleBorderThickness%} {%= sliderHandleBorderStyle%} rgb({%= sliderHandleBorderColour%});
-	{% EndIF %}	
-	
-	-webkit-box-shadow: {%= sliderHandleDropShadow%};
-	-moz-box-shadow: {%= sliderHandleDropShadow%};
-	box-shadow: {%= sliderHandleDropShadow%};
-	
-	/* border-radius */	
-	
-	/* background */
-	background: rgb({%= sliderHandlePrimaryColour%}); 
-	background: -moz-linear-gradient(top,  rgb({%= sliderHandlePrimaryColour%}) 0%, rgb({%= sliderHandleSecondaryColour%}) 100%); 
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= sliderHandlePrimaryColour%})), color-stop(100%,rgb({%= sliderHandleSecondaryColour%})));
-	background: -webkit-linear-gradient(top,  rgb({%= sliderHandlePrimaryColour%}) 0%,rgb({%= sliderHandleSecondaryColour%}) 100%);
-	background: -o-linear-gradient(top,  rgb({%= sliderHandlePrimaryColour%}) 0%,rgb({%= sliderHandleSecondaryColour%}) 100%);
-	background: -ms-linear-gradient(top,  rgb({%= sliderHandlePrimaryColour%}) 0%,rgb({%= sliderHandleSecondaryColour%}) 100%);
-	background: linear-gradient(to bottom,  rgb({%= sliderHandlePrimaryColour%}) 0%,rgb({%= sliderHandleSecondaryColour%}) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= sliderHandlePrimaryColour.ToHexa()%}, endColorstr={%= sliderHandleSecondaryColour.ToHexa()%},GradientType=0 );
-
-	
-	-webkit-border-radius:	{%= sliderHandleBorderRadius%}; 
-	-moz-border-radius:		{%= sliderHandleBorderRadius%}; 
-	-khtml-border-radius:	{%= sliderHandleBorderRadius%}; 
-	border-radius:			{%= sliderHandleBorderRadius%};
-	
-	/* disable highlight text */
-	/*-moz-user-select: none; 
-	-webkit-user-select: none; 
-	-ms-user-select:none; 
-	user-select:none;*/
-}
-
-#adc_{%= CurrentADC.InstanceId%} .selected .noUi-background {
-	
-	/* background */
-	{% IF CurrentADC.PropValue("sliderBaseGradientDirection") = "ltr" Then %}
-		background: rgb({%= sliderSelectedPrimaryColour%}) !important; 
-		background: -moz-linear-gradient(left,  rgb({%= sliderSelectedPrimaryColour%}) 0%, rgb({%= sliderSelectedSecondaryColour%}) 100%) !important;
-		background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb({%= sliderSelectedPrimaryColour%})), color-stop(100%,rgb({%= sliderSelectedSecondaryColour%}))) !important;
-		background: -webkit-linear-gradient(left,  rgb({%= sliderSelectedPrimaryColour%}) 0%,rgb({%= sliderSelectedSecondaryColour%}) 100%) !important; /
-		background: -o-linear-gradient(left,  rgb({%= sliderSelectedPrimaryColour%}) 0%,rgb({%= sliderSelectedSecondaryColour%}) 100%) !important; 
-		background: -ms-linear-gradient(left,  rgb({%= sliderSelectedPrimaryColour%}) 0%,rgb({%= sliderSelectedSecondaryColour%}) 100%) !important; 
-		background: linear-gradient(to right,  rgb({%= sliderSelectedPrimaryColour%}) 0%,rgb({%= sliderSelectedSecondaryColour%}) 100%) !important; 
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= sliderSelectedPrimaryColour.ToHexa()%}', endColorstr='{%= sliderSelectedSecondaryColour.ToHexa()%}',GradientType=1 ) !important;
-	{% Else %}
-		background: rgb({%= sliderSelectedSecondaryColour%}) !important;
-		background: -moz-linear-gradient(top,  rgb({%= sliderSelectedSecondaryColour%}) 0%, rgb({%= sliderSelectedPrimaryColour%}) 100%) !important;
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= sliderSelectedSecondaryColour%})), color-stop(100%,rgb({%= sliderSelectedPrimaryColour%}))) !important; 
-		background: -webkit-linear-gradient(top,  rgb({%= sliderSelectedSecondaryColour%}) 0%,rgb({%= sliderSelectedPrimaryColour%}) 100%) !important; 
-		background: -o-linear-gradient(top,  rgb({%= sliderSelectedSecondaryColour%}) 0%,rgb({%= sliderSelectedPrimaryColour%}) 100%) !important;
-		background: -ms-linear-gradient(top,  rgb({%= sliderSelectedSecondaryColour%}) 0%,rgb({%= sliderSelectedPrimaryColour%}) 100%) !important;
-		background: linear-gradient(to bottom,  rgb({%= sliderSelectedSecondaryColour%}) 0%,rgb({%= sliderSelectedPrimaryColour%}) 100%) !important; 
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= sliderSelectedSecondaryColour.ToHexa()%}', endColorstr='{%= sliderSelectedPrimaryColour.ToHexa()%}',GradientType=0 ) !important; 
-	{% EndIF %}
-	
-	
-	box-shadow: none !important;
-}
-
-
-#adc_{%= CurrentADC.InstanceId%} .handleValue {
-	width:100%; 
 	text-align:center;
-	font-size:{%= fontSize%};
-	color:rgb({%= handleFontColour%});
-	line-height:100%;
-	pointer-events: none;
 	
 	/* disable highlight text */
 	-moz-user-select: none; 
 	-webkit-user-select: none; 
 	-ms-user-select:none; 
 	user-select:none;
-}
-
-#adc_{%= CurrentADC.InstanceId%} .focused .noUi-handle {
-	 
-	/* background */
-	background: rgb({%= sliderFocusPrimaryColour%}) !important;
-	background: -moz-linear-gradient(top,  rgb({%= sliderFocusPrimaryColour%}) 0%, rgb({%= sliderFocusSecondaryColour%}) 100%) !important; 
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= sliderFocusPrimaryColour%})), color-stop(100%,rgb({%= sliderFocusSecondaryColour%}))) !important;
-	background: -webkit-linear-gradient(top,  rgb({%= sliderFocusPrimaryColour%}) 0%,rgb({%= sliderFocusSecondaryColour%}) 100%) !important; 
-	background: -o-linear-gradient(top,  rgb({%= sliderFocusPrimaryColour%}) 0%,rgb({%= sliderFocusSecondaryColour%}) 100%) !important;
-	background: -ms-linear-gradient(top,  rgb({%= sliderFocusPrimaryColour%}) 0%,rgb({%= sliderFocusSecondaryColour%}) 100%) !important;
-	background: linear-gradient(to bottom,  rgb({%= sliderFocusPrimaryColour%}) 0%,rgb({%= sliderFocusSecondaryColour%}) 100%) !important;
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= sliderFocusPrimaryColour.ToHexa()%}', endColorstr='{%= sliderFocusSecondaryColour.ToHexa()%}',GradientType=0 ) !important;
-	
-	-webkit-box-shadow: {%= sliderHandleDropShadow%};
-	-moz-box-shadow: {%= sliderHandleDropShadow%};
-	box-shadow: {%= sliderHandleDropShadow%};
-		
-	/* border */
-	
-	{% IF CurrentADC.PropValue("sliderFocusBorderThickness") = "none" OR CurrentADC.PropValue("hideHandleBG") = "1" Then %}
-		border: none;
-	{% Else %}
-		border: {%= sliderFocusBorderThickness%} {%= sliderHandleBorderStyle%} rgb({%= sliderFocusBorderColour%}) !important;
-	{% EndIF %}	
 }
 
 #adc_{%= CurrentADC.InstanceId%} .caption {
@@ -564,60 +419,22 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 	font-size:{%= fontSize%};
 	padding:{%= captionPadding%};
 }
-/*
-#adc_{%= CurrentADC.InstanceId%} .noUi-horizontal {
-	height: {%= sliderBaseHeight%}px;
-}
-#adc_{%= CurrentADC.InstanceId%} .noUi-horizontal .noUi-handle {
-	width: {%= sliderHandleWidth%}px;
-	height: {%= sliderHandleHeight%}px;
-	left: -{%= halfHandleWidth%}px;
-	top: {%= halfHandleHeight%}px; 
-}
-#adc_{%= CurrentADC.InstanceId%} .noUi-vertical .noUi-handle {
-	width: {%= sliderHandleWidth%}px;
-	height: {%= sliderHandleHeight%}px;
-	left: -{%= halfHandleWidth%}px;
-	top: {%= halfHandleHeight%}px; 
-}*/
 
 #adc_{%= CurrentADC.InstanceId%} img {
 	padding:{%= imagePadding%};
 	vertical-align: middle;	
 }
 
-
-/* Contain handle within slider */
-
-#adc_{%= CurrentADC.InstanceId%} .noUi-horizontal.noUi-extended {
-	position:relative;
-	padding-right: {%= sliderHandleWidth.ToNumber() - 2%}px;
-}
-#adc_{%= CurrentADC.InstanceId%} .noUi-horizontal.noUi-extended .noUi-handle {
-	left: -1px;
-}
-#adc_{%= CurrentADC.InstanceId%} .noUi-horizontal.noUi-extended .noUi-origin  {
-	right: -{%= sliderHandleWidth.ToNumber() - 2%}px;
-}
-
-
-#adc_{%= CurrentADC.InstanceId%} .noUi-vertical.noUi-extended {
-	position:relative;
-	padding-bottom: {%= sliderHandleWidth.ToNumber() - 2%}px;
-}
-#adc_{%= CurrentADC.InstanceId%} .noUi-vertical.noUi-extended .noUi-handle {
-	top: -1px;
-}
-#adc_{%= CurrentADC.InstanceId%} .noUi-vertical.noUi-extended .noUi-origin  {
-	bottom: -{%= sliderHandleWidth.ToNumber() - 2%}px;
-}
-#adc_{%= CurrentADC.InstanceId%} .lineContainer { 
-	position:relative;
-	border:none !important;
+#adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { 
     
-}
-
-#adc_{%= CurrentADC.InstanceId%} .bg {
+    /*box-sizing:border-box;*/
+	/* Decoration */
+	{% IF baseBorderThickness = "none" Then %}
+		border: none;
+	{% Else %}
+    border: {%= baseBorderThickness%} {%= baseBorderStyle%} rgb({%= baseBorderColour%});
+	{% EndIF %}	
+    
     background: rgb({%= baseColourPrimary%}); 
     background: -moz-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%, rgb({%= baseColourSecondary%}) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb({%= baseColourPrimary%})), color-stop(100%,rgb({%= baseColourSecondary%}))); /* Chrome,Safari4+ */
@@ -626,33 +443,30 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 	background: -ms-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* IE10+ */
 	background: linear-gradient(to right,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= baseColourPrimary.ToHexa()%}, endColorstr={%= baseColourSecondary.ToHexa()%},GradientType=0 ); /* IE6-8 */
-    display: block;
-    height: 10px;
-    position: absolute;
-    top: calc(50% - 5px);
-    width: 100%;
 }
-#adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { border:none !important; background:none !important; }
-
+/*#adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { border:none !important; background:none !important; }
+*/
 #adc_{%= CurrentADC.InstanceId%} .tooltip {
     position: absolute;
-    z-index: 1020;
+    /*z-index: 1020;*/
     display: block !important;
     padding: 5px 0;
     font-size: 11px;
     margin-top: -2px;
     bottom:120%;
-    margin-left: -{%= (tooltipWidth.ToNumber()/2) - 1 %}px;
+    margin-left: {%= 0 + (handleWidth.ToNumber()/2) - (tooltipWidth.ToNumber()/2) %}px;
     opacity: 1;
+    text-align:{%= responseTextAlign%};
+    width:{%= tooltipWidth.ToNumber() %}px;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .tooltip .response_text 
 { 
 	pointer-events:none;
-	font-size:{%= fontSize%};
+	font-size:{%= tooltipFontSize%};
 	text-align:{%= responseTextAlign%};
 	color:rgb({%= tooltipFontColour%});
-	padding:{%= responseTextPadding%};
+	padding:{%= tooltipTextPadding%};
 	line-height:{%= responseTextLineHeight%};
     
     {% IF showTooltipCaption = "0" Then %}
@@ -672,7 +486,7 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 	margin:0px auto;
 	vertical-align:middle;
 	float:{%= responseImageAlignment%};
-	padding:{%= responseImagePadding%};
+	padding:{%= tooltipImagePadding%};
     
     {% IF showTooltipImage = "0" Then %}
     	display:none;
@@ -692,11 +506,9 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 }
 
 #adc_{%= CurrentADC.InstanceId%} .tooltip-inner {
-    max-width: {%= tooltipWidth %}px;
-    width: {%= tooltipWidth %}px;
     padding: 3px 8px;
     color: rgb({%= tooltipFontColour %});
-    text-align: center;
+    text-align:{%= responseTextAlign%};
     text-decoration: none;
     background-color: rgb({%= tooltipBgColour %});
     -webkit-border-radius: 4px;
@@ -705,6 +517,168 @@ Dim showTooltipImage =CurrentADC.PropValue("showTooltipImage")
 }
 
 #adc_{%= CurrentADC.InstanceId%} .tooltip-inner img { height:auto; width:{%= tooltipImageWidth %}px; }
+
+#adc_{%= CurrentADC.InstanceId%} .sliderMob, #adc_{%= CurrentADC.InstanceId%} .sliderPC { display:none; }
+
+#adc_{%= CurrentADC.InstanceId%} .removeBtn {
+    display: block;
+    padding: 0 0 3px 3px;
+    text-align: right; /* float right, clear both */
+}
+
+#adc_{%= CurrentADC.InstanceId%} .ui-state-default, #adc_{%= CurrentADC.InstanceId%} .ui-widget-content .ui-state-default, #adc_{%= CurrentADC.InstanceId%} .ui-widget-header .ui-state-default, #adc_{%= CurrentADC.InstanceId%} .ui-button, html #adc_{%= CurrentADC.InstanceId%} .ui-button.ui-state-disabled:hover, html #adc_{%= CurrentADC.InstanceId%} .ui-button.ui-state-disabled:active {
+    background: rgb({%= handleColour %}) none repeat scroll 0 0;
+    border: 1px solid rgb({%= handleBorderColour %});
+    color: #454545;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-horizontal {
+    height: {%= baseHeight %}px;
+}
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-horizontal .ui-slider-handle {
+    margin-left: -{%= handleWidth.ToNumber()/2 %}px; /* 1/2 */
+    top: {%= (baseHeight.ToNumber()/2) - (handleHeight.ToNumber()/2) - 1 %}px; /* 1/4 */
+}
+#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle {
+    cursor: pointer;
+    height: {%= handleHeight %}px; /* 1 */
+    width: {%= handleWidth %}px; /* 1 */
+}
+
+#adc_{%= CurrentADC.InstanceId%} .ui-corner-all, #adc_{%= CurrentADC.InstanceId%}  .ui-corner-bottom, #adc_{%= CurrentADC.InstanceId%} .ui-corner-right, #adc_{%= CurrentADC.InstanceId%} .ui-corner-br {
+    border-bottom-right-radius: {%= handleBorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId%} .ui-corner-all, #adc_{%= CurrentADC.InstanceId%} .ui-corner-bottom, #adc_{%= CurrentADC.InstanceId%} .ui-corner-left, #adc_{%= CurrentADC.InstanceId%} .ui-corner-bl {
+    border-bottom-left-radius: {%= handleBorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId%} .ui-corner-all, #adc_{%= CurrentADC.InstanceId%} .ui-corner-top, #adc_{%= CurrentADC.InstanceId%} .ui-corner-right, #adc_{%= CurrentADC.InstanceId%} .ui-corner-tr {
+    border-top-right-radius: {%= handleBorderRadius %};
+}
+#adc_{%= CurrentADC.InstanceId%} .ui-corner-all, #adc_{%= CurrentADC.InstanceId%} .ui-corner-top, #adc_{%= CurrentADC.InstanceId%} .ui-corner-left, #adc_{%= CurrentADC.InstanceId%} .ui-corner-tl {
+    border-top-left-radius: {%= handleBorderRadius %};
+}
+
+/* Distance of pips */
+
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pips .ui-slider-pip {
+    top: {%= baseHeight.ToNumber() + markerDistance.ToNumber() + 3 %}px;
+    font-size: {%= markerFontsize %}px !important;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pips .ui-slider-label {
+    top: {%= markerTextDistance %}px;
+}
+
+/* alternating */
+{% IF alternateMarkers = "1" Then %}
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip .ui-slider-line {
+  height: {%= markerLineHeight%}px;
+  top: -3px; }
+
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) .ui-slider-label {
+    top: unset;
+    bottom: {%= markerTextDistance %}px;
+}
+
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) {
+  top: {%= baseHeight.ToNumber() - 15 - markerDistance.ToNumber() - baseHeight.ToNumber() %}px;
+  height: 15px;
+  transform: scale(1) translateY(-3px);
+  /*opacity: 0.8; */
+}
+  
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) .ui-slider-line {
+    top:unset;
+    bottom: -3px;
+    height: {%= markerLineHeight%}px;
+}
+  
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-1 .ui-slider-label, 
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-2 .ui-slider-label, 
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-3 .ui-slider-label, 
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-4 .ui-slider-label {
+    top: -3px; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-1 .ui-slider-label {
+  color: #E80949; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-2 .ui-slider-label {
+  color: #FF03CB; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-3 .ui-slider-label {
+  color: #C309E8; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-4 .ui-slider-label {
+  color: #920AFF; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-1 .ui-slider-label,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-2 .ui-slider-label,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-3 .ui-slider-label,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-4 .ui-slider-label {
+  color: white;
+  width: 2.4em;
+  padding: 4px 0;
+  margin-left: -1.2em;
+  border-radius: 2px; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-1 .ui-slider-label {
+  background-color: #E80949; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-2 .ui-slider-label {
+  background-color: #FF03CB; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-3 .ui-slider-label {
+  background-color: #C309E8; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-4 .ui-slider-label {
+  background-color: #920AFF; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip {
+  width: 34px;
+  margin-left: -17px;
+  top: -1px;
+  background: #00c7d7;
+  color: white;
+  border: none;
+  line-height: 27px;
+  height: 25px; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:before, 
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:after {
+    display: none; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-active .ui-slider-tip,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-focus .ui-slider-tip,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover .ui-slider-tip,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:focus .ui-slider-tip,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:hover .ui-slider-tip {
+  top: -1px; }
+                    
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-focus, #adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover {
+  z-index: 100; }
+
+{% EndIf %}
+
+
+
+/* END alternation */ 
+
+/* Fix highlighted pips */
+/*.ui-slider-pips .ui-slider-pip-selected-2 {
+    color:inherit;
+}
+.ui-slider-pips [class*="ui-slider-pip-selected"] {
+    color:inherit;
+    font-weight: normal;
+}
+.ui-slider-pips .ui-slider-pip-initial-2 {
+    color:inherit;
+}
+.ui-slider-pips [class*="ui-slider-pip-initial"] {
+    color:inherit;
+    font-weight: normal;
+}
+*/
 /*
 .ui-slider {
     background: black repeat-x bottom left;

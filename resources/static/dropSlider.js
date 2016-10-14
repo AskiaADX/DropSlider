@@ -6,6 +6,112 @@ put all items in this container too
 
 */
 
+(function($,sr){
+    
+      var debounce = function (func, threshold, execAsap) {
+          var timeout;
+
+          return function debounced () {
+              var obj = this, args = arguments;
+              function delayed () {
+                  if (!execAsap)
+                      func.apply(obj, args);
+                  timeout = null;
+              };
+
+              if (timeout)
+                  clearTimeout(timeout);
+              else if (execAsap)
+                  func.apply(obj, args);
+
+              timeout = setTimeout(delayed, threshold || 100);
+          };
+      }
+      // smartresize 
+      jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+
+})(jQuery,'smartresize');
+
+var width = $(window).width(), height = $(window).height();
+
+$(window).smartresize(function(){
+  if($(window).width() != width) { // prevent resize when width changes only
+  	location.reload();
+  }
+});
+
+// extend jQuery UI slider widget's _mouseCapture function to allow disabling handles
+// _mouseCapture function copied from jQuery UI v1.10.3
+$.widget("ui.slider", $.ui.slider, {
+    _mouseCapture: function (event) {
+        var position, normValue, distance, closestHandle, index, allowed, offset, mouseOverHandle,
+        that = this,
+            o = this.options;
+
+        if (o.disabled) {
+            return false;
+        }
+
+        this.elementSize = {
+            width: this.element.outerWidth(),
+            height: this.element.outerHeight()
+        };
+        this.elementOffset = this.element.offset();
+
+        position = {
+            x: event.pageX,
+            y: event.pageY
+        };
+        normValue = this._normValueFromMouse(position);
+        distance = this._valueMax() - this._valueMin() + 1;
+        this.handles.each(function (i) {
+            // Added condition to skip closestHandle test if this handle is disabled.
+            // This prevents disabled handles from being moved or selected with the mouse.
+            if (!$(this).hasClass("ui-slider-handle-disabled")) {
+                var thisDistance = Math.abs(normValue - that.values(i));
+                if ((distance > thisDistance) || (distance === thisDistance && (i === that._lastChangedValue || that.values(i) === o.min))) {
+                    distance = thisDistance;
+                    closestHandle = $(this);
+                    index = i;
+                }
+            }
+        });
+
+        // Added check to exit gracefully if, for some reason, all handles are disabled
+        if(typeof closestHandle === 'undefined')
+            return false;
+
+        allowed = this._start(event, index);
+        if (allowed === false) {
+            return false;
+        }
+        this._mouseSliding = true;
+
+        this._handleIndex = index;
+
+        closestHandle.addClass("ui-state-active")
+            .focus();
+
+        offset = closestHandle.offset();
+        // Added extra condition to check if the handle currently under the mouse cursor is disabled.
+        // This ensures that if a disabled handle is clicked, the nearest handle will remain under the mouse cursor while dragged.
+        mouseOverHandle = !$(event.target).parents().addBack().is(".ui-slider-handle") || $(event.target).parents().addBack().is(".ui-slider-handle-disabled");
+        this._clickOffset = mouseOverHandle ? {
+            left: 0,
+            top: 0
+        } : {
+            left: event.pageX - offset.left - (closestHandle.width() / 2),
+            top: event.pageY - offset.top - (closestHandle.height() / 2) - (parseInt(closestHandle.css("borderTopWidth"), 10) || 0) - (parseInt(closestHandle.css("borderBottomWidth"), 10) || 0) + (parseInt(closestHandle.css("marginTop"), 10) || 0)
+        };
+
+        if (!this.handles.hasClass("ui-state-hover")) {
+            this._slide(event, index, normValue);
+        }
+        this._animateOff = true;
+        return true;
+    }
+});
+
 
 (function ($) {
 	"use strict";
@@ -19,7 +125,10 @@ put all items in this container too
 		(options.minValue = options.minValue || 0);
 		(options.maxValue = options.maxValue || 100);
 		(options.unitStep = options.unitStep || 1);
-
+        
+        if ( options.minValue < 0 ) options.minValue = 0;
+        if ( options.maxValue < 0 ) options.maxValue = 10;
+        
 		// Delegate .transition() calls to .animate() if the browser can't do CSS transitions.
 		if (!$.support.transition) $.fn.transition = $.fn.animate;
 
@@ -28,19 +137,35 @@ put all items in this container too
 			isInLoop = Boolean(options.isInLoop),
             responseWidth = options.responseWidth,
             responseHeight = options.responseHeight,
+            tooltipWidth = options.tooltipWidth,
 			hideHandleBG = Boolean(options.hideHandleBG),
 			leftLabelText = Boolean(options.leftLabelText),
 			rightLabelText = Boolean(options.rightLabelText),
 			displayLabelText = (options.displayLabelText == "block") ? true : false,
 			labelPlacement = options.labelPlacement,
 			stackResponses = Boolean(options.stackResponses),
+            markerPrefix = options.markerPrefix,
+            markerSuffix = options.markerSuffix,
 			valuesArray = new Array(),
 			iteration = 0,
             unitStep = parseInt(options.unitStep),
 			total_images = $container.find("img").length,
 			images_loaded = 0,
 			items = options.items;
+        
+        var isMobile = false; //initiate as false
+		// device detection
+		if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
+    || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
 		
+        if ( isMobile ) {
+            $container.find('.sliderMob').show().find('.rightLabel,.leftLabel').css('width','auto');
+            $container.find('.sliderPC').hide();
+        } else {
+            $container.find('.sliderMob').hide();
+            $container.find('.sliderPC').show();
+        }
+        
 		$(this).css({'max-width':options.maxWidth,'width':options.controlWidth});
 		/*if ( isInLoop ) $(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});*/
 
@@ -52,7 +177,7 @@ put all items in this container too
 		}
         
 		// Check for images and resize
-		$container.find('.responseItem img').each(function forEachImage() {
+		/*$container.find('.responseItem img').each(function forEachImage() {
 			var size = {
 				width: $(this).width(),
 				height: $(this).height()
@@ -86,7 +211,7 @@ put all items in this container too
 
 			}
 			$(this).css(size);
-		});
+		});*/
         
         if ( responseWidth !== 'auto' ) {	
 			// resize images if response width or height has been set
@@ -108,7 +233,6 @@ put all items in this container too
 					$(this).find('img').width( $(this).find('img').height()/ratio );	
 				}
             });
-            
         }
 			
 		// Find biggest response height
@@ -116,7 +240,7 @@ put all items in this container too
 				return $(this).height();
 			}).get());
 		$('.responseItem').height( maxHeight );
-		$('.startArea').height( $('.responseItem').outerHeight() );
+		$('.startArea').height( $('.responseItem').outerHeight(true) );
 		
 		// Make all responses same width
 		var maxWidth = $('.responseItem').map(function() {
@@ -133,10 +257,11 @@ put all items in this container too
 			}
 		}
 
-		// Run noUiSlider
-		for ( var i=0; i<(isSingle && !isInLoop ? 1 : items.length); i++ ) {
+		// Run uiSlider
+		//for ( var i=0; i<(isSingle && !isInLoop ? 1 : items.length); i++ ) {
 
-			var $input = items[i].element;
+			//var $input = items[i].element;
+            var $input = items[0].element;
 
             var valueArray = new Array();
             
@@ -150,10 +275,12 @@ put all items in this container too
 						top:$('.responseItem').eq(index).outerHeight()/2, 
 						left:$('.responseItem').eq(index).outerWidth()/2
 					}
+
 				});
 				$(this).attr('data-ontarget',false);
-                valueArray.push((items[index].element.val()!==''?items[index].element.val():0));
-				
+                valueArray.push((items[index].element.val()!==''?items[index].element.val():'0'));
+               //if ( items[index].element.val()!=='' ) valueArray.push(items[index].element.val()));
+				// push blank or don't push
 				/*alert((items[index].element.val()>=0?"true":"false"));
 				valueArray.push(parseInt(items[index].element.val()));*/
 			});
@@ -176,11 +303,12 @@ put all items in this container too
             var sliderTooltip = function(event, ui) {
                 var curValue = ui.value || initialValue;
                 var target = ui.handle || $('.ui-slider-handle');    
-                var tooltip = '<div class="tooltip"><div class="tooltip-inner">' + $container.find('.responseItem').eq($(ui.handle).index()).html() + '<span class="response_text">' + curValue + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+                var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + $(ui.handle).index() + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq($(ui.handle).index()).html() + '<span class="response_text">' + curValue + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
                 $(target).html(tooltip);
+                enableRemove();
 				//$(target).find('img').width('').height('');
             };
-            
+        
 			// Activate the UI slider
 			sliderDiv.slider({
 				min: options.minValue,
@@ -195,8 +323,34 @@ put all items in this container too
                     sliderTooltip(e,ui);
                     $input = items[$(ui.handle).index()].element;
 					$input.val( ui.value );
-                }
-			});
+                    $('.responseItem').each(function(index) { 
+                        if ( items[index].element.val() =='' && index != $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
+                        else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
+                    });
+                },
+                stop: function(e,ui) {
+                	$('.responseItem').each(function(index) { 
+                        if ( items[index].element.val() =='' && index != $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
+                        else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
+                    });
+            	},
+                change: function(e,ui) {
+                	$('.responseItem').each(function(index) { 
+                        if ( items[index].element.val() =='' && index != $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
+                        else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
+                    });
+            	},
+			}).slider("pips", {
+                steps:1,
+                rest: options.showMarkerLabels,
+                first: options.showMarkerLabels == "label" ? "label" : "pip",
+                last: options.showMarkerLabels == "label" ? "label" : "pip",
+                //rest: false, // hide all marker labels
+                //rest: "label", // show all labels
+                //labels: false,// / {"":"","":""} (array)
+                prefix: markerPrefix,
+                suffix: markerSuffix
+            });
 						
 			//Set slider as droppable
 			$('.lineContainer').droppable({
@@ -218,6 +372,7 @@ put all items in this container too
 					
 					// show appropriate handle
 					$(ui.draggable).css({'visibility':'hidden','left':'','top':''});
+
 					var x = (e.pageX - $(this).offset().left) - 1,
 						lengthOfBar = $(e.target).width() - 2,
 						sliderID = parseInt($(ui.draggable).data('index')) - 1,
@@ -227,14 +382,15 @@ put all items in this container too
 					val = unitStep * Math.round(val/unitStep);
 					
 					var target = $('.ui-slider-handle').eq(sliderID);    
-					var tooltip = '<div class="tooltip"><div class="tooltip-inner">' + $container.find('.responseItem').eq(sliderID).html() + '<span class="response_text">' + val + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+					var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + sliderID + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(sliderID).html() + '<span class="response_text">' + val + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
 						$(target).html(tooltip);
+                    enableRemove();
 					
 					$(".drop").slider('values',sliderID,val);
 					$input = items[sliderID].element;
 					$input.val( val );
 					
-					$('.ui-slider-handle').eq( parseInt($(ui.draggable).attr('data-index')) - 1 ).css('visibility','visible');
+					$('.ui-slider-handle').eq( parseInt($(ui.draggable).attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
 					
 					$(ui.draggable).attr('data-ontarget','true');
 					
@@ -246,9 +402,10 @@ put all items in this container too
 	
 			// set correct content to each tooltip
 			$container.find('.ui-slider-handle').each(function(index, element) {
-				var tooltip = '<div class="tooltip"><div class="tooltip-inner">' + $container.find('.responseItem').eq(index).html() + '<span class="response_text">' + 0 + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+				var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + index + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(index).html() + '<span class="response_text">' + 0 + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
 				$(this).html(tooltip);
 			});
+            enableRemove();
 	
 			// Find biggest tooltip height and adjust space above slider
 			var maxTTHeight = Math.max.apply(null, $(".tooltip").map(
@@ -258,9 +415,9 @@ put all items in this container too
 			$container.find('.slider').css('margin-top',maxTTHeight );
             
 			// set position of bg
-			$('.lineContainer .bg').css('top',(($('.lineContainer').height() - $('.lineContainer .bg').height())/2) + 'px');
+			$('.lineContainer .bg').css('top',(($('.lineContainer').height() - $('.lineContainer .bg').outerHeight())/2) + 'px');
 
-		}
+		//}
 		
 		//check if has a value
 		$('.responseItem').each(function(index) { 
@@ -281,9 +438,11 @@ put all items in this container too
 				$(this).css({'visibility':'hidden','left':'','top':''});
 								
 				var target = $('.ui-slider-handle').eq(index);    
-				var tooltip = '<div class="tooltip"><div class="tooltip-inner">' + $container.find('.responseItem').eq(index).html() + '<span class="response_text">' + val + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+				var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + index + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(index).html() + '<span class="response_text">' + val + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
 				
 				$(target).html(tooltip);
+                
+                enableRemove();
 				
 				$('.ui-slider-handle').eq( index ).css('visibility','visible');
 				
@@ -291,7 +450,12 @@ put all items in this container too
                 
 				$(this).hide();
 			
-			}
+			} else {
+                $('.ui-slider-handle').eq( index ).addClass('ui-slider-handle-disabled');
+                $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
+            }
+            // fix initial pip highlighting
+            $('.ui-slider-pip-initial-' + (index+1)).removeClass('ui-slider-pip-initial-' + (index+1));
 			
 		});
 
@@ -299,12 +463,21 @@ put all items in this container too
 			$('.responseItem[data-ontarget=false]').hide();
 			$('.responseItem[data-ontarget=false]').first().show();
 		}
-
-		$( window ).resize(function() {
+        
+        // correct vertical alignment of base
+        $('.ui-slider-horizontal.ui-slider-pips').css('margin-top',$('.ui-slider-horizontal.ui-slider-pips').css('margin-bottom') );
+		
+		// correct handle hover
+		$('.ui-slider-handle').on('hover',function() {
+            /*if ( $(this).is(':visible') ) $(this).css('z-index','1000');
+            $(this).addClass('ui-handle-active');*/
+        });
+		
+		/*$( window ).resize(function() {
 			$('.sliderLabel').outerHeight('');
 			layoutAdjust();
 		});
-		layoutAdjust();
+		layoutAdjust();*/
 
 		function adjustLabelHeight(target) {
 			var $target = $container.find(target);
@@ -319,7 +492,7 @@ put all items in this container too
             });			
 		}
 
-		function layoutAdjust() {
+		/*function layoutAdjust() {
 			//if ( $(window).width() < parseInt(options.labelWidth) * 3 && options.sliderOrientation == 'horizontal' ) {
 
 			$('.leftLabel, .rightLabel').width('');
@@ -340,12 +513,37 @@ put all items in this container too
 			// Centralize slider
 			var paddingAdjustmentV = Math.floor(($('.sliderLabel').outerHeight() - $('.noUiSlider').outerHeight() )/2) + 'px';
 			var paddingAdjustmentH = Math.floor(($('.sliderLabel').outerWidth() - $('.noUiSlider').outerWidth() )/2) + 'px';
-			/*if ( options.sliderOrientation === 'horizontal' ) $('.noUiSlider').css({'margin-top':paddingAdjustmentV,'margin-bottom':paddingAdjustmentV});
-			else if ( options.sliderOrientation === 'vertical' ) $('.noUiSlider').css({'margin-left':paddingAdjustmentH,'margin-right':paddingAdjustmentH});*/
 
 			// Find tallest label
 
-		}
+		}*/
+        
+        // Function to remove item
+        function enableRemove() {
+            $container.find('.removeBtn').off('click').on('click',function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var index = parseInt($(e.target).parents().data('index'));
+                $('.ui-slider-handle').eq( index ).css('visibility','hidden').addClass('ui-slider-handle-disabled');
+                $('.responseItem').eq( index ).css('visibility','visible');
+
+                // remove value
+                $input = items[index].element;
+                $input.val( '' );
+            });
+            
+             if ( tooltipWidth !== 'auto' ) {	
+                // resize images if response width or height has been set
+                $container.find('.tooltip-inner').each(function(index, element) {
+                    if ( $(this).width() < $(this).find('img').outerWidth() ) {
+                        var imageWPadding = $(this).find('img').outerWidth() - $(this).find('img').width(),
+                            ratio = $(this).find('img').width() / $(this).find('img').height();
+                        $(this).find('img').width( $(this).width() - imageWPadding );	
+                        $(this).find('img').height( $(this).find('img').width()/ratio );
+                    }
+                });
+            }
+        }
 
 		// Remove focus when not clicking on slider
 		$(document).click(function(e) {

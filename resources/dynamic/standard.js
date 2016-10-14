@@ -9,6 +9,7 @@ $(window).load(function() {
 		controlAlign : '{%= CurrentADC.PropValue("controlAlign") %}',
       	responseWidth : '{%= CurrentADC.PropValue("responseWidth") %}',
       	responseHeight : '{%= CurrentADC.PropValue("responseHeight") %}',
+        tooltipWidth : '{%= CurrentADC.PropValue("tooltipWidth") %}',
 		maxImageWidth : '{%= CurrentADC.PropValue("maxImageWidth") %}',
 		maxImageHeight : '{%= CurrentADC.PropValue("maxImageHeight") %}',
 		forceImageSize : '{%= CurrentADC.PropValue("forceImageSize") %}',
@@ -23,6 +24,9 @@ $(window).load(function() {
 		displayLabelText : '{%= CurrentADC.PropValue("displayLabelText") %}',
 		labelPlacement : '{%= CurrentADC.PropValue("labelPlacement") %}',
 		stackResponses: {%= (CurrentADC.PropValue("stackResponses") = "1") %},
+      	showMarkerLabels : '{%= CurrentADC.PropValue("showMarkerLabels") %}',
+      	markerPrefix : '{%:= CurrentADC.PropValue("markerPrefix") %}',
+      	markerSuffix : '{%:= CurrentADC.PropValue("markerSuffix") %}',
 		items : [
 			{%:= CurrentADC.GetContent("dynamic/standard_numeric.js").ToText()%}
 		]
