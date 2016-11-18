@@ -7,8 +7,8 @@ Dim inputId
 Dim image
 Dim index
 
-
 Dim i
+Dim j
 Dim ar = CurrentQuestion.ParentLoop.AvailableResponses
 
 Dim labelCount = 0
@@ -18,7 +18,17 @@ EndIF
 IF CurrentADC.PropValue("leftLabelText") <> "" Then
 	labelCount = labelCount + 1
 EndIF
+
+For j = 1 To ar.Count
+	inputName = CurrentQuestion.Iteration(ar[j].Index).InputName() 
+    caption   = ar[j].Caption
+    image	  = ar.ResourceURL[j]
 %}
+	
+	<input type="hidden" id="{%= inputName %}" name="{%= inputName %}" value="{%= CurrentQuestion.Iteration(ar[j].Index).inputValue() %}" />
+
+{% Next %}
+
 <div class="sliderContainer">
 	<div class="startArea">
     {%
@@ -88,10 +98,5 @@ EndIF
             {% EndIF %}
         </tr>
     </table>
-{%
-    For i = 1 To ar.Count 
-    inputName = CurrentQuestion.iteration(ar[i].Index).InputName()
-%}
-<input type="hidden" name="{%= inputName%}" id="{%= inputName%}" value="{%= CurrentQuestion.iteration(ar[i].Index).InputValue() %}" />
-{% Next %}
+
 </div>

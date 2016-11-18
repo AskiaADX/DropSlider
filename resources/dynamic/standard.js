@@ -18,17 +18,32 @@ $(window).load(function() {
 		minValue : {%= CurrentQuestion.MinValue %},
 		maxValue : {%= CurrentQuestion.MaxValue %},
         baseDropHoverColour : '{%= CurrentADC.PropValue("baseDropHoverColour") %}',
-		isInLoop: {%= (CurrentADC.PropValue("isInLoop") = "1") %},
+        isSingle : {%= (CurrentQuestion.Type = "single") %},
+        useResponseCaptions : '{%= CurrentADC.PropValue("useResponseCaptions") %}',
+		//isInLoop: {%= (CurrentADC.PropValue("isInLoop") = "1") %},
 		leftLabelText : {%= (CurrentADC.PropValue("leftLabelText") <> "") %},
 		rightLabelText : {%= (CurrentADC.PropValue("rightLabelText") <> "") %},
 		displayLabelText : '{%= CurrentADC.PropValue("displayLabelText") %}',
 		labelPlacement : '{%= CurrentADC.PropValue("labelPlacement") %}',
 		stackResponses: {%= (CurrentADC.PropValue("stackResponses") = "1") %},
       	showMarkerLabels : '{%= CurrentADC.PropValue("showMarkerLabels") %}',
+        markerFontSize : '{%= CurrentADC.PropValue("markerFontSize") %}',
+      	markerDistance : '{%= CurrentADC.PropValue("markerDistance") %}',
+      	markerTextDistance : '{%= CurrentADC.PropValue("markerTextDistance") %}',
       	markerPrefix : '{%:= CurrentADC.PropValue("markerPrefix") %}',
       	markerSuffix : '{%:= CurrentADC.PropValue("markerSuffix") %}',
+		showTooltipCaption : '{%:= CurrentADC.PropValue("showTooltipCaption") %}',
+		showTooltipImage : '{%:= CurrentADC.PropValue("showTooltipImage") %}',
+		showTooltipValue : '{%:= CurrentADC.PropValue("showTooltipValue") %}',
+        showTooltipOnHover : '{%:= CurrentADC.PropValue("showTooltipOnHover") %}',
+      	responseAlign : '{%= CurrentADC.PropValue("responseAlign") %}',
+      	handleWidth : '{%= CurrentADC.PropValue("handleWidth") %}',
 		items : [
-			{%:= CurrentADC.GetContent("dynamic/standard_numeric.js").ToText()%}
+      		{% IF CurrentQuestion.Type = "single" Then %}
+				{%:= CurrentADC.GetContent("dynamic/standard_single.js").ToText()%}
+			{% ElseIf CurrentQuestion.Type = "numeric" Then %}
+				{%:= CurrentADC.GetContent("dynamic/standard_numeric.js").ToText()%}
+			{% EndIF %}
 		]
 	});
 });

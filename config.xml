@@ -9,8 +9,7 @@
     <guid>75419bde-c158-45fe-a9b7-68cd4c6bb9b0</guid>
     <version>1.0.1</version>
     <date>2015-09-24</date>
-    <description><![CDATA[
-		v1.0.0 -
+    <description><![CDATA[v1.0.0 -
 		v1.0.1 - Fixed tooltip text centering
                 - Fixed response centering when layout set to center
                 - Fixed spacing between responses and slider
@@ -33,7 +32,13 @@
                 - Added marker text distance
                 - Added marker line height
                 - Fixed vertical position of handle on wide base
-	]]></description>
+
+				- fixed alt marker bug
+				- fixed spacing below bottom markers
+				- fixed side padding around slider on mobile
+
+
+]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -43,8 +48,8 @@
     </categories>
     <style width="400" height="300" />
     <constraints>
-      <constraint on="questions" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="true" single="false" />
-      <constraint on="controls" responseblock="true" textbox="false" label="false" listbox="false" radiobutton="false" checkbox="false" />
+      <constraint on="questions" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="true" single="true" />
+      <constraint on="controls" responseblock="true" textbox="false" label="false" listbox="false" radiobutton="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
   </info>
@@ -68,6 +73,7 @@
       <content fileName="standard.css" type="css" mode="dynamic" position="head" />
       <content fileName="standard.html" type="html" mode="dynamic" position="placeholder" />
       <content fileName="standard_numeric.html" type="html" mode="dynamic" position="none" />
+      <content fileName="standard_single.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_numeric_loop.html" type="html" mode="dynamic" position="none" />
       <content fileName="es5-shim.min.js" type="javascript" mode="share" position="head">
         <yield><![CDATA[
@@ -85,8 +91,10 @@
       <content fileName="dropSlider.js" type="javascript" mode="static" position="head" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_numeric.js" type="javascript" mode="dynamic" position="none" />
+      <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="standard_numeric_loop.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="jquery-ui.min.css" type="css" mode="share" position="head" />
+      <content fileName="clear.png" type="image" mode="static" position="none" />
     </output>
   </outputs>
   <properties>
@@ -624,9 +632,21 @@
       </property>
     </category>
     <category id="markers" name="Markers">
-      <property xsi:type="standardProperty" id="showMarkers" name="Show Markers" type="boolean" mode="dynamic" require="true" visible="true">
+      <property xsi:type="standardProperty" id="showMarkers" name="Show Markers" type="string" mode="dynamic" require="true" visible="true">
         <description><![CDATA[Whether or not to show the markers]]></description>
-        <value><![CDATA[false]]></value>
+        <value><![CDATA[no]]></value>
+        <options>
+          <option value="yes" text="Yes" />
+          <option value="no" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="useResponseCaptions" name="Use Response Captions" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[If single choice type, use response captions]]></description>
+        <value><![CDATA[no]]></value>
+        <options>
+          <option value="yes" text="Yes" />
+          <option value="no" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="showMarkerLabels" name="Show Marker Labels" type="string" require="false" visible="true">
         <description><![CDATA[]]></description>
@@ -648,6 +668,14 @@
         <description><![CDATA[]]></description>
         <value></value>
       </property>
+      <property xsi:type="standardProperty" id="markerType" name="Marker Type" type="string" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[line]]></value>
+        <options>
+          <option value="line" text="Line" />
+          <option value="circle" text="Circle" />
+        </options>
+      </property>
       <property xsi:type="standardProperty" id="markerDistance" name="Marker Distance" type="number" require="false" visible="true">
         <description><![CDATA[Distance of markers from base]]></description>
         <value><![CDATA[20]]></value>
@@ -663,6 +691,12 @@
       <property xsi:type="standardProperty" id="markerLineHeight" name="Marker Line Height" type="number" require="false" visible="true">
         <description><![CDATA[The line height of the markers]]></description>
         <value><![CDATA[12]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerColour" name="Marker Colour" type="color" mode="static">
+        <description><![CDATA[
+          Primary colour of the labels
+        ]]></description>
+        <value><![CDATA[153,153,153]]></value>
       </property>
     </category>
     <category id="labels" name="Labels">
@@ -787,6 +821,16 @@
       </property>
     </category>
     <category id="Tooltip" name="Tooltip">
+      <property xsi:type="standardProperty" id="showTooltipOnHover" name="Show Tooltip on Hover" type="string" mode="static">
+        <description><![CDATA[
+          Only show tooltip on hover or when active
+        ]]></description>
+        <value><![CDATA[no]]></value>
+        <options>
+          <option value="no" text="No" />
+          <option value="yes" text="Yes" />
+        </options>
+      </property>
       <property xsi:type="standardProperty" id="tooltipWidth" name="Tooltip Width" type="number" mode="dynamic" require="false" visible="true">
         <description><![CDATA[Width of tooltip]]></description>
         <value><![CDATA[60]]></value>
@@ -804,6 +848,12 @@
       <property xsi:type="standardProperty" id="showTooltipImage" name="Tooltip Image" type="boolean" mode="static">
         <description><![CDATA[
 	          Whether the tooltip image is shown
+        ]]></description>
+        <value><![CDATA[1]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="showTooltipValue" name="Tooltip Value" type="boolean" mode="static">
+        <description><![CDATA[
+	          Whether the tooltip value is shown
         ]]></description>
         <value><![CDATA[1]]></value>
       </property>
