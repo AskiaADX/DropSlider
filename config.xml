@@ -7,7 +7,7 @@
   <info>
     <name>adc2-dropSlider</name>
     <guid>75419bde-c158-45fe-a9b7-68cd4c6bb9b0</guid>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <date>2015-09-24</date>
     <description><![CDATA[v1.0.0 -
 		v1.0.1 - Fixed tooltip text centering
@@ -32,12 +32,36 @@
                 - Added marker text distance
                 - Added marker line height
                 - Fixed vertical position of handle on wide base
-
-				- fixed alt marker bug
-				- fixed spacing below bottom markers
-				- fixed side padding around slider on mobile
-
-
+		v1.0.2
+				- Markers can now be made circular
+                - Added option to only display tooltip on hover
+                - Fixed the alt marker bug
+                - Fixed spacing below markers
+                - Fixed side padding around slider on mobile
+                - Added margin to labels
+                - Fixed the label width for mobile
+                - Fixed marker still being selected after response is removed
+                - Fixed responses not reappearing
+                - Fixed response centering for stacked responses
+                - Collapsed margin above slider on mobile when tooltip hovering enabled
+                - Fixed marker text colouring when response placed on slider
+                - Fixed allowing tooltips to be dragged on mobile
+                - Fixed z-index issue with tooltips over start area
+                - Fixed response alignment for stacking
+                - Force stacked and mobile layout when slider base smaller than 300px
+                - Removed fixed label widths when greater than available space
+                - Added labels (read captions from single choice questions)
+                - Fixed bottom spacing with bigger/longer labels
+                - Fixed and check use with single question, setting and reading values
+                - Changed resize detection settings (was being triggered too often)
+                - Fixed handle vertical placement
+                - Enabled click to select and click to drop
+                - Fixed issue with items not returning to start position
+                - Fixed accuracy of click to drop on mobile
+                - Added options for active slider handle styling
+                - Fixed handle border radius
+                - Fixed text padding in tooltip
+                - Added tooltip padding
 ]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>]]></author>
@@ -547,14 +571,14 @@
 	          The thickness of the border around the base
 	        
         ]]></description>
-        <value><![CDATA[none]]></value>
+        <value><![CDATA[0]]></value>
         <options>
-          <option value="none" text="None" />
-          <option value="1px" text="1px" />
-          <option value="2px" text="2px" />
-          <option value="3px" text="3px" />
-          <option value="4px" text="4px" />
-          <option value="5px" text="5px" />
+          <option value="0" text="None" />
+          <option value="1" text="1px" />
+          <option value="2" text="2px" />
+          <option value="3" text="3px" />
+          <option value="4" text="4px" />
+          <option value="5" text="5px" />
         </options>
       </property>
       <property xsi:type="standardProperty" id="baseBorderStyle" name="Base Border Style" type="string" mode="static">
@@ -596,7 +620,25 @@
         ]]></description>
         <value><![CDATA[247,247,247]]></value>
       </property>
-      <property xsi:type="standardProperty" id="handleColour" name="Hande Colour" type="color" mode="dynamic" require="true" visible="true" colorFormat="rgb">
+      <property xsi:type="standardProperty" id="baseBorderRadius" name="Base Border Radius" type="string" mode="static">
+        <description><![CDATA[
+          
+	          The amount of curve on the base corners
+	        
+        ]]></description>
+        <value><![CDATA[2px]]></value>
+        <options>
+          <option value="0px" text="0" />
+          <option value="2px" text="2" />
+          <option value="5px" text="5" />
+          <option value="10px" text="10" />
+          <option value="15px" text="15" />
+          <option value="20px" text="20" />
+          <option value="25px" text="25" />
+          <option value="30px" text="30" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="handleColour" name="Handle Colour" type="color" mode="dynamic" require="true" visible="true" colorFormat="rgb">
         <description><![CDATA[The colour of the handle]]></description>
         <value><![CDATA[246,246,246]]></value>
       </property>
@@ -629,6 +671,14 @@
       <property xsi:type="standardProperty" id="handleHeight" name="Handle Height" type="number" mode="dynamic" require="true" visible="true">
         <description><![CDATA[The handle height]]></description>
         <value><![CDATA[19.2]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="activeHandleColour" name="Active Handle Colour" type="color" mode="dynamic" require="true" visible="true" colorFormat="rgb">
+        <description><![CDATA[The colour of the selected handle]]></description>
+        <value><![CDATA[246,246,246]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="activeHandleBorderColour" name="Active Handle Border Colour" type="color" mode="dynamic" require="true" visible="true" colorFormat="rgb">
+        <description><![CDATA[The selected handle border colour]]></description>
+        <value><![CDATA[197,197,197]]></value>
       </property>
     </category>
     <category id="markers" name="Markers">
@@ -695,6 +745,12 @@
       <property xsi:type="standardProperty" id="markerColour" name="Marker Colour" type="color" mode="static">
         <description><![CDATA[
           Primary colour of the labels
+        ]]></description>
+        <value><![CDATA[153,153,153]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="markerFontColour" name="Marker Font Colour" type="color" mode="static">
+        <description><![CDATA[
+          Primary colour of the marker text
         ]]></description>
         <value><![CDATA[153,153,153]]></value>
       </property>
@@ -867,17 +923,23 @@
         <description><![CDATA[Tooltip font colour]]></description>
         <value><![CDATA[255,255,255]]></value>
       </property>
+      <property xsi:type="standardProperty" id="tooltipPadding" name="Tooltip Padding" type="string" mode="static">
+        <description><![CDATA[
+          The padding for the tooltip
+        ]]></description>
+        <value><![CDATA[5px]]></value>
+      </property>
       <property xsi:type="standardProperty" id="tooltipTextPadding" name="Tooltip Text Padding" type="string" mode="static">
         <description><![CDATA[
           The padding for the text in for the tooltip
         ]]></description>
-        <value><![CDATA[0px]]></value>
+        <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="tooltipImagePadding" name="Tooltip Image Padding" type="string" mode="static">
         <description><![CDATA[
           The padding for the image in for the tooltip
         ]]></description>
-        <value><![CDATA[0px]]></value>
+        <value><![CDATA[5px]]></value>
       </property>
     </category>
   </properties>

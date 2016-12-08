@@ -32,10 +32,10 @@ put all items in this container too
 
 })(jQuery,'smartresize');
 
-var width = $(window).width(), height = $(window).height();
+var width = screen.width, height = screen.height;
 
 $(window).smartresize(function(){
-  if($(window).width() != width) { // prevent resize when width changes only
+  if(screen.width != width) { // prevent resize when width changes only
   	location.reload();
   }
 });
@@ -157,6 +157,7 @@ $.widget("ui.slider", $.ui.slider, {
 			images_loaded = 0,
 			items = options.items,
             responseAlign = options.responseAlign,
+            dragging = false,
             isMobile = false; //initiate as false
         
         var rMarginTop = $('.responseItem').eq(0).css('margin-top');
@@ -292,10 +293,10 @@ $.widget("ui.slider", $.ui.slider, {
 						left:$('.responseItem').eq(index).outerWidth()/2
 					}
 				})
-                /*.bind('click', function(e) {
+                .bind('click', function(e) {
                     noDrag(e.target);
 					e.stopPropagation();
-                })*/
+                })
                 .attr('data-ontarget',false);
                 
                 valueArray.push((items[index].element.val()!==''?items[index].element.val():'0'));
@@ -323,7 +324,7 @@ $.widget("ui.slider", $.ui.slider, {
             /*var sliderTooltip = function(event, ui) {
                 var curValue = ui.value || initialValue;
                 var target = ui.handle || $('.ui-slider-handle');    
-                var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + $(ui.handle).index() + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq($(ui.handle).index()).html() + '<span class="response_text">' + curValue + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+                var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + $(ui.handle).index() + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq($(ui.handle).index()).html() + '<div class="response_text">' + curValue + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
                 $(target).html(tooltip);
                 enableRemove();
 				//$(target).find('img').width('').height('');
@@ -343,7 +344,7 @@ $.widget("ui.slider", $.ui.slider, {
 				create : function(e,ui) {
                     /*sliderTooltip(e,ui);*/
 					//console.log($(ui.handle).index());
-					var tooltip = $('<div class="tooltip"><div class="tooltip-inner" data-index="1"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(1).html() + '<span class="value_text">' + initialValue + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>');
+					var tooltip = $('<div class="tooltip"><div class="tooltip-inner" data-index="1"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(1).html() + '<div class="value_text">' + initialValue + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>');
 					$(e.target).find('.ui-slider-handle').append(tooltip);
                     /*enableRemove();*/
 				},
@@ -413,7 +414,7 @@ $.widget("ui.slider", $.ui.slider, {
 					val = unitStep * Math.round(val/unitStep);
 					
 					var target = $('.ui-slider-handle').eq(sliderID);    
-					/*var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + sliderID + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(sliderID).html() + '<span class="value_text">' + val + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+					/*var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + sliderID + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(sliderID).html() + '<div class="value_text">' + val + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
 						$(target).html(tooltip);
                     enableRemove();*/
                     $(target).find('.value_text').text(val);
@@ -437,7 +438,7 @@ $.widget("ui.slider", $.ui.slider, {
 	
 			// set correct content to each tooltip
 			$container.find('.ui-slider-handle').each(function(index, element) {
-				var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + index + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(index).html() + '<span class="value_text">' + 0 + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+				var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + index + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(index).html() + '<div class="value_text">' + 0 + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
 				$(this).html(tooltip);
 			});
             enableRemove();
@@ -480,7 +481,7 @@ $.widget("ui.slider", $.ui.slider, {
 				$(this).css({'visibility':'hidden','left':'','top':''});
 								
 				/*var target = $('.ui-slider-handle').eq(index);    
-				var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + index + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(index).html() + '<span class="response_text">' + val + '</span><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
+				var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + index + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(index).html() + '<div class="response_text">' + val + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
 				
 				$(target).html(tooltip);
                 
@@ -491,7 +492,8 @@ $.widget("ui.slider", $.ui.slider, {
 				$(this).attr('data-ontarget','true');
 				
 				var target = $('.ui-slider-handle').eq(index).find('.value_text');
-				target.text(convertedVals[index]);				
+				if ( isSingle ) target.text(convertedVals[index]);
+				else target.text(val);		
                 
 				//$(this).hide();
 			
@@ -549,6 +551,7 @@ $.widget("ui.slider", $.ui.slider, {
             
             // correct bottom spacing for mobile
             $('.lineContainer').css({'padding':  '0px ' + maxTTWidth + 'px'});
+            $('.dropTargetLayer').css({'margin':  '0px ' + maxTTWidth + 'px','width':$('.lineContainer').width() + 'px'});
             
             // Fix start area overlap
             $('.startArea').height( $('.responseItem').outerHeight(true) );
@@ -635,6 +638,121 @@ $.widget("ui.slider", $.ui.slider, {
             }
             
         }
+        
+        function noDrag(target) {
+							
+			if ( !dragging ) {
+			
+				if ( !$(target).hasClass('responseItem') ) target = $(target).parent('.responseItem');
+				if ( $(target).hasClass('responseActive') ) {
+					clickActive = null;
+					$(target).removeClass('responseActive');
+					//$('.gridInner').unbind('click');
+				} else {
+					// deselect all others
+					$('.responseItem').each(function(index) { 
+						$('#res'+$(this).data('index')).removeClass('responseActive');
+					});
+					
+					clickActive = $(target);
+					$(target).addClass('responseActive');
+					
+					$('.dropTargetLayer').unbind();
+		
+					$('.dropTargetLayer').bind('mouseup', function (e) {
+						setTarget(e, "dropTargetLayer");	
+					}).css({'visibility':'visible','display':'block'});
+					/*$('.startArea').bind('mouseup', function (e) {
+						setTarget(e, 'start');	
+					});*/
+				}
+				
+			}
+			
+		}
+        
+        function noDragHover(target) {
+			
+			if ( $(target).hasClass('responseItem') );
+			else target = $(target).parent('.responseItem');
+						
+			// deselect all others
+			$('.responseItem').each(function(index) { 
+				$('#res'+$(this).data('index')).removeClass('responseActive');
+			});
+			
+			clickActive = $(target);
+			$(target).addClass('responseActive');
+
+			/*$('.dropZone, .startArea').unbind();
+
+			$('.dropZone').bind('mouseup', function (e) {
+				setTarget(e, $(this).data('index'));	
+			});
+			$('.startArea').bind('mouseup', function (e) {
+				setTarget(e, 'start');	
+			});*/
+			
+		}
+		
+		function setTarget(e, destination ) {
+            
+            e.stopPropagation();
+            e.preventDefault();
+						
+			var target = $(e.target);
+			//if ( $(e.target).hasClass("drop_text") ) target = $(e.target).parent();
+												
+			//if ( !removingItem ) {
+				if ( destination === 'start' && target.hasClass('startArea') ) {
+                    //alert("target - start");
+					
+					/*if ( $(clickActive).data('index') != null ) {
+						$(clickActive).data({'ontarget':false}).attr({'data-value':''}).css('margin',$(clickActive).data('omargin'));
+						$(clickActive).transition({ scale: 1, top:$(clickActive).data('top'), left:$(clickActive).data('left') }, options.animationSpeed);
+						$('#' + iterations[$(clickActive).data('index')].id).val('');
+					}*/
+					
+				} else if ( destination !== 'start' ) {
+                    
+                    destination = "." + destination;
+                    
+                    var offset = $(destination).offset(),
+                        sliderID = parseInt($container.find('.responseActive').data('index')) - 1,
+                        range = parseInt(options.maxValue) - parseInt(options.minValue),
+                        left = e.pageX - offset.left,
+                        val = Math.round(((left/$(destination).width())*range)+options.minValue);
+					
+					val = unitStep * Math.round(val/unitStep);
+                                        
+                    $(e.target).css('background-color','');
+					
+					// show appropriate handle
+					$container.find('.responseActive').css({'visibility':'hidden'/*,'left':'','top':''*/});
+					
+					var target = $('.ui-slider-handle').eq(sliderID);    
+                    $(target).find('.value_text').text(val);
+                    
+					$(".drop").slider('values',sliderID,val);
+					$input = items[sliderID].element;
+
+					if ( isSingle ) $input.val( allValuesArray[val] );
+                    else $input.val( val );
+                    
+                    $('.ui-slider-handle').eq( parseInt($container.find('.responseActive').attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
+					
+                    $(".drop").slider('values',sliderID,val);
+                    
+					$container.find('.responseActive').attr('data-ontarget','true').removeClass('responseActive');
+					
+					/* show next response */
+					if ( stackResponses ) $('.responseItem[data-ontarget=false]:hidden:first').show();
+
+                    $('.dropTargetLayer').css({'visibility':'hidden','display':'none'});
+					
+				}
+			//}
+		}
 
 		// Remove focus when not clicking on slider
 		$(document).click(function(e) {

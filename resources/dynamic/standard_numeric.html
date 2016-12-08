@@ -32,13 +32,13 @@ EndIF
       <div class="responseItem" data-index="{%= index %}" data-value="{%= inputValue %}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >
         <!--<div class="responseTargetLayer"></div>-->
         {% IF responseTextPosition = "top" Then %}
-          <span class="response_text">{%:= caption %}</span>
+          <div class="response_text">{%:= caption %}</div>
         {% EndIF %}
         {% IF image <> "" Then %}
             <img src="{%= image %}" />
         {% EndIF %}
         {% IF responseTextPosition = "bottom" Then %}
-          <span class="response_text">{%:= caption %}</span>
+          <div class="response_text">{%:= caption %}</div>
         {% EndIF %}
         <div style="clear:both"></div>
       </div>
