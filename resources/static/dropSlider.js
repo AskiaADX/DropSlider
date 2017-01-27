@@ -1,8 +1,6 @@
 /*  Thing to fix
 
-ensure all the cards are the same width and height i.e. maxWidth maxHeight
-put expanded container in the line container
-put all items in this container too
+in mobile view - adjust placement of first and last labels
 
 */
 
@@ -151,6 +149,8 @@ $.widget("ui.slider", $.ui.slider, {
             markerPrefix = options.markerPrefix,
             markerSuffix = options.markerSuffix,
 			valuesArray = new Array(),
+            dkValuesArray = new Array(),
+			dkCaptionsArray = new Array(),
 			iteration = 0,
             unitStep = parseInt(options.unitStep),
 			total_images = $container.find("img").length,
@@ -158,7 +158,10 @@ $.widget("ui.slider", $.ui.slider, {
 			items = options.items,
             responseAlign = options.responseAlign,
             dragging = false,
-            isMobile = false; //initiate as false
+            isMobile = false,
+            dkText = String(options.dkText),
+            allowDK = Boolean(options.allowDK), //initiate as false
+			dkValue = options.dkEntry;
         
         var rMarginTop = $('.responseItem').eq(0).css('margin-top');
         
@@ -170,8 +173,15 @@ $.widget("ui.slider", $.ui.slider, {
 			}
 			options.maxValue = parseInt(options.minValue) + (allValuesArray.length - 1);
 			unitStep = 1;
-		}
-
+		} else if ( !isSingle && allowDK ) {
+            for ( var i=parseInt(options.minValue); i<=parseInt(options.maxValue); i+=unitStep ) {
+				dkCaptionsArray.push(String(i));
+                dkValuesArray.push(i);
+            }
+			dkCaptionsArray.push(dkText);
+            dkValuesArray.push(dkValue);
+        }
+        
         /*
 		if ( isSingle && dkSingle ) {
 			options.maxValue = parseInt(options.maxValue) - 1;
@@ -330,42 +340,68 @@ $.widget("ui.slider", $.ui.slider, {
 				//$(target).find('img').width('').height('');
             };*/
         
-        	
-        
 			// Activate the UI slider
 			sliderDiv.slider({
-				min: options.minValue,
-				max: options.maxValue,
+				min: (allowDK && !isSingle) ? 0 : options.minValue,
+				max: (allowDK && !isSingle)?(options.maxValue + 1 - options.minValue):options.maxValue,
                 values: isSingle ? convertedVals : valueArray,
                 step: options.unitStep,
 				start: function( event, ui ) {
 					$(ui.handle).find('.ui-slider-tooltip').show();
 				},
 				create : function(e,ui) {
-                    /*sliderTooltip(e,ui);*/
-					//console.log($(ui.handle).index());
+					
 					var tooltip = $('<div class="tooltip"><div class="tooltip-inner" data-index="1"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(1).html() + '<div class="value_text">' + initialValue + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>');
 					$(e.target).find('.ui-slider-handle').append(tooltip);
-                    /*enableRemove();*/
+                    
 				},
                 slide: function(e,ui) {
-                    /*sliderTooltip(e,ui);*/
-					$(ui.handle).find('.value_text').text(ui.value);
+					
+					$(ui.handle).find('.value_text').text( (allowDK && !isSingle) ? dkCaptionsArray[ui.value] : ui.value);
                     $input = items[$(ui.handle).index()].element;
                     if ( isSingle ) $input.val( allValuesArray[ui.value] );
+					else if ( allowDK && !isSingle ) $input.val( dkValuesArray[ui.value] );
                     else $input.val( ui.value );
 															
                     $('.responseItem').each(function(index) { 
                         if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
                         else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
                     });
+					
                 },
                 stop: function(e,ui) {
+					
                 	$('.responseItem').each(function(index) { 
                         if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
                         else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
                     });
+					
                     if ( showTooltipOnHover ) $(ui.handle).removeClass('ui-state-active ui-state-focus ui-state-hover');
+					
+					/* adjust tooltip position */
+					var handle = $('.ui-slider-handle').eq($(ui.handle).index()),
+						handleWidth = handle.outerWidth(),
+						tooltip = handle.find('.tooltip'),
+						tooltipArrow = handle.find('.tooltip-arrow'),
+						tooltipInnerWidth = handle.find('.tooltip-inner').outerWidth(),
+						removeBtn = handle.find('.removeBtn');
+					
+					tooltip.css('margin-left',(handleWidth/2) - (tooltipInnerWidth/2)+'px');
+					tooltipArrow.css('left','50%');
+					removeBtn.css('left','');
+					
+					var tooltipLeft = tooltip.offset().left;
+															
+					if ( (tooltipLeft - $container.offset().left) < 0 ) { // and changing it won't make it negative again / check current vs future
+						tooltip.css('margin-left','0px');
+						tooltipArrow.css('left',(handleWidth/2)+'px');
+						removeBtn.css('left','');
+					} else if ( ((tooltipLeft - $container.offset().left) + tooltipInnerWidth) > $container.outerWidth() ) {
+						tooltip.css('margin-left',(-tooltipInnerWidth + handleWidth)+'px');
+						tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
+						removeBtn.css('left','-15px');
+					}
+						
             	},
                 change: function(e,ui) {
                 	$('.responseItem').each(function(index) { 
@@ -375,10 +411,10 @@ $.widget("ui.slider", $.ui.slider, {
             	},
 			}).slider("pips", {
                 steps:1,
-                rest: options.showMarkerLabels,
+                rest: options.showMarkerLabels === "label" ? "label" : "pip",
                 first: options.showMarkerLabels === "label" ? "label" : "pip",
                 last: options.showMarkerLabels === "label" ? "label" : "pip",
-                labels: (isSingle && useResponseCaptions) ? allCaptionsArray : false,// / {"":"","":""} (array)
+                labels: (isSingle && useResponseCaptions) ? allCaptionsArray : (allowDK ? dkCaptionsArray : false),// / {"":"","":""} (array)
                 prefix: markerPrefix,
                 suffix: markerSuffix
             });
@@ -386,8 +422,16 @@ $.widget("ui.slider", $.ui.slider, {
 			//Set slider as droppable
 			$('.lineContainer').droppable({
 				//on drop 
-				over: function( event, ui ) {
-					$(event.target).css('background-color','rgb(' + options.baseDropHoverColour + ')');
+				over: function( e, ui ) {
+					
+					var x = ((e.pageX - 1) - $(this).offset().left),
+						lengthOfBar = $(e.target).width() - 2,
+						sliderID = parseInt($(ui.draggable).data('index')) - 1,
+						nRange = parseInt(options.maxValue) - parseInt(options.minValue),
+						range = nRange + 1,
+						val = Math.round(((x/lengthOfBar)*range));
+					
+					$(e.target).css('background-color','rgb(' + options.baseDropHoverColour + ')');
 					var finalMidPosition = $(ui.draggable).offset().left - $('.drop').offset().left;
 					var val = Math.floor((finalMidPosition) / tickSize);
 					$(ui.draggable).find('.tooltip-inner').html( val );
@@ -405,30 +449,58 @@ $.widget("ui.slider", $.ui.slider, {
 					// show appropriate handle
 					$(ui.draggable).css({'visibility':'hidden','left':'','top':''});
 
-					var x = (e.pageX - $(this).offset().left) - 1,
+					var x = ((e.pageX - 1) - $(this).offset().left),
 						lengthOfBar = $(e.target).width() - 2,
 						sliderID = parseInt($(ui.draggable).data('index')) - 1,
-						range = parseInt(options.maxValue) - parseInt(options.minValue),
-						val = Math.round(((x/lengthOfBar)*range)+options.minValue);
+						nRange = parseInt(options.maxValue) - parseInt(options.minValue),
+						range = nRange + 1,
+						val = Math.round(((x/lengthOfBar)*range));
 					
 					val = unitStep * Math.round(val/unitStep);
 					
 					var target = $('.ui-slider-handle').eq(sliderID);    
-					/*var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + sliderID + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(sliderID).html() + '<div class="value_text">' + val + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
-						$(target).html(tooltip);
-                    enableRemove();*/
-                    $(target).find('.value_text').text(val);
-                    
 					
-					$(".drop").slider('values',sliderID,val);
 					$input = items[sliderID].element;
-
-					if ( isSingle ) $input.val( allValuesArray[val] );
-                    else $input.val( val );
+					$(".drop").slider('values',sliderID,val);
+					
+					if ( isSingle ) {
+						$input.val( allValuesArray[val] );
+						$(target).find('.value_text').text( allValuesArray[val] );
+					} else if ( allowDK && !isSingle ) {
+						$input.val( dkValuesArray[val] );
+						$(target).find('.value_text').text( dkCaptionsArray[val] );
+					} else {
+						$input.val( val );
+						$(target).find('.value_text').text(val );
+					}
 					
 					$('.ui-slider-handle').eq( parseInt($(ui.draggable).attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
 					
 					$(ui.draggable).attr('data-ontarget','true');
+					
+					/* adjust tooltip position */
+					var handle = $('.ui-slider-handle').eq(sliderID),
+						handleWidth = handle.outerWidth(),
+						tooltip = handle.find('.tooltip'),
+						tooltipArrow = handle.find('.tooltip-arrow'),
+						tooltipInnerWidth = handle.find('.tooltip-inner').outerWidth(),
+						removeBtn = handle.find('.removeBtn');
+					
+					tooltip.css('margin-left',(handleWidth/2) - (tooltipInnerWidth/2)+'px');
+					tooltipArrow.css('left','50%');
+					removeBtn.css('left','');
+					
+					var tooltipLeft = tooltip.offset().left;
+															
+					if ( (tooltipLeft - $container.offset().left) < 0 ) { // and changing it won't make it negative again / check current vs future
+						tooltip.css('margin-left','0px');
+						tooltipArrow.css('left',(handleWidth/2)+'px');
+						removeBtn.css('left','');
+					} else if ( ((tooltipLeft - $container.offset().left) + tooltipInnerWidth) > $container.outerWidth() ) {
+						tooltip.css('margin-left',(-tooltipInnerWidth + handleWidth)+'px');
+						tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
+						removeBtn.css('left','-15px');
+					}
 					
 					/* show next response */
 					if ( stackResponses ) $('.responseItem[data-ontarget=false]:hidden:first').show();
@@ -493,7 +565,31 @@ $.widget("ui.slider", $.ui.slider, {
 				
 				var target = $('.ui-slider-handle').eq(index).find('.value_text');
 				if ( isSingle ) target.text(convertedVals[index]);
-				else target.text(val);		
+				else target.text(val);	
+				
+				/* adjust tooltip position */
+				var handle = $('.ui-slider-handle').eq(index),
+					handleWidth = handle.outerWidth(),
+					tooltip = handle.find('.tooltip'),
+					tooltipArrow = handle.find('.tooltip-arrow'),
+					tooltipInnerWidth = handle.find('.tooltip-inner').outerWidth(),
+					removeBtn = handle.find('.removeBtn');
+
+				tooltip.css('margin-left',(handleWidth/2) - (tooltipInnerWidth/2)+'px');
+				tooltipArrow.css('left','50%');
+				removeBtn.css('left','');
+
+				var tooltipLeft = tooltip.offset().left;
+
+				if ( (tooltipLeft - $container.offset().left) < 0 ) { // and changing it won't make it negative again / check current vs future
+					tooltip.css('margin-left','0px');
+					tooltipArrow.css('left',(handleWidth/2)+'px');
+					removeBtn.css('left','');
+				} else if ( ((tooltipLeft - $container.offset().left) + tooltipInnerWidth) > $container.outerWidth() ) {
+					tooltip.css('margin-left',(-tooltipInnerWidth + handleWidth)+'px');
+					tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
+					removeBtn.css('left','-15px');
+				}
                 
 				//$(this).hide();
 			
@@ -550,8 +646,10 @@ $.widget("ui.slider", $.ui.slider, {
             $('.ui-slider-horizontal.ui-slider-pips').css({'margin-bottom':topMargin + "px",'margin-top':topMargin + "px"});
             
             // correct bottom spacing for mobile
-            $('.lineContainer').css({'padding':  '0px ' + maxTTWidth + 'px'});
-            $('.dropTargetLayer').css({'margin':  '0px ' + maxTTWidth + 'px','width':$('.lineContainer').width() + 'px'});
+            //$('.lineContainer').css({'padding':  '0px ' + maxTTWidth + 'px'});
+            //$('.dropTargetLayer').css({'margin':  '0px ' + maxTTWidth + 'px','width':$('.lineContainer').width() + 'px'});
+			$('.lineContainer').css({'padding':  '0px ' + Math.round((handleWidth + 2)/2) + 'px'});
+            $('.dropTargetLayer').css({'margin':  '0px ' + Math.round((handleWidth + 2)/2) + 'px','width':$('.lineContainer').width() + 'px'});
             
             // Fix start area overlap
             $('.startArea').height( $('.responseItem').outerHeight(true) );
@@ -647,11 +745,10 @@ $.widget("ui.slider", $.ui.slider, {
 				if ( $(target).hasClass('responseActive') ) {
 					clickActive = null;
 					$(target).removeClass('responseActive');
-					//$('.gridInner').unbind('click');
 				} else {
 					// deselect all others
 					$('.responseItem').each(function(index) { 
-						$('#res'+$(this).data('index')).removeClass('responseActive');
+						if ( index !== $(target).data('index') ) $(this).removeClass('responseActive');
 					});
 					
 					clickActive = $(target);
@@ -662,39 +759,13 @@ $.widget("ui.slider", $.ui.slider, {
 					$('.dropTargetLayer').bind('mouseup', function (e) {
 						setTarget(e, "dropTargetLayer");	
 					}).css({'visibility':'visible','display':'block'});
-					/*$('.startArea').bind('mouseup', function (e) {
-						setTarget(e, 'start');	
-					});*/
+
 				}
 				
 			}
 			
 		}
         
-        function noDragHover(target) {
-			
-			if ( $(target).hasClass('responseItem') );
-			else target = $(target).parent('.responseItem');
-						
-			// deselect all others
-			$('.responseItem').each(function(index) { 
-				$('#res'+$(this).data('index')).removeClass('responseActive');
-			});
-			
-			clickActive = $(target);
-			$(target).addClass('responseActive');
-
-			/*$('.dropZone, .startArea').unbind();
-
-			$('.dropZone').bind('mouseup', function (e) {
-				setTarget(e, $(this).data('index'));	
-			});
-			$('.startArea').bind('mouseup', function (e) {
-				setTarget(e, 'start');	
-			});*/
-			
-		}
-		
 		function setTarget(e, destination ) {
             
             e.stopPropagation();
@@ -718,32 +789,64 @@ $.widget("ui.slider", $.ui.slider, {
                     destination = "." + destination;
                     
                     var offset = $(destination).offset(),
+						lengthOfBar = $(destination).width() - 2,
                         sliderID = parseInt($container.find('.responseActive').data('index')) - 1,
-                        range = parseInt(options.maxValue) - parseInt(options.minValue),
+                        nRange = parseInt(options.maxValue) - parseInt(options.minValue),
+						range = nRange + 1,
                         left = e.pageX - offset.left,
-                        val = Math.round(((left/$(destination).width())*range)+options.minValue);
+                        val = Math.round(((left/lengthOfBar)*range));
 					
 					val = unitStep * Math.round(val/unitStep);
-                                        
+					                                        
                     $(e.target).css('background-color','');
 					
 					// show appropriate handle
 					$container.find('.responseActive').css({'visibility':'hidden'/*,'left':'','top':''*/});
 					
 					var target = $('.ui-slider-handle').eq(sliderID);    
-                    $(target).find('.value_text').text(val);
                     
-					$(".drop").slider('values',sliderID,val);
 					$input = items[sliderID].element;
-
-					if ( isSingle ) $input.val( allValuesArray[val] );
-                    else $input.val( val );
+					$(".drop").slider('values',sliderID,val);
+					
+					
+					if ( isSingle ) {
+						$input.val( allValuesArray[val] );
+						$(target).find('.value_text').text( allValuesArray[val] );
+					} else if ( allowDK && !isSingle ) {
+						$input.val( dkValuesArray[val] );
+						$(target).find('.value_text').text( dkCaptionsArray[val] );
+					} else {
+						$input.val( val );
+						$(target).find('.value_text').text( val );
+					}
                     
                     $('.ui-slider-handle').eq( parseInt($container.find('.responseActive').attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
-					
-                    $(".drop").slider('values',sliderID,val);
-                    
+					                    
 					$container.find('.responseActive').attr('data-ontarget','true').removeClass('responseActive');
+					
+					/* adjust tooltip position */
+					var handle = $('.ui-slider-handle').eq(sliderID),
+						handleWidth = handle.outerWidth(),
+						tooltip = handle.find('.tooltip'),
+						tooltipArrow = handle.find('.tooltip-arrow'),
+						tooltipInnerWidth = handle.find('.tooltip-inner').outerWidth(),
+						removeBtn = handle.find('.removeBtn');
+
+					tooltip.css('margin-left',(handleWidth/2) - (tooltipInnerWidth/2)+'px');
+					tooltipArrow.css('left','50%');
+					removeBtn.css('left','');
+
+					var tooltipLeft = tooltip.offset().left;
+
+					if ( (tooltipLeft - $container.offset().left) < 0 ) { // and changing it won't make it negative again / check current vs future
+						tooltip.css('margin-left','0px');
+						tooltipArrow.css('left',(handleWidth/2)+'px');
+						removeBtn.css('left','');
+					} else if ( ((tooltipLeft - $container.offset().left) + tooltipInnerWidth) > $container.outerWidth() ) {
+						tooltip.css('margin-left',(-tooltipInnerWidth + handleWidth)+'px');
+						tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
+						removeBtn.css('left','-15px');
+					}
 					
 					/* show next response */
 					if ( stackResponses ) $('.responseItem[data-ontarget=false]:hidden:first').show();
@@ -753,6 +856,7 @@ $.widget("ui.slider", $.ui.slider, {
 				}
 			//}
 		}
+        
 
 		// Remove focus when not clicking on slider
 		$(document).click(function(e) {

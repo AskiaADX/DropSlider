@@ -20,7 +20,6 @@ $(window).load(function() {
         baseDropHoverColour : '{%= CurrentADC.PropValue("baseDropHoverColour") %}',
         isSingle : {%= (CurrentQuestion.Type = "single") %},
         useResponseCaptions : '{%= CurrentADC.PropValue("useResponseCaptions") %}',
-		//isInLoop: {%= (CurrentADC.PropValue("isInLoop") = "1") %},
 		leftLabelText : {%= (CurrentADC.PropValue("leftLabelText") <> "") %},
 		rightLabelText : {%= (CurrentADC.PropValue("rightLabelText") <> "") %},
 		displayLabelText : '{%= CurrentADC.PropValue("displayLabelText") %}',
@@ -38,6 +37,9 @@ $(window).load(function() {
         showTooltipOnHover : '{%:= CurrentADC.PropValue("showTooltipOnHover") %}',
       	responseAlign : '{%= CurrentADC.PropValue("responseAlign") %}',
       	handleWidth : '{%= CurrentADC.PropValue("handleWidth") %}',
+      	allowDK : {%= CurrentQuestion.IsAllowDK %},
+      dkEntry : '{%= CurrentQuestion.DKEntry %}',
+        dkText : "{%= CurrentADC.PropValue("dkText") %}",
 		items : [
       		{% IF CurrentQuestion.Type = "single" Then %}
 				{%:= CurrentADC.GetContent("dynamic/standard_single.js").ToText()%}

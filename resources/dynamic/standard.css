@@ -59,7 +59,6 @@ Dim labelTextLineHeight =CurrentADC.PropValue("labelTextLineHeight")
 
 Dim labelWidth =CurrentADC.PropValue("labelWidth")
 Dim sliderHeight =CurrentADC.PropValue("sliderHeight")
-Dim sliderOrientation =CurrentADC.PropValue("sliderOrientation")
 Dim controlAlign =CurrentADC.PropValue("controlAlign")
 Dim sliderBasePrimaryColour =CurrentADC.PropValue("sliderBasePrimaryColour")
 Dim sliderBaseSecondaryColour =CurrentADC.PropValue("sliderBaseSecondaryColour")
@@ -105,14 +104,6 @@ Dim sliderHandleHeight =CurrentADC.PropValue("sliderHandleHeight")
 Dim sliderHandleWidth =CurrentADC.PropValue("sliderHandleWidth")
 Dim halfHandleHeight = (sliderBaseHeight.ToNumber() - sliderHandleHeight.ToNumber())/2
 Dim halfHandleWidth = sliderHandleWidth.ToNumber()/2
-IF CurrentADC.PropValue("sliderOrientation") = "vertical" Then
-	Dim sliderHandleBorderThicknessNumber = sliderHandleBorderThickness
-		sliderHandleBorderThicknessNumber = sliderHandleBorderThicknessNumber.Replace("px","")
-		sliderHandleBorderThicknessNumber = sliderHandleBorderThicknessNumber.Replace("%","")
-		sliderHandleBorderThicknessNumber = sliderHandleBorderThicknessNumber.Replace("none","0")
-	halfHandleWidth = ((sliderHandleWidth.ToNumber() + (sliderHandleBorderThicknessNumber.ToNumber()*2)) - sliderBaseHeight.ToNumber() )/2
-	halfHandleHeight = (sliderHandleHeight.ToNumber() + (sliderHandleBorderThicknessNumber.ToNumber()*2))/2
-EndIF
 
 Dim imagePadding =CurrentADC.PropValue("imagePadding")
 
@@ -412,9 +403,6 @@ responses = {%= sLabelWidth%}
 	{% ElseIF CurrentADC.PropValue("textAlign") = "center" Then %}
 		text-align:center;
 	{% EndIF %}
-	{% IF CurrentADC.PropValue("sliderOrientation") = "horizontal" Then %}
-		margin-right:10px;
-	{% EndIF %}
 	
 	/* disable highlight text */
 	-moz-user-select: none; 
@@ -435,10 +423,6 @@ responses = {%= sLabelWidth%}
 		text-align:left;
 	{% ElseIF CurrentADC.PropValue("textAlign") = "center" Then %}
 		text-align:center;
-	{% EndIF %}
-	
-	{% IF CurrentADC.PropValue("sliderOrientation") = "horizontal" Then %}
-		margin-left:10px;
 	{% EndIF %}
 	
 	/* disable highlight text */
@@ -519,7 +503,7 @@ responses = {%= sLabelWidth%}
     text-align:{%= responseTextAlign%};
     width:{%= tooltipWidth.ToNumber() %}px;
     
-    {% IF showTooltipOnHover = "true" Then %}
+    {% IF showTooltipOnHover = "yes" Then %}
     	bottom:90%;
         opacity: 0;
         transition-delay: 0ms, 0ms, 200ms;
@@ -530,7 +514,7 @@ responses = {%= sLabelWidth%}
     {% EndIF %}
 }
 
-{% IF showTooltipOnHover = "true" Then %}
+{% IF showTooltipOnHover = "yes" Then %}
 #adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-active .tooltip, 
 #adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-focus .tooltip, 
 #adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-hover .tooltip, 
@@ -888,3 +872,7 @@ responses = {%= sLabelWidth%}
 #adc_{%= CurrentADC.InstanceId%} .dropTargetLayer {
     display:none; width:100%; height:100%; position:absolute; top:0px; left:0px; visibility:hidden; z-index:10000; background:url({%:= CurrentADC.URLTo("static/clear.png")%});
 }
+
+{% IF showTooltipCaption = "1" Then %}
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-last .ui-slider-label { left:0%; }
+{% EndIf %}

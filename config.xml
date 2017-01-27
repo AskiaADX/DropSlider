@@ -62,6 +62,10 @@
                 - Fixed handle border radius
                 - Fixed text padding in tooltip
                 - Added tooltip padding
+		v1.0.3
+				- Fixed tooltip layout when close to edges
+				- Added in DK
+				- Fixed show tooltips on hover bug
 ]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>]]></author>
@@ -940,6 +944,14 @@
           The padding for the image in for the tooltip
         ]]></description>
         <value><![CDATA[5px]]></value>
+      </property>
+    </category>
+    <category id="DK" name="DK">
+      <property xsi:type="standardProperty" id="dkText" name="DK Text" type="string" mode="static">
+        <description><![CDATA[
+          The text to display for a numeric dk
+        ]]></description>
+        <value><![CDATA[Don't know]]></value>
       </property>
     </category>
   </properties>
