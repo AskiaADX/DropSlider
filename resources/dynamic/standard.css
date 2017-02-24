@@ -48,7 +48,6 @@ Dim responseWidth =CurrentADC.PropValue("responseWidth")
 Dim labelColourPrimary =CurrentADC.PropValue("labelColourPrimary")
 Dim labelColourSecondary =CurrentADC.PropValue("labelColourSecondary")
 Dim labelShadow =CurrentADC.PropValue("labelShadow")
-Dim textAlign =CurrentADC.PropValue("textAlign")
 Dim imageAlign =CurrentADC.PropValue("imageAlign")
 Dim displayLabelText =CurrentADC.PropValue("displayLabelText")
 
@@ -164,25 +163,15 @@ IF isSingle = 1 Then
 EndIf
 %}
 
-/* test
-{% IF isSingle = 1 Then %}
-isSingle = {%= isSingle%}
-responses = {%= sLabelWidth%}
-{% EndIf %}
-*/
-
 /* General */
-#adc_{%= CurrentADC.InstanceId%} 
-{ 
+#adc_{%= CurrentADC.InstanceId%} { 
 	text-align:{%= responseAlign%};
 }
 
 /* Reponses */
-#adc_{%= CurrentADC.InstanceId%} .responseItem
-{   
+#adc_{%= CurrentADC.InstanceId%} .responseItem {   
 	
     cursor:pointer;
-    
 	box-sizing:border-box;
 	/* Decoration */
 	{% IF borderThickness = "none" Then %}
@@ -191,13 +180,6 @@ responses = {%= sLabelWidth%}
 		border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%});
 	{% EndIF %}	
 	background: rgb({%= responseColourPrimary%}); 
-	background: -moz-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%, rgb({%= responseColourSecondary%}) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= responseColourPrimary%})), color-stop(100%,rgb({%= responseColourSecondary%}))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgb({%= responseColourPrimary%}) 0%,rgb({%= responseColourSecondary%}) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= responseColourPrimary.ToHexa()%}, endColorstr={%= responseColourSecondary.ToHexa()%},GradientType=0 ); /* IE6-8 */
 	
 	/* Effects */
 	-webkit-border-radius:	{%= borderRadius%}; 
@@ -216,24 +198,23 @@ responses = {%= sLabelWidth%}
 	
 	padding: {%= responsePadding%};
 	{% IF stackResponses = "1" And responseAlign = "center" Then %}
-		/*margin: 0px auto;*/
     	margin: {%= responseMargin%};
     	margin-left: auto;
     	margin-right: auto;
 		float:none;
 	{% Else %}
 		margin: {%= responseMargin%};
-		float:{%= responseAlign%};
     	{% IF responseAlign = "center" Then %}
     		display:inline-block;
+		{% Else %}
+			float:{%= responseAlign%};
     	{% EndIF %}	
 	{% EndIF %}	
 	
 	z-index: 1;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem:hover
-{
+#adc_{%= CurrentADC.InstanceId%} .responseItem:hover {
 	
 	/* Decoration */
 	{% IF showResponseHoverBorder = "1" Then %}
@@ -241,21 +222,13 @@ responses = {%= sLabelWidth%}
 	{% EndIF %}
 	{% IF showResponseHoverColour = "1" Then %}
 		background: rgb({%= responseHoverColourPrimary%}) !important;
-		background: -moz-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%, rgb({%= responseHoverColourSecondary%}) 100%) !important; /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= responseHoverColourPrimary%})), color-stop(100%,rgb({%= responseHoverColourSecondary%}))) !important; /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* IE10+ */
-		background: linear-gradient(to bottom,  rgb({%= responseHoverColourPrimary%}) 0%,rgb({%= responseHoverColourSecondary%}) 100%) !important; /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= responseHoverColourPrimary.ToHexa()%}', endColorstr='{%= responseHoverColourSecondary.ToHexa()%}',GradientType=0 ) !important; /* IE6-8 */
 	{% EndIF %}
 	-webkit-box-shadow: {%= responseHoverShadow%};
 	-moz-box-shadow: {%= responseHoverShadow%};
 	box-shadow: {%= responseHoverShadow%};
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem img
-{  
+#adc_{%= CurrentADC.InstanceId%} .responseItem img {  
 	pointer-events:none;
 	margin:0px auto;
 	vertical-align:middle;
@@ -263,8 +236,7 @@ responses = {%= sLabelWidth%}
 	padding:{%= responseImagePadding%};
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem .response_text 
-{ 
+#adc_{%= CurrentADC.InstanceId%} .responseItem .response_text { 
 	pointer-events:none;
 	display:{%= displayResponseText%};
 	font-size:{%= fontSize%};
@@ -281,8 +253,7 @@ responses = {%= sLabelWidth%}
 	word-wrap: break-word;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text
-{ 
+#adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text { 
 	{% IF showResponseHoverFontColour = "1" Then %}
 		color:rgb({%= responseHoverFontColour%}) !important;
 	{% EndIF %}
@@ -296,13 +267,6 @@ responses = {%= sLabelWidth%}
 		border: {%= responseSelectedBorderThickness%} {%= responseSelectedBorderStyle%} rgb({%= responseSelectedBorderColour%}) !important;
 	{% EndIF %}	
 	background: rgb({%= responseSelectedColourPrimary%}) !important;
-	background: -moz-linear-gradient(top,  rgb({%= responseSelectedColourPrimary%}) 0%, rgb({%= responseSelectedColourSecondary%}) 100%) !important; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= responseSelectedColourPrimary%})), color-stop(100%,rgb({%= responseSelectedColourSecondary%}))) !important; /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgb({%= responseSelectedColourPrimary%}) 0%,rgb({%= responseSelectedColourSecondary%}) 100%) !important; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgb({%= responseSelectedColourPrimary%}) 0%,rgb({%= responseSelectedColourSecondary%}) 100%) !important; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgb({%= responseSelectedColourPrimary%}) 0%,rgb({%= responseSelectedColourSecondary%}) 100%) !important; /* IE10+ */
-	background: linear-gradient(to bottom,  rgb({%= responseSelectedColourPrimary%}) 0%,rgb({%= responseSelectedColourSecondary%}) 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= responseSelectedColourPrimary.ToHexa()%}', endColorstr='{%= responseSelectedColourSecondary.ToHexa()%}',GradientType=0 ) !important; /* IE6-8 */
 }
 #adc_{%= CurrentADC.InstanceId%} .responseActive .response_text {
 	color:rgb({%= responseSelectedFontColour%}) !important;
@@ -326,8 +290,6 @@ responses = {%= sLabelWidth%}
 #adc_{%= CurrentADC.InstanceId%} .slider { 
 	position:relative;
 	clear:left;
-	/*width:100%;*/
-	/*margin:0px auto;*/
 }
 
 #adc_{%= CurrentADC.InstanceId%} .slider tr, #adc_{%= CurrentADC.InstanceId%} .slider tr td { 
@@ -351,13 +313,6 @@ responses = {%= sLabelWidth%}
 	{% EndIF %}	
 
 	background: rgb({%= labelColourPrimary%}); 
-	background: -moz-linear-gradient(top,  rgb({%= labelColourPrimary%}) 0%, rgb({%= labelColourSecondary%}) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb({%= labelColourPrimary%})), color-stop(100%,rgb({%= labelColourSecondary%}))); 
-	background: -webkit-linear-gradient(top,  rgb({%= labelColourPrimary%}) 0%,rgb({%= labelColourSecondary%}) 100%); 
-	background: -o-linear-gradient(top,  rgb({%= labelColourPrimary%}) 0%,rgb({%= labelColourSecondary%}) 100%);
-	background: -ms-linear-gradient(top,  rgb({%= labelColourPrimary%}) 0%,rgb({%= labelColourSecondary%}) 100%);
-	background: linear-gradient(to bottom,  rgb({%= labelColourPrimary%}) 0%,rgb({%= labelColourSecondary%}) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= labelColourPrimary.ToHexa()%}, endColorstr={%= labelColourSecondary.ToHexa()%},GradientType=0 );
 	
 	/* Effects */
 	-webkit-border-radius:	{%= labelBorderRadius%}; 
@@ -371,15 +326,12 @@ responses = {%= sLabelWidth%}
 	
 	display:{%= displayLabelText%};
 	font-size:{%= fontSize%};
-	{% IF CurrentADC.PropValue("textAlign") <> "lr" And CurrentADC.PropValue("textAlign") <> "rl" Then %}
-		text-align:{%= textAlign%};
-	{% End IF %}
+	text-align:center;
 	color:rgb({%= labelFontColour%});
 	padding:{%= labelTextPadding%};
 	line-height:{%= labelTextLineHeight%};
 	
 	position:relative;
-	display:block;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .left, #adc_{%= CurrentADC.InstanceId%} .right, .rightLabel, .leftLabel {
@@ -457,42 +409,21 @@ responses = {%= sLabelWidth%}
     
 }
 
-#adc_{%= CurrentADC.InstanceId%} .caption {
-	position:relative;
-	text-align:{%= captionAlign%};
-	font-size:{%= fontSize%};
-	padding:{%= captionPadding%};
-}
-
-#adc_{%= CurrentADC.InstanceId%} img {
-	padding:{%= imagePadding%};
-	vertical-align: middle;	
-}
 #adc_{%= CurrentADC.InstanceId%} .lineContainer { position:relative; }
 #adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { 
     
-    /*box-sizing:border-box;*/
 	/* Decoration */
 	{% IF baseBorderThickness = "0" Then %}
 		border: none !important;
 	{% Else %}
-    border: {%= baseBorderThickness%}px {%= baseBorderStyle%} rgb({%= baseBorderColour%});
+    border: {%= baseBorderThickness%} {%= baseBorderStyle%} rgb({%= baseBorderColour%});
 	{% EndIF %}	
     
     background: rgb({%= baseColourPrimary%}); 
-    background: -moz-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%, rgb({%= baseColourSecondary%}) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb({%= baseColourPrimary%})), color-stop(100%,rgb({%= baseColourSecondary%}))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* IE10+ */
-	background: linear-gradient(to right,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%= baseColourPrimary.ToHexa()%}, endColorstr={%= baseColourSecondary.ToHexa()%},GradientType=0 ); /* IE6-8 */
 }
-/*#adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { border:none !important; background:none !important; }
-*/
+
 #adc_{%= CurrentADC.InstanceId%} .tooltip {
     position: absolute;
-    /*z-index: 1020;*/
     display: block !important;
     padding: 5px 0;
     font-size: 11px;
@@ -609,7 +540,6 @@ responses = {%= sLabelWidth%}
 #adc_{%= CurrentADC.InstanceId%} .removeBtn {
     display: block;
     padding: 0px;
-    text-align: right; /* float right, clear both */
     z-index:11;
     font-size:20px;
     line-height: 30px;
@@ -672,7 +602,7 @@ responses = {%= sLabelWidth%}
 
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pips .ui-slider-pip {
     top: {%= baseHeight.ToNumber() + markerDistance.ToNumber() + 3 %}px;
-    font-size: {%= markerFontsize %}px !important;
+    font-size: {%= markerFontsize %} !important;
 }
 
 .sliderContainer .ui-slider-pips .ui-slider-pip .ui-slider-label {
@@ -682,7 +612,7 @@ responses = {%= sLabelWidth%}
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip .ui-slider-line {
   
     /* add height and other missing bits */
-    height: {%= markerLineHeight%}px;
+    height: {%= markerLineHeight%};
   	top: -3px;
     
     /* if circles */
@@ -715,108 +645,83 @@ responses = {%= sLabelWidth%}
 
 /* alternating */
 {% IF alternateMarkers = "1" Then %}
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip .ui-slider-line {
-  height: {%= markerLineHeight%}px;
-  top: -3px; 
-    
-  /* if circles */
-  {% IF markerType = "circle" Then %}
-      width: 4px;
-      height: 4px;
-      border-radius: 4px;
-      margin-left: -2px;
-  {% EndIf %}
-}
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip .ui-slider-line {
+	  height: {%= markerLineHeight%}px;
+	  top: -3px; 
 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) .ui-slider-label {
-    top: auto;
-    bottom: {%= markerTextDistance %}px;
-}
+	  /* if circles */
+	  {% IF markerType = "circle" Then %}
+		  width: 4px;
+		  height: 4px;
+		  border-radius: 4px;
+		  margin-left: -2px;
+	  {% EndIf %}
+	}
 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) {
-  top: {%= baseHeight.ToNumber() - 15 - markerDistance.ToNumber() - baseHeight.ToNumber() %}px;
-  height: 15px;
-  transform: scale(1) translateY(-3px);
-  /*opacity: 0.8; */
-}
-  
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) .ui-slider-line {
-    top:auto;
-    bottom: -3px;
-    height: {%= markerLineHeight%}px;
-    
-    /* if circles */
-    {% IF markerType = "circle" Then %}
-        width: 4px;
-        height: 4px;
-        border-radius: 4px;
-        margin-left: -2px;
-    {% EndIf %}
-}
- /*  
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-1 .ui-slider-label, 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-2 .ui-slider-label, 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-3 .ui-slider-label, 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even).ui-slider-pip-selected-4 .ui-slider-label {
-   top: -3px;
-} */
-                   
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip {
-  width: 34px;
-  margin-left: -17px;
-  top: -1px;
-  background: #00c7d7;
-  color: white;
-  border: none;
-  line-height: 27px;
-  height: 25px; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:before, 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:after {
-    display: none; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-active .ui-slider-tip,
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-focus .ui-slider-tip,
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover .ui-slider-tip,
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:focus .ui-slider-tip,
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:hover .ui-slider-tip {
-  top: -1px; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-focus, #adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover {
-  z-index: 100; }
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) .ui-slider-label {
+		top: auto;
+		bottom: {%= markerTextDistance %}px;
+	}
+
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) {
+	  top: {%= baseHeight.ToNumber() - 15 - markerDistance.ToNumber() - baseHeight.ToNumber() %}px;
+	  height: 15px;
+	  transform: scale(1) translateY(-3px);
+	}
+
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip:nth-child(even) .ui-slider-line {
+		top:auto;
+		bottom: -3px;
+		height: {%= markerLineHeight%}px;
+
+		/* if circles */
+		{% IF markerType = "circle" Then %}
+			width: 4px;
+			height: 4px;
+			border-radius: 4px;
+			margin-left: -2px;
+		{% EndIf %}
+	}              
+
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip {
+	  width: 34px;
+	  margin-left: -17px;
+	  top: -1px;
+	  background: #00c7d7;
+	  color: white;
+	  border: none;
+	  line-height: 27px;
+	  height: 25px; }
+
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:before, 
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:after {
+		display: none; 
+	}
+
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-active .ui-slider-tip,
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-focus .ui-slider-tip,
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover .ui-slider-tip,
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:focus .ui-slider-tip,
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:hover .ui-slider-tip {
+	  top: -1px; 
+	}
+
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-focus, #adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover {
+	  z-index: 100; 
+	}
 
 {% EndIf %}
 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-1 .ui-slider-label {
-  color: #F44336; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-2 .ui-slider-label {
-  color: #03A9F4; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-3 .ui-slider-label {
-  color: #9C27B0; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-4 .ui-slider-label {
-  color: #009688; }
-  
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-5 .ui-slider-label {
-  color: #3F51B5; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-6 .ui-slider-label {
-  color: #4CAF50; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-7 .ui-slider-label {
-  color: #673AB7; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-8 .ui-slider-label {
-  color: #00BCD4; }
-  
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-9 .ui-slider-label {
-  color: #E91E63; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-10 .ui-slider-label {
-  color: #2196F3; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-1 .ui-slider-label { color: #F44336; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-2 .ui-slider-label { color: #03A9F4; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-3 .ui-slider-label { color: #9C27B0; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-4 .ui-slider-label { color: #009688; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-5 .ui-slider-label { color: #3F51B5; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-6 .ui-slider-label { color: #4CAF50; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-7 .ui-slider-label { color: #673AB7; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-8 .ui-slider-label { color: #00BCD4; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-9 .ui-slider-label { color: #E91E63; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-10 .ui-slider-label { color: #2196F3; }
                     
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-1 .ui-slider-label,
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-2 .ui-slider-label,
@@ -837,35 +742,16 @@ responses = {%= sLabelWidth%}
   border-radius: 2px; 
 }
 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-1 .ui-slider-label {
-  color: #F44336; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-2 .ui-slider-label {
-  color: #03A9F4; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-3 .ui-slider-label {
-  color: #9C27B0; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-4 .ui-slider-label {
-  color: #009688; }
-  
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-5 .ui-slider-label {
-  color: #3F51B5; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-6 .ui-slider-label {
-  color: #4CAF50; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-7 .ui-slider-label {
-  color: #673AB7; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-8 .ui-slider-label {
-  color: #00BCD4; }
-  
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-9 .ui-slider-label {
-  color: #E91E63; }
-                    
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-10 .ui-slider-label {
-  color: #2196F3; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-1 .ui-slider-label { color: #F44336; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-2 .ui-slider-label { color: #03A9F4; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-3 .ui-slider-label { color: #9C27B0; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-4 .ui-slider-label { color: #009688; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-5 .ui-slider-label { color: #3F51B5; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-6 .ui-slider-label { color: #4CAF50; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-7 .ui-slider-label { color: #673AB7; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-8 .ui-slider-label { color: #00BCD4; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-9 .ui-slider-label { color: #E91E63; }
+#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-10 .ui-slider-label { color: #2196F3; }
 
 #adc_{%= CurrentADC.InstanceId%} .responseTargetLayer { display:block; width:100%; height:100%; position:absolute; top:0px; left:0px; z-index:10; }
 
@@ -874,5 +760,5 @@ responses = {%= sLabelWidth%}
 }
 
 {% IF showTooltipCaption = "1" Then %}
-#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-last .ui-slider-label { left:0%; }
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-last .ui-slider-label { left:0%; }
 {% EndIf %}

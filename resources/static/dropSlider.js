@@ -148,6 +148,7 @@ $.widget("ui.slider", $.ui.slider, {
             useResponseCaptions = (options.useResponseCaptions == "yes") ? true : false,
             markerPrefix = options.markerPrefix,
             markerSuffix = options.markerSuffix,
+            displayResponseText = Boolean(options.displayResponseText),
 			valuesArray = new Array(),
             dkValuesArray = new Array(),
 			dkCaptionsArray = new Array(),
@@ -237,14 +238,30 @@ $.widget("ui.slider", $.ui.slider, {
 				}
             });
         }
+        
+        // Find biggest response text height
+		var maxTHeight = Math.max.apply(null, $(".responseItem .response_text").map(function () {
+				return $(this).outerHeight(true);
+			}).get());
+        
         if ( responseHeight !== 'auto' ) {
 			$container.find('.responseItem').each(function(index, element) {
-                if ( $(this).height() < $(this).find('img').outerHeight() ) {
-					var imageHPadding = $(this).find('img').outerHeight() - $(this).find('img').height(),
-						ratio = $(this).find('img').height() / $(this).find('img').width();
-					$(this).find('img').height( $(this).height() - imageHPadding );
-					$(this).find('img').width( $(this).find('img').height()/ratio );	
-				}
+
+                if ( displayResponseText != "none" ) { // if response labels visible
+                    if ( $(this).height() < ($(this).find('img').outerHeight() + maxTHeight) ) {
+                        var imageHPadding = $(this).find('img').outerHeight() - $(this).find('img').height(),
+                            ratio = $(this).find('img').height() / $(this).find('img').width();
+                        $(this).find('img').height( $(this).height() - imageHPadding - maxTHeight );
+                        $(this).find('img').width( $(this).find('img').height()/ratio );	
+                    }
+                } else { // else if response labels hidden
+                    if ( $(this).height() < $(this).find('img').outerHeight() ) {
+                        var imageHPadding = $(this).find('img').outerHeight() - $(this).find('img').height(),
+                            ratio = $(this).find('img').height() / $(this).find('img').width();
+                        $(this).find('img').height( $(this).height() - imageHPadding );
+                        $(this).find('img').width( $(this).find('img').height()/ratio );	
+                    }
+                }
             });
         }
 			
@@ -362,6 +379,9 @@ $.widget("ui.slider", $.ui.slider, {
                     if ( isSingle ) $input.val( allValuesArray[ui.value] );
 					else if ( allowDK && !isSingle ) $input.val( dkValuesArray[ui.value] );
                     else $input.val( ui.value );
+                    if (window.askia) {
+                        askia.triggerAnswer();
+                    }
 															
                     $('.responseItem').each(function(index) { 
                         if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
@@ -408,7 +428,7 @@ $.widget("ui.slider", $.ui.slider, {
                         if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
                         else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
                     });
-            	},
+            	}
 			}).slider("pips", {
                 steps:1,
                 rest: options.showMarkerLabels === "label" ? "label" : "pip",
@@ -473,6 +493,9 @@ $.widget("ui.slider", $.ui.slider, {
 						$input.val( val );
 						$(target).find('.value_text').text(val );
 					}
+                    if (window.askia) {
+                        askia.triggerAnswer();
+                    }
 					
 					$('.ui-slider-handle').eq( parseInt($(ui.draggable).attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
 					
@@ -658,6 +681,10 @@ $.widget("ui.slider", $.ui.slider, {
             $('.leftLabel').css({'margin-right': Math.round((handleWidth + 2)/2) + 'px'}); /*here */
             $('.rightLabel').css({'margin-left': Math.round((handleWidth + 8)/2) + 'px'});       
         }
+		
+		// adjust position of handles
+		var topPosition = Math.floor(($container.find('.drop').outerHeight() - $container.find('.ui-slider-handle').eq(0).outerHeight())/2);
+		$container.find('.ui-slider-handle').css('top', topPosition + 'px')
 
 		/*function adjustLabelHeight(target) {
 			var $target = $container.find(target);
@@ -713,6 +740,9 @@ $.widget("ui.slider", $.ui.slider, {
                 // remove value
                 $input = items[index].element;
                 $input.val( '' );
+                if (window.askia) {
+                    askia.triggerAnswer();
+                }
                 $('.ui-slider-pip-selected-' + (index + 1)).removeClass('ui-slider-pip-selected-' + (index + 1));
             
                 /* show next response */
@@ -819,6 +849,9 @@ $.widget("ui.slider", $.ui.slider, {
 						$input.val( val );
 						$(target).find('.value_text').text( val );
 					}
+                    if (window.askia) {
+                        askia.triggerAnswer();
+                    }
                     
                     $('.ui-slider-handle').eq( parseInt($container.find('.responseActive').attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
 					                    
@@ -855,6 +888,7 @@ $.widget("ui.slider", $.ui.slider, {
 					
 				}
 			//}
+			
 		}
         
 

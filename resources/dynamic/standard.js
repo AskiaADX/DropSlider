@@ -37,8 +37,9 @@ $(window).load(function() {
         showTooltipOnHover : '{%:= CurrentADC.PropValue("showTooltipOnHover") %}',
       	responseAlign : '{%= CurrentADC.PropValue("responseAlign") %}',
       	handleWidth : '{%= CurrentADC.PropValue("handleWidth") %}',
+        displayResponseText : '{%= CurrentADC.PropValue("displayResponseText") %}',
       	allowDK : {%= CurrentQuestion.IsAllowDK %},
-      dkEntry : '{%= CurrentQuestion.DKEntry %}',
+      	dkEntry : '{%= CurrentQuestion.DKEntry %}',
         dkText : "{%= CurrentADC.PropValue("dkText") %}",
 		items : [
       		{% IF CurrentQuestion.Type = "single" Then %}
