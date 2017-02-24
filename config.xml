@@ -140,43 +140,43 @@
     </category>
     <category id="responses" name="Responses Styling">
       <property xsi:type="standardProperty" id="responseWidth" name="Response Width" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[When set this will force the width of the reponses ]]></description>
-        <value><![CDATA[auto]]></value>
+        <description><![CDATA[When set this will force the width of the reponses]]></description>
+        <value><![CDATA[120px]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseHeight" name="Response Height" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[When set this will force the height of the reponses ]]></description>
+        <description><![CDATA[When set this will force the height of the reponses]]></description>
         <value><![CDATA[auto]]></value>
       </property>
-      <property xsi:type="standardProperty" id="responseMargin" name="Response Margin" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[When set this will set the margin around the responses ]]></description>
+      <property xsi:type="standardProperty" id="responseMargin" name="Response Margin" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[When set this will set the margin around the responses]]></description>
         <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="responsePadding" name="Response Padding" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[When set this will set the padding for the responses ]]></description>
+        <description><![CDATA[When set this will set the padding for the responses]]></description>
         <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseTextPadding" name="Response Text Padding" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[When set this will set the padding for the response text ]]></description>
+        <description><![CDATA[When set this will set the padding for the response text]]></description>
         <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseImagePadding" name="Response Image Padding" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[When set this will set the padding for the response images ]]></description>
+        <description><![CDATA[When set this will set the padding for the response images]]></description>
         <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseTextLineHeight" name="Response Text Line Height" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[When set this will force the height of the reponses ]]></description>
+        <description><![CDATA[When set this will force the height of the reponses]]></description>
         <value><![CDATA[{%= Theme.LineHeight %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="displayResponseText" name="Display Response Text" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[Display response text ]]></description>
+        <description><![CDATA[Display response text]]></description>
         <value><![CDATA[block]]></value>
         <options>
           <option value="block" text="Yes" />
           <option value="none" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="responseColourPrimary" name="Response Colour Primary" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[ Primary colour of the item ]]></description>
+      <property xsi:type="standardProperty" id="responseColourPrimary" name="Response Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[Primary colour of the item]]></description>
         <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="fontColour" name="Response Font Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
@@ -184,19 +184,19 @@
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="borderColour" name="Response Border Colour" type="color" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[ Border colour ]]></description>
+        <description><![CDATA[Border colour]]></description>
         <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="borderRadius" name="Border Radius" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The amount of curve on the response corners ]]></description>
+        <description><![CDATA[The amount of curve on the response corners]]></description>
         <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="borderThickness" name="Response Border Thickness" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The thickness of the border around the responses ]]></description>
+        <description><![CDATA[The thickness of the border around the responses]]></description>
         <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="borderStyle" name="Response Border Style" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The style of the border around the responses ]]></description>
+        <description><![CDATA[The style of the border around the responses]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="none" text="None" />
@@ -207,7 +207,7 @@
         </options>
       </property>
       <property xsi:type="standardProperty" id="responseShadow" name="Response Drop Shadow" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The visibility of a dropshadow under the responses ]]></description>
+        <description><![CDATA[The visibility of a dropshadow under the responses]]></description>
         <value><![CDATA[none]]></value>
         <options>
           <option value="0px 2px 4px rgba(0,0,0,.2)" text="On" />
@@ -215,27 +215,27 @@
         </options>
       </property>
       <property xsi:type="standardProperty" id="showResponseHoverColour" name="Show Response Hover Colour" type="boolean" mode="static" require="false" visible="false">
-        <description><![CDATA[This will change the colour of responses when hovered over ]]></description>
+        <description><![CDATA[This will change the colour of responses when hovered over]]></description>
         <value><![CDATA[1]]></value>
         <options>
           <option value="1" text="Yes" />
           <option value="0" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="responseHoverColourPrimary" name="Response Hover Colour Primary" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[ Primary colour of the response when hovering ]]></description>
+      <property xsi:type="standardProperty" id="responseHoverColourPrimary" name="Response Hover Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[Background colour of the response when hovering]]></description>
         <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="showResponseHoverFontColour" name="Show Response Hover Font Colour" type="boolean" mode="static">
-        <description><![CDATA[This will change the colour of the text of responses when hovered over ]]></description>
+      <property xsi:type="standardProperty" id="showResponseHoverFontColour" name="Show Response Hover Font Colour" type="boolean" mode="static" require="false" visible="false">
+        <description><![CDATA[This will change the colour of the text of responses when hovered over]]></description>
         <value><![CDATA[1]]></value>
       </property>
-      <property xsi:type="standardProperty" id="responseHoverFontColour" name="Response Hover Font Colour" type="color" mode="static" require="false" visible="false">
-        <description><![CDATA[ Font colour for responses when hovering ]]></description>
-        <value><![CDATA[68,68,68]]></value>
+      <property xsi:type="standardProperty" id="responseHoverFontColour" name="Response Hover Font Colour" type="color" mode="dynamic" require="false" visible="false">
+        <description><![CDATA[Font colour for responses when hovering]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="showResponseHoverBorder" name="Show Response Hover Border" type="boolean" mode="static" require="false" visible="false">
-        <description><![CDATA[This will change the colour of the border of responses when hovered over ]]></description>
+        <description><![CDATA[This will change the colour of the border of responses when hovered over]]></description>
         <value><![CDATA[1]]></value>
         <options>
           <option value="1" text="Yes" />
@@ -243,15 +243,15 @@
         </options>
       </property>
       <property xsi:type="standardProperty" id="responseHoverBorderColour" name="Response Hover Border Colour" type="color" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[ Border colour for responses when hovering ]]></description>
+        <description><![CDATA[Border colour for responses when hovering]]></description>
         <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseHoverBorderThickness" name="Response Hover Border Thickness" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The thickness of the border around the responses when hovering ]]></description>
+        <description><![CDATA[The thickness of the border around the responses when hovering]]></description>
         <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseHoverBorderStyle" name="Response Hover Border Style" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The style of the border around the responses when hovering ]]></description>
+        <description><![CDATA[The style of the border around the responses when hovering]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="none" text="None" />
@@ -262,31 +262,31 @@
         </options>
       </property>
       <property xsi:type="standardProperty" id="responseHoverShadow" name="Response Hover Drop Shadow" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The visibility of a dropshadow under the responses when hovering ]]></description>
+        <description><![CDATA[The visibility of a dropshadow under the responses when hovering]]></description>
         <value><![CDATA[0px 2px 4px rgba(0,0,0,.2)]]></value>
         <options>
           <option value="0px 2px 4px rgba(0,0,0,.2)" text="On" />
           <option value="none" text="Off" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="responseSelectedColourPrimary" name="Selected Response Colour Primary" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[ Primary colour of the selected item ]]></description>
-        <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
+      <property xsi:type="standardProperty" id="responseSelectedColourPrimary" name="Selected Response Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[Background colour of the selected item]]></description>
+        <value><![CDATA[{%= Theme.NeutralColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseSelectedFontColour" name="Selected Response Font Colour" type="color" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[ Font colour for selected responses ]]></description>
+        <description><![CDATA[Font colour for selected responses]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseSelectedBorderColour" name="Selected Response Border Colour" type="color" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[ Border colour for selected responses ]]></description>
+        <description><![CDATA[Border colour for selected responses]]></description>
         <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseSelectedBorderThickness" name="Selected Response Border Thickness" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The thickness of the border around the selected responses ]]></description>
+        <description><![CDATA[The thickness of the border around the selected responses]]></description>
         <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="responseSelectedBorderStyle" name="Selected Response Border Style" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The style of the border around the selected responses ]]></description>
+        <description><![CDATA[The style of the border around the selected responses]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="none" text="None" />
@@ -297,8 +297,8 @@
         </options>
       </property>
       <property xsi:type="standardProperty" id="responseSelectedShadow" name="Selected Response Drop Shadow" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The visibility of a dropshadow under the selected responses ]]></description>
-        <value><![CDATA[0px 2px 4px rgba(0,0,0,0.2)]]></value>
+        <description><![CDATA[The visibility of a dropshadow under the selected responses]]></description>
+        <value><![CDATA[none]]></value>
         <options>
           <option value="0px 2px 4px rgba(0,0,0,0.2)" text="On" />
           <option value="none" text="Off" />
@@ -313,19 +313,19 @@
     </category>
     <category id="sliderSettings" name="Slider Settings">
       <property xsi:type="standardProperty" id="baseHeight" name="Base Height" type="number" mode="static" require="false" visible="true">
-        <description><![CDATA[ Slider base height ]]></description>
-        <value><![CDATA[10]]></value>
+        <description><![CDATA[Slider base height]]></description>
+        <value><![CDATA[24]]></value>
       </property>
       <property xsi:type="standardProperty" id="baseBorderColour" name="Base Border Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[ Border colour for the base ]]></description>
-        <value><![CDATA[{%= Theme.PrimaryDarkColor %}]]></value>
+        <description><![CDATA[Border colour for the base]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="baseBorderThickness" name="Base Border Thickness" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The thickness of the border around the base ]]></description>
+        <description><![CDATA[The thickness of the border around the base]]></description>
         <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="baseBorderStyle" name="Base Border Style" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The style of the border around the base ]]></description>
+        <description><![CDATA[The style of the border around the base]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="none" text="None" />
@@ -335,41 +335,41 @@
           <option value="double" text="Double" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="baseDropHoverColour" name="Base Drop Hover Colour" type="color" mode="static" require="false" visible="true">
-        <description><![CDATA[ The hover colour for the base when dragging over ]]></description>
-        <value><![CDATA[255,255,128]]></value>
+      <property xsi:type="standardProperty" id="baseDropHoverColour" name="Base Drop Hover Colour" type="color" mode="static" require="false" visible="false">
+        <description><![CDATA[The hover colour for the base when dragging over]]></description>
+        <value><![CDATA[{%= Theme.NeutralColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="baseColourPrimary" name="Base Colour Primary" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[ Primary colour of the base ]]></description>
-        <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
+      <property xsi:type="standardProperty" id="baseColourPrimary" name="Base Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[Background colour of the base]]></description>
+        <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="baseBorderRadius" name="Base Border Radius" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The amount of curve on the base corners ]]></description>
+        <description><![CDATA[The amount of curve on the base corners]]></description>
         <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="handleColour" name="Handle Colour" type="color" mode="dynamic" require="false" visible="true" colorFormat="rgb">
-        <description><![CDATA[The colour of the handle]]></description>
-        <value><![CDATA[246,246,246]]></value>
+      <property xsi:type="standardProperty" id="handleColour" name="Handle Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[The background colour of the handle]]></description>
+        <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="handleBorderColour" name="Handle Border Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
         <description><![CDATA[The handle border colour]]></description>
-        <value><![CDATA[{%= Theme.PrimaryDarkColor %}]]></value>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="handleBorderRadius" name="Handle Border Radius" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The amount of curve on the handle corners ]]></description>
+        <description><![CDATA[The amount of curve on the handle corners]]></description>
         <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="handleWidth" name="Handle Width" type="number" mode="dynamic" require="false" visible="false">
         <description><![CDATA[The handle width]]></description>
-        <value><![CDATA[20 ]]></value>
+        <value><![CDATA[24]]></value>
       </property>
       <property xsi:type="standardProperty" id="handleHeight" name="Handle Height" type="number" mode="dynamic" require="false" visible="false">
         <description><![CDATA[The handle height]]></description>
-        <value><![CDATA[20 ]]></value>
+        <value><![CDATA[22]]></value>
       </property>
-      <property xsi:type="standardProperty" id="activeHandleColour" name="Active Handle Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[The colour of the selected handle]]></description>
-        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
+      <property xsi:type="standardProperty" id="activeHandleColour" name="Active Handle Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[The background colour of the selected handle]]></description>
+        <value><![CDATA[{%= Theme.NeutralColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="activeHandleBorderColour" name="Active Handle Border Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
         <description><![CDATA[The selected handle border colour]]></description>
@@ -379,7 +379,7 @@
     <category id="markers" name="Markers">
       <property xsi:type="standardProperty" id="showMarkers" name="Show Markers" type="string" mode="dynamic" require="false" visible="true">
         <description><![CDATA[Whether or not to show the markers]]></description>
-        <value><![CDATA[no]]></value>
+        <value><![CDATA[yes]]></value>
         <options>
           <option value="yes" text="Yes" />
           <option value="no" text="No" />
@@ -387,7 +387,7 @@
       </property>
       <property xsi:type="standardProperty" id="useResponseCaptions" name="Use Response Captions" type="string" mode="dynamic" require="false" visible="true">
         <description><![CDATA[If single choice type, use response captions]]></description>
-        <value><![CDATA[no]]></value>
+        <value><![CDATA[yes]]></value>
         <options>
           <option value="yes" text="Yes" />
           <option value="no" text="No" />
@@ -403,7 +403,7 @@
       </property>
       <property xsi:type="standardProperty" id="alternateMarkers" name="Alternate Markers" type="boolean" mode="dynamic" require="false" visible="false">
         <description><![CDATA[Whether or not to alternate the markers above and below the slider]]></description>
-        <value><![CDATA[false]]></value>
+        <value><![CDATA[0]]></value>
       </property>
       <property xsi:type="standardProperty" id="markerPrefix" name="Marker Prefix" type="string" mode="static" require="false" visible="true">
         <description><![CDATA[]]></description>
@@ -413,7 +413,7 @@
         <description><![CDATA[]]></description>
         <value></value>
       </property>
-      <property xsi:type="standardProperty" id="markerType" name="Marker Type" type="string" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="markerType" name="Marker Type" type="string" mode="static" require="false" visible="false">
         <description><![CDATA[]]></description>
         <value><![CDATA[line]]></value>
         <options>
@@ -429,26 +429,26 @@
         <description><![CDATA[Distance of text from markers]]></description>
         <value><![CDATA[5]]></value>
       </property>
-      <property xsi:type="standardProperty" id="markerFontsize" name="Marker Font size" type="string" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="markerFontsize" name="Marker Font size" type="string" mode="dynamic" require="false" visible="false">
         <description><![CDATA[The font size of the markers]]></description>
         <value><![CDATA[{%= Theme.SmallFS %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="markerLineHeight" name="Marker Line Height" type="number" mode="static" require="false" visible="true">
+      <property xsi:type="standardProperty" id="markerLineHeight" name="Marker Line Height" type="number" mode="static" require="false" visible="false">
         <description><![CDATA[The line height of the markers]]></description>
-        <value><![CDATA[12]]></value>
+        <value><![CDATA[1.2]]></value>
       </property>
       <property xsi:type="standardProperty" id="markerColour" name="Marker Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[Primary colour of the labels ]]></description>
+        <description><![CDATA[Primary colour of the labels]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="markerFontColour" name="Marker Font Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[Primary colour of the marker text ]]></description>
+        <description><![CDATA[Primary colour of the marker text]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
     </category>
     <category id="labels" name="Labels">
       <property xsi:type="standardProperty" id="leftLabelText" name="Left Label Text" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[Left label text ]]></description>
+        <description><![CDATA[Left label text]]></description>
         <value></value>
       </property>
       <property xsi:type="standardProperty" id="rightLabelText" name="Right Label Text" type="string" mode="static" require="false" visible="true">
@@ -456,47 +456,47 @@
         <value></value>
       </property>
       <property xsi:type="standardProperty" id="labelWidth" name="Label Width" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[Label width ]]></description>
-        <value><![CDATA[200px]]></value>
+        <description><![CDATA[Label width]]></description>
+        <value><![CDATA[70px]]></value>
       </property>
       <property xsi:type="standardProperty" id="labelTextPadding" name="Label Text Padding" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[Padding around label text ]]></description>
+        <description><![CDATA[Padding around label text]]></description>
         <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="labelTextLineHeight" name="Label Text Line Height" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[Label text line height ]]></description>
+        <description><![CDATA[Label text line height]]></description>
         <value><![CDATA[{%= Theme.LineHeight %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="displayLabelText" name="Display Label Text" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[Display labels text ]]></description>
+        <description><![CDATA[Display labels text]]></description>
         <value><![CDATA[block]]></value>
         <options>
           <option value="block" text="Yes" />
           <option value="none" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="labelColourPrimary" name="Label Colour Primary" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[Primary colour of the labels ]]></description>
+      <property xsi:type="standardProperty" id="labelColourPrimary" name="Label Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[Background colour of the labels]]></description>
         <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="labelFontColour" name="Label Font Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
         <description><![CDATA[Label font colour]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="labelBorderRadius" name="Label Border Radius" type="string" mode="dynamic">
-        <description><![CDATA[The amount of curve on the label corners ]]></description>
+      <property xsi:type="standardProperty" id="labelBorderRadius" name="Label Border Radius" type="string" mode="dynamic" require="false" visible="false">
+        <description><![CDATA[The amount of curve on the label corners]]></description>
         <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="labelBorderColour" name="Label Border Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
-        <description><![CDATA[Border colour ]]></description>
+        <description><![CDATA[Border colour]]></description>
         <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="labelBorderThickness" name="Label Border Thickness" type="string" mode="dynamic" require="false" visible="false">
-        <description><![CDATA[The thickness of the border around the labels ]]></description>
+        <description><![CDATA[The thickness of the border around the labels]]></description>
         <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="labelBorderStyle" name="Label Border Style" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The style of the border around the labels ]]></description>
+        <description><![CDATA[The style of the border around the labels]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="none" text="None" />
@@ -507,7 +507,7 @@
         </options>
       </property>
       <property xsi:type="standardProperty" id="labelShadow" name="Label Drop Shadow" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The visibility of a dropshadow under the labels ]]></description>
+        <description><![CDATA[The visibility of a dropshadow under the labels]]></description>
         <value><![CDATA[none]]></value>
         <options>
           <option value="0px 2px 4px rgba(0,0,0,.2)" text="On" />
@@ -517,7 +517,7 @@
     </category>
     <category id="Tooltip" name="Tooltip">
       <property xsi:type="standardProperty" id="showTooltipOnHover" name="Show Tooltip on Hover" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[Only show tooltip on hover or when active ]]></description>
+        <description><![CDATA[Only show tooltip on hover or when active]]></description>
         <value><![CDATA[no]]></value>
         <options>
           <option value="no" text="No" />
@@ -526,26 +526,26 @@
       </property>
       <property xsi:type="standardProperty" id="tooltipWidth" name="Tooltip Width" type="number" mode="dynamic" require="false" visible="false">
         <description><![CDATA[Width of tooltip]]></description>
-        <value><![CDATA[60]]></value>
+        <value><![CDATA[120]]></value>
       </property>
       <property xsi:type="standardProperty" id="tooltipBgColour" name="Tooltip Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
         <description><![CDATA[Tooltip background colour]]></description>
-        <value><![CDATA[{%= Theme.NeutralColor %}]]></value>
+        <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="showTooltipCaption" name="Tooltip Caption" type="boolean" mode="static" require="false" visible="false">
-        <description><![CDATA[Whether the tooltip caption is shown ]]></description>
+        <description><![CDATA[Whether the tooltip caption is shown]]></description>
         <value><![CDATA[1]]></value>
       </property>
       <property xsi:type="standardProperty" id="showTooltipImage" name="Tooltip Image" type="boolean" mode="static" require="false" visible="false">
-        <description><![CDATA[Whether the tooltip image is shown ]]></description>
+        <description><![CDATA[Whether the tooltip image is shown]]></description>
         <value><![CDATA[1]]></value>
       </property>
       <property xsi:type="standardProperty" id="showTooltipValue" name="Tooltip Value" type="boolean" mode="static" require="false" visible="false">
-        <description><![CDATA[Whether the tooltip value is shown ]]></description>
+        <description><![CDATA[Whether the tooltip value is shown]]></description>
         <value><![CDATA[1]]></value>
       </property>
       <property xsi:type="standardProperty" id="tooltipFontSize" name="Tooltip Font Size" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The font size for the tooltip ]]></description>
+        <description><![CDATA[The font size for the tooltip]]></description>
         <value><![CDATA[{%= Theme.SmallFS %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="tooltipFontColour" name="Tooltip Font Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
@@ -553,15 +553,15 @@
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="tooltipPadding" name="Tooltip Padding" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The padding for the tooltip ]]></description>
+        <description><![CDATA[The padding for the tooltip]]></description>
         <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="tooltipTextPadding" name="Tooltip Text Padding" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The padding for the text in for the tooltip ]]></description>
+        <description><![CDATA[The padding for the text in for the tooltip]]></description>
         <value><![CDATA[5px]]></value>
       </property>
       <property xsi:type="standardProperty" id="tooltipImagePadding" name="Tooltip Image Padding" type="string" mode="static" require="false" visible="false">
-        <description><![CDATA[The padding for the image in for the tooltip ]]></description>
+        <description><![CDATA[The padding for the image in for the tooltip]]></description>
         <value><![CDATA[5px]]></value>
       </property>
     </category>
