@@ -326,7 +326,7 @@ $.widget("ui.slider", $.ui.slider, {
                 })
                 .attr('data-ontarget',false);
                 
-                valueArray.push((items[index].element.val()!==''?items[index].element.val():'0'));
+                valueArray.push((items[index].element.val()!==''?((items[index].element.val() - options.minValue)<parseInt(dkValue)?(options.maxValue + 1 - options.minValue):(items[index].element.val() - options.minValue)):'0'));
                 //if ( items[index].element.val()!=='' ) valueArray.push(items[index].element.val()));
 				// push blank or don't push
 				/*alert((items[index].element.val()>=0?"true":"false"));
@@ -580,15 +580,28 @@ $.widget("ui.slider", $.ui.slider, {
 				
 				$(target).html(tooltip);
                 
-                enableRemove();*/
-				
+                enableRemove();*/				
 				$('.ui-slider-handle').eq( index ).css('visibility','visible');
 				
 				$(this).attr('data-ontarget','true');
 				
-				var target = $('.ui-slider-handle').eq(index).find('.value_text');
-				if ( isSingle ) target.text(convertedVals[index]);
-				else target.text(val);	
+				var target = $('.ui-slider-handle').eq(index);
+				//if ( isSingle ) target.text(convertedVals[index]);
+				//else target.text(val);	
+                /**/
+                if ( isSingle ) {
+					$(target).find('.value_text').text( allValuesArray[val] );
+				} else if ( allowDK && !isSingle ) {
+                    console.log( val == dkValue );
+                    console.log( val + "==" + dkValue );
+                    if ( val == dkValue ) val = (options.maxValue + 1 - options.minValue);
+                    else val -= options.minValue;
+					$(target).find('.value_text').text( dkCaptionsArray[val] );
+				} else {
+					$(target).find('.value_text').text(val );
+				}
+                
+                //$(ui.handle).find('.value_text').text( (allowDK && !isSingle) ? dkCaptionsArray[ui.value] : ui.value);
 				
 				/* adjust tooltip position */
 				var handle = $('.ui-slider-handle').eq(index),
