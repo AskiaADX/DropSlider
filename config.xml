@@ -341,7 +341,7 @@
       </property>
       <property xsi:type="standardProperty" id="baseColourPrimary" name="Base Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
         <description><![CDATA[Background colour of the base]]></description>
-        <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
+        <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="baseBorderRadius" name="Base Border Radius" type="string" mode="dynamic" require="false" visible="false">
         <description><![CDATA[The amount of curve on the base corners]]></description>
