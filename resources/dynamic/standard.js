@@ -41,6 +41,7 @@ $(window).load(function() {
       	allowDK : {%= CurrentQuestion.IsAllowDK %},
       	dkEntry : '{%= CurrentQuestion.DKEntry %}',
         dkText : "{%= CurrentADC.PropValue("dkText") %}",
+      	currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
 		items : [
       		{% IF CurrentQuestion.Type = "single" Then %}
 				{%:= CurrentADC.GetContent("dynamic/standard_single.js").ToText()%}

@@ -122,6 +122,7 @@ $.widget("ui.slider", $.ui.slider, {
 		(options.minValue = options.minValue || 0);
 		(options.maxValue = options.maxValue || 100);
 		(options.unitStep = options.unitStep || 1);
+        (options.currentQuestion = options.currentQuestion || '');
         
         if ( options.minValue < 0 ) options.minValue = 0;
         if ( options.maxValue < 0 ) options.maxValue = 10;
@@ -403,7 +404,10 @@ $.widget("ui.slider", $.ui.slider, {
 						$input.val( ui.value );
 						$(ui.handle).find('.value_text').text( ui.value );
 					}
-                    if (window.askia) {
+                    if (window.askia 
+                        && window.arrLiveRoutingShortcut 
+                        && window.arrLiveRoutingShortcut.length > 0
+                        && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                         askia.triggerAnswer();
                     }
 															
@@ -512,7 +516,10 @@ $.widget("ui.slider", $.ui.slider, {
 						$input.val( valuesArray[val] );
 						$(target).find('.value_text').text( valuesArray[val] );
 					}
-                    if (window.askia) {
+                    if (window.askia 
+                        && window.arrLiveRoutingShortcut 
+                        && window.arrLiveRoutingShortcut.length > 0
+                        && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                         askia.triggerAnswer();
                     }
 					
@@ -698,7 +705,10 @@ $.widget("ui.slider", $.ui.slider, {
                 // remove value
                 $input = items[index].element;
                 $input.val( '' );
-                if (window.askia) {
+                if (window.askia 
+                    && window.arrLiveRoutingShortcut 
+                    && window.arrLiveRoutingShortcut.length > 0
+                    && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                     askia.triggerAnswer();
                 }
                 $('.ui-slider-pip-selected-' + (index + 1)).removeClass('ui-slider-pip-selected-' + (index + 1));
@@ -800,9 +810,12 @@ $.widget("ui.slider", $.ui.slider, {
 					$input.val( valuesArray[val] );
 					$(target).find('.value_text').text( valuesArray[val] );
 				}
-				if (window.askia) {
-					askia.triggerAnswer();
-				}
+                if (window.askia 
+                    && window.arrLiveRoutingShortcut 
+                    && window.arrLiveRoutingShortcut.length > 0
+                    && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
+                    askia.triggerAnswer();
+                }
 
 				$('.ui-slider-handle').eq( parseInt($container.find('.responseActive').attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
 
