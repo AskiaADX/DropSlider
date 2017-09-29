@@ -7,7 +7,7 @@
   <info>
     <name>DropSlider</name>
     <guid>75419bde-c158-45fe-a9b7-68cd4c6bb9b0</guid>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <date>2015-09-24</date>
     <description><![CDATA[v1.0.0 -v1.0.1 - Fixed tooltip text centering- Fixed response centering when layout set to center- Fixed spacing between responses and slider- Changed caption text-alignment to center- Fixed caption drop on mobile- Added Touch UI for mobile drag- Added button to remove responses from slider- Changed cursor to pointer for handle and responses- Change image resize to be based on responseItem size or tooltip size- Added parameters to style base- Added paramaters to style handle- show markers- only show pips (hide marker labels)- alternating markers esp for single choice question- highlight chosen number or label MAKE AN OPTION- fixed pip highlighting- Added Prefix/Suffix to markers- Added marker distance- Added marker text font-size- Added marker text distance- Added marker line height- Fixed vertical position of handle on wide basev1.0.2- Markers can now be made circular- Added option to only display tooltip on hover- Fixed the alt marker bug- Fixed spacing below markers- Fixed side padding around slider on mobile- Added margin to labels- Fixed the label width for mobile- Fixed marker still being selected after response is removed- Fixed responses not reappearing- Fixed response centering for stacked responses- Collapsed margin above slider on mobile when tooltip hovering enabled- Fixed marker text colouring when response placed on slider- Fixed allowing tooltips to be dragged on mobile- Fixed z-index issue with tooltips over start area- Fixed response alignment for stacking- Force stacked and mobile layout when slider base smaller than 300px- Removed fixed label widths when greater than available space- Added labels (read captions from single choice questions)- Fixed bottom spacing with bigger/longer labels- Fixed and check use with single question, setting and reading values- Changed resize detection settings (was being triggered too often)- Fixed handle vertical placement- Enabled click to select and click to drop - Fixed issue with items not returning to start position- Fixed accuracy of click to drop on mobile- Added options for active slider handle styling- Fixed handle border radius- Fixed text padding in tooltip- Added tooltip paddingv1.0.3- Fixed tooltip layout when close to edges- Added in DK- Fixed show tooltips on hover bugv2.0.0]]></description>
     <company>Askia</company>
@@ -63,9 +63,13 @@
   </outputs>
   <properties>
     <category id="general" name="General">
-      <property xsi:type="standardProperty" id="stackResponses" name="Stack Responses" type="boolean" mode="static" require="false" visible="true">
-        <description><![CDATA[Whether the resonses are in a single pile ]]></description>
-        <value><![CDATA[false]]></value>
+      <property xsi:type="standardProperty" id="stackResponses" name="Stack Responses" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Whether the resonses are in a single pile]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="fontSize" name="Font Size" type="string" mode="static" require="false" visible="false">
         <description><![CDATA[The font size for the control]]></description>
@@ -80,8 +84,8 @@
         <value><![CDATA[100%]]></value>
       </property>
       <property xsi:type="standardProperty" id="controlAlign" name="Control Alignment" type="string" mode="static" require="false" visible="true">
-        <description><![CDATA[The alignment of the control ]]></description>
-        <value><![CDATA[left]]></value>
+        <description><![CDATA[The alignment of the control]]></description>
+        <value><![CDATA[center]]></value>
         <options>
           <option value="left" text="Left" />
           <option value="center" text="Center" />
@@ -214,7 +218,7 @@
           <option value="none" text="Off" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="showResponseHoverColour" name="Show Response Hover Colour" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showResponseHoverColour" name="Show Response Hover Colour" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[This will change the colour of responses when hovered over]]></description>
         <value><![CDATA[1]]></value>
         <options>
@@ -226,15 +230,19 @@
         <description><![CDATA[Background colour of the response when hovering]]></description>
         <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="showResponseHoverFontColour" name="Show Response Hover Font Colour" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showResponseHoverFontColour" name="Show Response Hover Font Colour" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[This will change the colour of the text of responses when hovered over]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="responseHoverFontColour" name="Response Hover Font Colour" type="color" mode="dynamic" require="false" visible="false">
         <description><![CDATA[Font colour for responses when hovering]]></description>
         <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="showResponseHoverBorder" name="Show Response Hover Border" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showResponseHoverBorder" name="Show Response Hover Border" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[This will change the colour of the border of responses when hovered over]]></description>
         <value><![CDATA[1]]></value>
         <options>
@@ -401,9 +409,13 @@
           <option value="false" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="alternateMarkers" name="Alternate Markers" type="boolean" mode="dynamic" require="false" visible="false">
+      <property xsi:type="standardProperty" id="alternateMarkers" name="Alternate Markers" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Whether or not to alternate the markers above and below the slider]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="markerPrefix" name="Marker Prefix" type="string" mode="static" require="false" visible="true">
         <description><![CDATA[]]></description>
@@ -532,17 +544,29 @@
         <description><![CDATA[Tooltip background colour]]></description>
         <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="showTooltipCaption" name="Tooltip Caption" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showTooltipCaption" name="Tooltip Caption" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Whether the tooltip caption is shown]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
-      <property xsi:type="standardProperty" id="showTooltipImage" name="Tooltip Image" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showTooltipImage" name="Tooltip Image" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Whether the tooltip image is shown]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
-      <property xsi:type="standardProperty" id="showTooltipValue" name="Tooltip Value" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="showTooltipValue" name="Tooltip Value" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Whether the tooltip value is shown]]></description>
         <value><![CDATA[1]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="tooltipFontSize" name="Tooltip Font Size" type="string" mode="static" require="false" visible="false">
         <description><![CDATA[The font size for the tooltip]]></description>
