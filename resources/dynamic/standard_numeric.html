@@ -35,7 +35,7 @@ EndIF
           <div class="response_text">{%:= caption %}</div>
         {% EndIF %}
         {% IF image <> "" Then %}
-            <img src="{%= image %}" />
+            <img src="{%= image %}" alt="{%:= caption %}"/>
         {% EndIF %}
         {% IF responseTextPosition = "bottom" Then %}
           <div class="response_text">{%:= caption %}</div>
