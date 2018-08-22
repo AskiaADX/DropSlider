@@ -3,7 +3,6 @@ $(window).load(function() {
 	$('#adc_{%= CurrentADC.InstanceId %}').adcDropSlider({
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
 		width : 400,
-        unitStep : {%= CurrentADC.PropValue("unitStep") %},
 		maxWidth : '{%= CurrentADC.PropValue("maxWidth") %}',
 		controlWidth : '{%= CurrentADC.PropValue("controlWidth") %}',
 		controlAlign : '{%= CurrentADC.PropValue("controlAlign") %}',
@@ -51,3 +50,7 @@ $(window).load(function() {
 		]
 	});
 });
+
+
+
+
