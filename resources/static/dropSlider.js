@@ -501,7 +501,7 @@ $.widget("ui.slider", $.ui.slider, {
 						lengthOfBar = $(e.target).width() - 2,
 						sliderID = parseInt($(ui.draggable).data('index')) - 1,
 						nRange = parseInt(options.maxValue) - parseInt(options.minValue),
-						range = isSingle ? ( allowDK ? nRange : nRange ) : ( allowDK ? nRange + 1 : nRange ),
+						range = isSingle ? ( allowDK ? nRange : nRange ) : ( allowDK ? nRange + unitStep : nRange ),
 						val = Math.round(((x/lengthOfBar)*range));
                     if ( !isSingle ) val = unitStep * Math.round(val/unitStep);
 					
@@ -792,7 +792,7 @@ $.widget("ui.slider", $.ui.slider, {
 					lengthOfBar = $(destination).width() - 2,
 					sliderID = parseInt($container.find('.responseActive').data('index')) - 1,
 					nRange = parseInt(options.maxValue) - parseInt(options.minValue),
-					range = isSingle ? ( allowDK ? nRange : nRange ) : ( allowDK ? nRange + 1 : nRange ),
+					range = isSingle ? ( allowDK ? nRange : nRange ) : ( allowDK ? nRange + unitStep : nRange ),
 					left = e.pageX - offset.left,
 					val = Math.round(((left/lengthOfBar)*range));
 
