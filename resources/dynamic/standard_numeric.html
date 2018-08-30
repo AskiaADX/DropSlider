@@ -6,10 +6,12 @@ Dim caption
 Dim inputId
 Dim image
 Dim index
-
+Dim attrChecked
 
 Dim i
 Dim ar = CurrentQuestion.ParentLoop.Answers
+
+Dim dkEntry = CurrentQuestion.DKEntry
 
 Dim labelCount = 0
 IF CurrentADC.PropValue("rightLabelText") <> "" Then
@@ -28,8 +30,18 @@ EndIF
     image		= ar.ResourceURL[i]
     index		= i
     inputName	= CurrentQuestion.iteration(ar[i].Index).InputName()
-   	%}
-      <div class="responseItem" data-index="{%= index %}" data-value="{%= inputValue %}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >
+    
+    if CurrentQuestion.iteration(ar[i].Index).HasDK and CurrentQuestion.iteration(ar[i].Index).HasAnswered  then 
+        Dim sliderMaxVal = CurrentQuestion.MaxValue
+        Dim sliderMinVal = CurrentQuestion.MinValue
+        Dim sliderStep =  CurrentADC.PropValue("unitStep").ToNumber()
+        Dim dkSliderVal = sliderMaxVal + sliderStep - sliderMinVal
+        
+   	%}        
+        <div class="responseItem" data-index="{%= index %}" data-value="{%=dkSliderVal%}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >
+    {%else%}
+      <div class="responseItem" data-index="{%= index %}" data-value="{%=inputValue%}" data-name="{%= inputName %}" unselectable='on' onselectstart='return false;' >
+    {%Endif%}
         <!--<div class="responseTargetLayer"></div>-->
         {% IF responseTextPosition = "top" Then %}
           <div class="response_text">{%:= caption %}</div>
@@ -91,7 +103,25 @@ EndIF
 {%
     For i = 1 To ar.Count 
     inputName = CurrentQuestion.iteration(ar[i].Index).InputName()
+    inputValue =  CurrentQuestion.iteration(ar[i].Index).InputValue() 
+%}  
+        
+{%
+attrChecked = On(CurrentQuestion.iteration(ar[i].Index).HasDK and CurrentQuestion.iteration(ar[i].Index).HasAnswered, " checked=\"checked\"", "")
+Dim inputCode = CurrentQuestion.iteration(ar[i].Index).InputCode
 %}
-<input type="hidden" name="{%= inputName%}" id="{%= inputName%}" value="{%= CurrentQuestion.iteration(ar[i].Index).InputValue() %}" />
-{% Next %}
+
+	<input type="hidden" name="{%= inputName%}" id="{%= inputName%}" value="{%= CurrentQuestion.iteration(ar[i].Index).InputValue() %}" />
+        {%if CurrentQuestion.Iteration(ar[i].index).IsAllowDK then%}
+    <input type="hidden" name="B{%= InputCode %}" >        
+    <input type="checkbox" id="askia-input-number_{%= InputCode %}_-1" class="dkbutton" name="M{%= InputCode %} -1" {%:= attrChecked %}>
+        {%endif%}
+        {% Next %}
 </div>
+    
+    
+    
+    
+    
+    
+    

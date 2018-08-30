@@ -177,7 +177,7 @@ $.widget("ui.slider", $.ui.slider, {
 			unitStep = 1;
 		} else if ( !isSingle && allowDK ) {
             for ( var i=parseInt(options.minValue); i<=parseInt(options.maxValue); i+=unitStep) {
-				dkCaptionsArray.push(String(i));
+				dkCaptionsArray.push( String(i) );
                 dkValuesArray.push(i);
             }
             for ( var i=parseInt(options.minValue); i<parseInt(options.maxValue)+unitStep; i++ ) {
@@ -187,11 +187,10 @@ $.widget("ui.slider", $.ui.slider, {
 			dkCaptionsArray.push(dkText);
             dkValuesArray.push(dkValue);
         } else {
-            for ( var i=parseInt(options.minValue); i<=parseInt(options.maxValue); i+=unitStep ) {
+            for ( var i=parseInt(options.minValue); i<=parseInt(options.maxValue); i++ ) {
 				valuesArray.push( i );
 			}
         }
-
 		// device detection
 		if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
     || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
@@ -328,11 +327,22 @@ $.widget("ui.slider", $.ui.slider, {
                 if ( !isSingle && allowDK ) {
                     if ( items[index].element.val()!=='' ) {
                         if ( items[index].element.val() != dkValue )
-                        	valueArray.push( parseInt(items[index].element.val()) - parseInt(options.minValue) );
-                        else
-                            valueArray.push( options.maxValue + 1 - options.minValue );
+                        	valueArray.push( parseInt(items[index].element.val()) - parseInt(options.minValue) );                    	
+                        else {
+                            var dkCheck = document.getElementsByName('M'+items[index].element[0].name.substr(1)+' -1')[0];
+                            if (dkCheck.hasAttribute("checked")) {
+                            	valueArray.push( parseInt(options.maxValue) + parseInt(unitStep) - parseInt(options.minValue) );
+                        	} else {
+                                valueArray.push( parseInt(items[index].element.val()) - parseInt(options.minValue) );                                                        
+                            }
+                        }                                                  
                     } else {
-                        valueArray.push( '0' );
+                         var dkCheck = document.getElementsByName('M'+items[index].element[0].name.substr(1)+' -1')[0];
+                            if (dkCheck.hasAttribute("checked")) {
+                            	valueArray.push( parseInt(options.maxValue) + parseInt(unitStep)  - parseInt(options.minValue) );
+                        	} else {
+     			                valueArray.push( '0' );
+                            }
                     }
                 } else if ( !isSingle && !allowDK ) {
                     if ( items[index].element.val()!=='' ) {
@@ -363,7 +373,7 @@ $.widget("ui.slider", $.ui.slider, {
 				sliderMax;
 		
         	if ( allowDK && !isSingle ) {
-                sliderMin = 0;
+                sliderMin = options.minValue;
                 sliderMax = (options.maxValue + unitStep - options.minValue);
             } else if ( isSingle && !allowDK ) {
                 sliderMin = 0;
@@ -374,7 +384,6 @@ $.widget("ui.slider", $.ui.slider, {
             }
         	
         	
-        
 			// Activate the UI slider
 			sliderDiv.slider({
                 min: sliderMin,
@@ -397,21 +406,29 @@ $.widget("ui.slider", $.ui.slider, {
                     
 				},
                 slide: function(e,ui) {
-                    $input = items[$(ui.handle).index()].element;
+                    $input = items[$(ui.handle).index()].element;					
+
+                    if (allowDK) {                                            
+                        if (document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].hasAttribute("checked")) {
+                            document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].removeAttribute("checked");
+                        }
+                    }
                     
                     if ( isSingle ) {
 						$input.val( allValuesArray[ui.value] );
 						$(ui.handle).find('.value_text').text( allCaptionsArray[ui.value] );
 					} else if ( allowDK && !isSingle ) {
-						$input.val( dkAllValuesArray[ui.value] );
-                        if ( dkAllValuesArray[ui.value] === '' ) {
+                        if ( dkAllValuesArray[ui.value] === dkValue ) {
+                            $input.val('');
+                            document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].setAttribute("checked","checked");
                         	$(ui.handle).find('.value_text').text( dkText );    
                         } else {
-                        	$(ui.handle).find('.value_text').text( dkAllValuesArray[ui.value] );    
+                            $input.val( dkAllValuesArray[ui.value] );
+                        	$(ui.handle).find('.value_text').text(markerPrefix + dkAllValuesArray[ui.value] +markerSuffix);                                
                         }						
 					} else {
 						$input.val( ui.value );
-						$(ui.handle).find('.value_text').text( ui.value );
+						$(ui.handle).find('.value_text').text(markerPrefix+ ui.value + markerSuffix);
 					}
                     if (window.askia 
                         && window.arrLiveRoutingShortcut 
@@ -511,21 +528,31 @@ $.widget("ui.slider", $.ui.slider, {
 					if ( !isSingle && !allowDK ) { 
                         $(".drop").slider('values',sliderID,valuesArray[val]);
                     }
-                    else $(".drop").slider('values',sliderID,val);
-
+                    else {
+                        $(".drop").slider('values',sliderID,val);
+                    }
+                    
+                    if (allowDK) {                                           
+                        if (document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].hasAttribute("checked")) {
+                            document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].removeAttribute("checked");
+                        }
+                    }
+                    
 					if ( isSingle ) {
 						$input.val( allValuesArray[val] );
 						$(target).find('.value_text').text( allCaptionsArray[val] );
 					} else if ( allowDK && !isSingle ) {
-						$input.val( dkAllValuesArray[val] );
-                        if (dkAllValuesArray[val] === '' ) {
+                        if (dkAllValuesArray[val] === dkValue ) {
+                            $input.val('');
+                    		document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].setAttribute("checked","checked");        
 							$(target).find('.value_text').text( dkText );
                         } else {
-                        	$(target).find('.value_text').text( dkAllValuesArray[val] );    
+                            $input.val( dkAllValuesArray[val] );
+                        	$(target).find('.value_text').text(markerPrefix + dkAllValuesArray[val] + markerSuffix );    
                         }						
 					} else {
-						$input.val( valuesArray[val] );
-						$(target).find('.value_text').text( valuesArray[val] );
+						$input.val( val );
+						$(target).find('.value_text').text( markerPrefix + val + markerSuffix);
 					}
                     if (window.askia 
                         && window.arrLiveRoutingShortcut 
@@ -598,8 +625,16 @@ $.widget("ui.slider", $.ui.slider, {
 			
 			var iteration = $(this).data('index')-1,
 				val = items[iteration].element.val();
-			
-			if ( val !== '' ) {
+            
+			function dkCheck () {
+                if (allowDK) {
+                	return document.getElementsByName("M"+items[iteration].element[0].name.substr(1)+" -1")[0].hasAttribute("checked");    
+                } else {
+                    return false;
+                }
+            };
+            
+			if ( val !== '' || dkCheck()) {
 				
                 // SET VALUES TO SLIDER AND SHOW HANDLES
 				
@@ -614,9 +649,9 @@ $.widget("ui.slider", $.ui.slider, {
 
 				if ( isSingle )
                     target.text(allCaptionsArray[convertedVals[iteration]]);
-				else {
-                    if ( val == dkValue ) target.text(dkText);
-                    else target.text(val);
+				else {           
+                    if ( val === dkValue ) target.text(dkText);
+                    else target.text(markerPrefix+val+markerSuffix);
                 }
 				
 				/* adjust tooltip position */
@@ -808,17 +843,27 @@ $.widget("ui.slider", $.ui.slider, {
 				if ( !isSingle && !allowDK ) { 
 					$(".drop").slider('values',sliderID,valuesArray[val]);
 				}
-				else $(".drop").slider('values',sliderID,val);
-
+				else {
+                    $(".drop").slider('values',sliderID,val);
+                }
+			
+                
+                var dkCheck = document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0];
+                if(dkCheck.hasAttribute("checked")) {
+                    dkCheck.removeAttribute("checked");
+                }
+                
 				if ( isSingle ) {
 					$input.val( allValuesArray[val] );
 					$(target).find('.value_text').text( allCaptionsArray[val] );
 				} else if ( allowDK && !isSingle ) {
-					$input.val( dkValuesArray[val] );
-                    if ( dkAllValuesArray[val] === '' ) {
+                    if ( dkAllValuesArray[val] === dkValue ) {
+                        $input.val('');
+                        dkCheck.setAttribute("checked", "checked");
                     	$(target).find('.value_text').text( dkText );    
                     } else {
-                    	$(target).find('.value_text').text( dkAllValuesArray[val] );    
+                        $input.val( dkValuesArray[val] );
+                    	$(target).find('.value_text').text(markerPrefix + dkAllValuesArray[val] + markerSuffix );    
                     }					
 				} else {
 					$input.val( valuesArray[val] );
@@ -902,7 +947,7 @@ $.widget("ui.slider", $.ui.slider, {
             if (dkLabel.innerHTML != dkText) {
                 dkLabel.innerHTML = dkText;
             }
-        }
+        }       
 
 		// Returns the container
 		return this;
