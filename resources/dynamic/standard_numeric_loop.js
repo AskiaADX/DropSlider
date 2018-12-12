@@ -2,10 +2,10 @@
 {% 
 Dim i 
 Dim inputName
-Dim ar = CurrentQuestion.ParentLoop.Answers
+Dim ar = CurrentQuestion.ParentLoop.AvailableAnswers
 
 For i = 1 To ar.Count 
     inputName = CurrentQuestion.iteration(ar[i].Index).InputName()
 %}
-{element : $('#{%= inputName%}')}{%= On(i < CurrentQuestion.ParentLoop.Answers.Count, ",", "") %}
+{element : $('#{%= inputName%}')}{%= On(i < CurrentQuestion.ParentLoop.AvailableAnswers.Count, ",", "") %}
 {% Next %}

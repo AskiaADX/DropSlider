@@ -6,6 +6,6 @@
 {% ElseIf CurrentQuestion.Type = "numeric" and CurrentADC.PropValue("isInLoop") = "1" Then %}
     {%:= CurrentADC.GetContent("dynamic/numeric_loop.html").ToText() %}
 {% ElseIf CurrentQuestion.Type = "numeric" Then %}
-{%:= CurrentADC.GetContent("dynamic/numeric_loop.html").ToText() %}
+{%:= CurrentADC.GetContent("dynamic/numeric.html").ToText() %}
 {% EndIf %}
 </div>

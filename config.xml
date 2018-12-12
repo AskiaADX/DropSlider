@@ -7,11 +7,12 @@
   <info>
     <name>DropSlider</name>
     <guid>75419bde-c158-45fe-a9b7-68cd4c6bb9b0</guid>
-    <version>2.0.1</version>
+    <version>3.0.0</version>
     <date>2015-09-24</date>
     <description><![CDATA[v1.0.0 -v1.0.1 - Fixed tooltip text centering- Fixed response centering when layout set to center- Fixed spacing between responses and slider- Changed caption text-alignment to center- Fixed caption drop on mobile- Added Touch UI for mobile drag- Added button to remove responses from slider- Changed cursor to pointer for handle and responses- Change image resize to be based on responseItem size or tooltip size- Added parameters to style base- Added paramaters to style handle- show markers- only show pips (hide marker labels)- alternating markers esp for single choice question- highlight chosen number or label MAKE AN OPTION- fixed pip highlighting- Added Prefix/Suffix to markers- Added marker distance- Added marker text font-size- Added marker text distance- Added marker line height- Fixed vertical position of handle on wide basev1.0.2- Markers can now be made circular- Added option to only display tooltip on hover- Fixed the alt marker bug- Fixed spacing below markers- Fixed side padding around slider on mobile- Added margin to labels- Fixed the label width for mobile- Fixed marker still being selected after response is removed- Fixed responses not reappearing- Fixed response centering for stacked responses- Collapsed margin above slider on mobile when tooltip hovering enabled- Fixed marker text colouring when response placed on slider- Fixed allowing tooltips to be dragged on mobile- Fixed z-index issue with tooltips over start area- Fixed response alignment for stacking- Force stacked and mobile layout when slider base smaller than 300px- Removed fixed label widths when greater than available space- Added labels (read captions from single choice questions)- Fixed bottom spacing with bigger/longer labels- Fixed and check use with single question, setting and reading values- Changed resize detection settings (was being triggered too often)- Fixed handle vertical placement- Enabled click to select and click to drop - Fixed issue with items not returning to start position- Fixed accuracy of click to drop on mobile- Added options for active slider handle styling- Fixed handle border radius- Fixed text padding in tooltip- Added tooltip paddingv1.0.3- Fixed tooltip layout when close to edges- Added in DK- Fixed show tooltips on hover bugv2.0.0
 	v2.0.2 - Add alt attribute to img
-  v2.0.3 - Fixed step related bugs]]></description>
+  	v2.0.3 - Fixed step related bugs
+	v3.0.0 - AvailableAnswers]]></description>
     <company>Askia</company>
     <author><![CDATA[Paul Ferreira <paulf@askia.com>]]></author>
     <site>http://www.askia.com</site>
@@ -20,7 +21,7 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="true" single="true" />
+      <constraint on="questions" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="true" single="true" RequireLoopDepth="true" />
       <constraint on="controls" responseblock="true" textbox="false" label="false" listbox="false" radiobutton="false" checkbox="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>

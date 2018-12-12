@@ -4,7 +4,7 @@ Dim i
 Dim j
 Dim inputName
 Dim currentValue
-Dim ar = CurrentQuestion.ParentLoop.Answers
+Dim ar = CurrentQuestion.ParentLoop.AvailableAnswers
 Dim avR = CurrentQuestion.AvailableResponses
 Dim allValues = avR[1].inputValue()
 Dim allCaptions = avR[1].Caption
