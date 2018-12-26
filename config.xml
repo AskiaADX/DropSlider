@@ -21,13 +21,13 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="true" single="true" RequireLoopDepth="true" />
+      <constraint on="questions" numeric="true" chapter="false" date="false" multiple="false" open="false" requireParentLoop="true" single="true" RequireLoopDepth="1" />
       <constraint on="controls" responseblock="true" textbox="false" label="false" listbox="false" radiobutton="false" checkbox="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
   </info>
   <outputs defaultOutput="standard">
-    <output id="fallback">
+    <output id="fallback" ManageLoopDepth="1">
       <description><![CDATA[Fallback when the browser doesnt support Javascript]]></description>
       <condition><![CDATA[Not(Browser.Support("javascript"))]]></condition>
       <content fileName="default.css" type="css" mode="static" position="head" />
@@ -35,7 +35,7 @@
       <content fileName="numeric_loop.html" type="html" mode="dynamic" position="none" />
       <content fileName="default.html" type="html" mode="dynamic" position="placeholder" />
     </output>
-    <output id="standard">
+    <output id="standard" ManageLoopDepth="1">
       <description><![CDATA[Output when the browser support Javascript]]></description>
       <condition><![CDATA[Browser.Support("javascript")]]></condition>
       <content fileName="dropSlider.css" type="css" mode="static" position="head" />
