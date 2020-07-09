@@ -18,5 +18,5 @@ For i = 1 To ar.Count
 	inputName = CurrentQuestion.Iteration(ar[i].Index).InputName()
     currentValue = CurrentQuestion.Iteration(ar[i].Index).inputValue()
 	%}
-{element : $('#{%= inputName%}'), value : "{%= currentValue%}", allValues : "{%= allValues%}", allCaptions : "{%= allCaptions%}", caption : "{%= ar[i].Caption %}"}{%= On(i < ar.Count, ",", "") %}
+{element : $('#{%= inputName%}'), value : "{%= currentValue%}", allValues : "{%= allValues%}", allCaptions : "{%:= allCaptions%}", caption : "{%:= ar[i].Caption %}"}{%= On(i < ar.Count, ",", "") %}
 {% Next %}
