@@ -5,7 +5,7 @@ in mobile view - adjust placement of first and last labels
 */
 
 (function($,sr){
-    
+
       var debounce = function (func, threshold, execAsap) {
           var timeout;
 
@@ -25,7 +25,7 @@ in mobile view - adjust placement of first and last labels
               timeout = setTimeout(delayed, threshold || 100);
           };
       };
-      // smartresize 
+      // smartresize
       jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
@@ -123,10 +123,10 @@ $.widget("ui.slider", $.ui.slider, {
 		(options.maxValue = options.maxValue || 100);
 		(options.unitStep = options.unitStep || 1);
         (options.currentQuestion = options.currentQuestion || '');
-        
+
         if ( options.minValue < 0 ) options.minValue = 0;
         if ( options.maxValue < 0 ) options.maxValue = 10;
-        
+
 		// Delegate .transition() calls to .animate() if the browser can't do CSS transitions.
 		if (!$.support.transition) $.fn.transition = $.fn.animate;
 
@@ -164,9 +164,9 @@ $.widget("ui.slider", $.ui.slider, {
             dkText = String(options.dkText),
             allowDK = Boolean(options.allowDK), //initiate as false
 			dkValue = options.dkEntry;
-        
+
         var rMarginTop = $('.responseItem').eq(0).css('margin-top');
-        
+
         if ( isSingle ) {
 			var allValuesArray = items[0].allValues.split(",");
             var allCaptionsArray = items[0].allCaptions.split(",");
@@ -192,12 +192,12 @@ $.widget("ui.slider", $.ui.slider, {
 			}
         }
 		// device detection
-		if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
+		if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
     || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) isMobile = true;
-		
+
         var labelWidth = ( $('.sliderPC').eq(0).outerWidth() + $('.sliderPC').eq(1).outerWidth() ),
             sliderWidth = $('.sliderContainer').outerWidth() - labelWidth;
-                
+
         if ( isMobile  || sliderWidth < 300 ) {
             $container.find('.sliderMob').show();
             $container.find('.sliderPC').hide();
@@ -207,18 +207,18 @@ $.widget("ui.slider", $.ui.slider, {
             $container.find('.sliderMob').hide();
             $container.find('.sliderPC').show();
         }
-        
+
         var labelArray = [];
         if ( isSingle ) {
             for ( var i=0; i<items.length; i++ ) {
                 labelArray.push(items[i][1]);
             }
     	}
-    
+
         // undo fixed label widths
-        if ( labelWidth >  $('.sliderContainer').outerWidth() || $('.sliderContainer').outerWidth() >  $(window).width() ) 
+        if ( labelWidth >  $('.sliderContainer').outerWidth() || $('.sliderContainer').outerWidth() >  $(window).width() )
 			$('.sliderPC, .leftLabel, .rightLabel').css('width','auto');
-        
+
 		$(this).css({'max-width':options.maxWidth,'width':options.controlWidth});
 
 		if ( options.controlAlign === "center" ) {
@@ -227,24 +227,24 @@ $.widget("ui.slider", $.ui.slider, {
 		} else if ( options.controlAlign === "right" ) {
 			$(this).css({'margin':'0 0 0 auto'});
 		}
-        
-        if ( responseWidth !== 'auto' ) {	
+
+        if ( responseWidth !== 'auto' ) {
 			// resize images if response width or height has been set
             $container.find('.responseItem').each(function(index, element) {
 				if ( $(this).width() < $(this).find('img').outerWidth() ) {
 					var imageWPadding = $(this).find('img').outerWidth() - $(this).find('img').width(),
 						ratio = $(this).find('img').width() / $(this).find('img').height();
-					$(this).find('img').width( $(this).width() - imageWPadding );	
+					$(this).find('img').width( $(this).width() - imageWPadding );
 					$(this).find('img').height( $(this).find('img').width()/ratio );
 				}
             });
         }
-        
+
         // Find biggest response text height
 		var maxTHeight = Math.max.apply(null, $(".responseItem .response_text").map(function () {
 				return $(this).outerHeight(true);
 			}).get());
-        
+
         if ( responseHeight !== 'auto' ) {
 			$container.find('.responseItem').each(function(index, element) {
 
@@ -253,37 +253,37 @@ $.widget("ui.slider", $.ui.slider, {
                         var imageHPadding = $(this).find('img').outerHeight() - $(this).find('img').height(),
                             ratio = $(this).find('img').height() / $(this).find('img').width();
                         $(this).find('img').height( $(this).height() - imageHPadding - maxTHeight );
-                        $(this).find('img').width( $(this).find('img').height()/ratio );	
+                        $(this).find('img').width( $(this).find('img').height()/ratio );
                     }
                 } else { // else if response labels hidden
                     if ( $(this).height() < $(this).find('img').outerHeight() ) {
                         var imageHPadding = $(this).find('img').outerHeight() - $(this).find('img').height(),
                             ratio = $(this).find('img').height() / $(this).find('img').width();
                         $(this).find('img').height( $(this).height() - imageHPadding );
-                        $(this).find('img').width( $(this).find('img').height()/ratio );	
+                        $(this).find('img').width( $(this).find('img').height()/ratio );
                     }
                 }
             });
         }
-			
+
 		// Find biggest response height
 		var maxHeight = Math.max.apply(null, $(".responseItem").map(function () {
 				return $(this).height();
 			}).get());
 		$('.responseItem').height( maxHeight );
 		if ( stackResponses ) $('.startArea').height( $('.responseItem').outerHeight(true) );
-		
+
 		// Make all responses same width
 		var maxWidth = $('.responseItem').map(function() {
 			return $(this).width();
 		}).get();
-		
+
 		$('.responseItem').height(maxHeight);
-		
+
 		if ( stackResponses ) {
 			for ( var i=($('.responseItem').size()-1); i>=0; i-- ) {
                 $('.responseItem').eq(i).css("display", "inline-block");
-                
+
                 if ( responseAlign === "left" ) {
                     $('.responseItem').eq(i).css({"position":"absolute","left": "0px","top": rMarginTop });
                 } else if ( responseAlign === "center" ) {
@@ -298,7 +298,7 @@ $.widget("ui.slider", $.ui.slider, {
         var $input = items[0].element;
 
         var valueArray = [];
-            
+
         	if ( isSingle ) {
                 var convertedVals = [];
               	for ( var i=0; i<items.length; i++ ) {
@@ -308,13 +308,13 @@ $.widget("ui.slider", $.ui.slider, {
             }
 
         //the draggable object
-			$('.responseItem').each(function(index) { 
+			$('.responseItem').each(function(index) {
 				$(this).draggable({
 				 	revert: true,
 				  	zIndex: 1000,
 				  	cursor: "move",
-                  	cursorAt: { 
-						top:$('.responseItem').eq(index).outerHeight()/2, 
+                  	cursorAt: {
+						top:$('.responseItem').eq(index).outerHeight()/2,
 						left:$('.responseItem').eq(index).outerWidth()/2
 					}
 				})
@@ -323,19 +323,19 @@ $.widget("ui.slider", $.ui.slider, {
 					e.stopPropagation();
                 })
                 .attr('data-ontarget',false);
-                
+
                 if ( !isSingle && allowDK ) {
                     if ( items[index].element.val()!=='' ) {
                         if ( items[index].element.val() != dkValue )
-                        	valueArray.push( parseInt(items[index].element.val()) - parseInt(options.minValue) );                    	
+                        	valueArray.push( parseInt(items[index].element.val()) - parseInt(options.minValue) );
                         else {
                             var dkCheck = document.getElementsByName('M'+items[index].element[0].name.substr(1)+' -1')[0];
                             if (dkCheck.hasAttribute("checked")) {
                             	valueArray.push( parseInt(options.maxValue) + parseInt(unitStep) - parseInt(options.minValue) );
                         	} else {
-                                valueArray.push( parseInt(items[index].element.val()) - parseInt(options.minValue) );                                                        
+                                valueArray.push( parseInt(items[index].element.val()) - parseInt(options.minValue) );
                             }
-                        }                                                  
+                        }
                     } else {
                          var dkCheck = document.getElementsByName('M'+items[index].element[0].name.substr(1)+' -1')[0];
                             if (dkCheck.hasAttribute("checked")) {
@@ -349,29 +349,29 @@ $.widget("ui.slider", $.ui.slider, {
                         valueArray.push( items[index].element.val() );
                     } else {
                         valueArray.push( '0' );
-                    } 
+                    }
             	} else {
                 	valueArray.push((items[index].element.val()!==''?items[index].element.val():'0'));
     			}
 			});
 
         $('.lineContainer').css('padding','0px');
-				
+
 			//Prepare the slider
 			var range = 100,
 				sliderDiv = $(".drop");
-				
+
 			// Number of tick marks on slider
 			var position = sliderDiv.position(),
 				sliderWidth = sliderDiv.width() - $('.responseItem').eq(0).outerWidth(),
 				minX = position.left,
 				maxX = minX + sliderWidth,
 				tickSize = sliderWidth / range;
-			
+
             var initialValue = 0,
 				sliderMin,
 				sliderMax;
-		
+
         	if ( allowDK && !isSingle ) {
                 sliderMin = options.minValue;
                 sliderMax = (options.maxValue + unitStep - options.minValue);
@@ -382,8 +382,7 @@ $.widget("ui.slider", $.ui.slider, {
                 sliderMin = options.minValue;
                 sliderMax =  options.maxValue;
             }
-        	
-        	
+
 			// Activate the UI slider
 			sliderDiv.slider({
                 min: sliderMin,
@@ -400,91 +399,91 @@ $.widget("ui.slider", $.ui.slider, {
                     tooltip.css('z-index','10000');
 				},
 				create : function(e,ui) {
-					
+
 					var tooltip = $('<div class="tooltip"><div class="tooltip-inner" data-index="1"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(1).html() + '<div class="value_text">' + initialValue + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>');
 					$(e.target).find('.ui-slider-handle').append(tooltip);
-                    
-				},
-                slide: function(e,ui) {
-                    $input = items[$(ui.handle).index()].element;					
 
-                    if (allowDK) {                                            
-                        if (document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].hasAttribute("checked")) {
-                            document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].removeAttribute("checked");
-                        }
-                    }
-                    
-                    if ( isSingle ) {
-						$input.val( allValuesArray[ui.value] );
-						$(ui.handle).find('.value_text').text( allCaptionsArray[ui.value] );
-					} else if ( allowDK && !isSingle ) {
-                        if ( dkAllValuesArray[ui.value] === dkValue ) {
-                            $input.val('');
-                            document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].setAttribute("checked","checked");
-                        	$(ui.handle).find('.value_text').text( dkText );    
-                        } else {
-                            $input.val( dkAllValuesArray[ui.value] );
-                        	$(ui.handle).find('.value_text').text(markerPrefix + dkAllValuesArray[ui.value] +markerSuffix);                                
-                        }						
-					} else {
-						$input.val( ui.value );
-						$(ui.handle).find('.value_text').text(markerPrefix+ ui.value + markerSuffix);
-					}
-                    if (window.askia 
-                        && window.arrLiveRoutingShortcut 
-                        && window.arrLiveRoutingShortcut.length > 0
-                        && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
-                        askia.triggerAnswer();
-                    }
-															
-                    $('.responseItem').each(function(index) { 
-                        if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
-                        else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
-                    });
-					
-                },
-                stop: function(e,ui) {
-                	$('.responseItem').each(function(index) { 
-                        if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
-                        else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
-                    });
-					
-                    if ( showTooltipOnHover ) $(ui.handle).removeClass('ui-state-active ui-state-focus ui-state-hover');
-					
-					/* adjust tooltip position */
-					var handle = $('.ui-slider-handle').eq($(ui.handle).index()),
-						handleWidth = handle.outerWidth(),
-						tooltip = handle.find('.tooltip'),
-						tooltipArrow = handle.find('.tooltip-arrow'),
-						tooltipInnerWidth = handle.find('.tooltip-inner').outerWidth(),
-						removeBtn = handle.find('.removeBtn');
-                    $('.tooltip').css('z-index','');
-					$('.ui-slider-handle').css('z-index','');
-                    handle.css('z-index','');
-                    tooltip.css('z-index','');
-					tooltip.css('margin-left',(handleWidth/2) - (tooltipInnerWidth/2)+'px');
-					tooltipArrow.css('left','50%');
-					removeBtn.css('left','');
-					
-					var tooltipLeft = tooltip.offset().left;
-															
-					if ( (tooltipLeft - $container.offset().left) < 0 ) { // and changing it won't make it negative again / check current vs future
-						tooltip.css('margin-left','0px');
-						tooltipArrow.css('left',(handleWidth/2)+'px');
-						removeBtn.css('left','');
-					} else if ( ((tooltipLeft - $container.offset().left) + tooltipInnerWidth) > $container.outerWidth() ) {
-						tooltip.css('margin-left',(-tooltipInnerWidth + handleWidth)+'px');
-						tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
-						removeBtn.css('left','-15px');
-					}
-						
-            	},
-                change: function(e,ui) {
-                	$('.responseItem').each(function(index) { 
-                        if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
-                        else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
-                    });
-            	}
+				},
+        slide: function(e,ui) {
+            $input = items[$(ui.handle).index()].element;
+
+            if (allowDK) {
+                if (document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].hasAttribute("checked")) {
+                    document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].removeAttribute("checked");
+                }
+            }
+
+            if ( isSingle ) {
+  						$input.val( allValuesArray[ui.value] );
+  						$(ui.handle).find('.value_text').text( allCaptionsArray[ui.value] );
+  					} else if ( allowDK && !isSingle ) {
+              if ( dkAllValuesArray[ui.value] === dkValue ) {
+                  $input.val('');
+                  document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].setAttribute("checked","checked");
+              	$(ui.handle).find('.value_text').text( dkText );
+              } else {
+                  $input.val( dkAllValuesArray[ui.value] );
+              	$(ui.handle).find('.value_text').text(markerPrefix + dkAllValuesArray[ui.value] +markerSuffix);
+              }
+  					} else {
+  						$input.val( ui.value );
+  						$(ui.handle).find('.value_text').text(markerPrefix+ ui.value + markerSuffix);
+  					}
+                if (window.askia
+                    && window.arrLiveRoutingShortcut
+                    && window.arrLiveRoutingShortcut.length > 0
+                    && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
+                    askia.triggerAnswer();
+                }
+
+                $('.responseItem').each(function(index) {
+                    if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
+                    else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
+                });
+
+            },
+            stop: function(e,ui) {
+            	$('.responseItem').each(function(index) {
+                    if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
+                    else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
+                });
+
+                if ( showTooltipOnHover ) $(ui.handle).removeClass('ui-state-active ui-state-focus ui-state-hover');
+
+      				/* adjust tooltip position */
+      				var handle = $('.ui-slider-handle').eq($(ui.handle).index()),
+      					handleWidth = handle.outerWidth(),
+      					tooltip = handle.find('.tooltip'),
+      					tooltipArrow = handle.find('.tooltip-arrow'),
+      					tooltipInnerWidth = handle.find('.tooltip-inner').outerWidth(),
+      					removeBtn = handle.find('.removeBtn');
+                        $('.tooltip').css('z-index','');
+      				$('.ui-slider-handle').css('z-index','');
+                        handle.css('z-index','');
+                        tooltip.css('z-index','');
+      				tooltip.css('margin-left',(handleWidth/2) - (tooltipInnerWidth/2)+'px');
+      				tooltipArrow.css('left','50%');
+      				removeBtn.css('left','');
+
+      				var tooltipLeft = tooltip.offset().left;
+
+      				if ( (tooltipLeft - $container.offset().left) < 0 ) { // and changing it won't make it negative again / check current vs future
+      					tooltip.css('margin-left','0px');
+      					tooltipArrow.css('left',(handleWidth/2)+'px');
+      					removeBtn.css('left','');
+      				} else if ( ((tooltipLeft - $container.offset().left) + tooltipInnerWidth) > $container.outerWidth() ) {
+      					tooltip.css('margin-left',(-tooltipInnerWidth + handleWidth)+'px');
+      					tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
+      					removeBtn.css('left','-15px');
+      				}
+
+          	},
+            change: function(e,ui) {
+            	$('.responseItem').each(function(index) {
+                    if ( items[index].element.val() ==='' && index !== $(ui.handle).index() ) $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
+                    else $('.ui-slider-pip-selected-' + (index+1)).addClass('ui-slider-pip-selected-' + (index+1));
+                });
+        	   }
 			}).slider("pips", {
                 steps:1,
                 rest: options.showMarkerLabels === "label" ? "label" : "pip",
@@ -492,11 +491,11 @@ $.widget("ui.slider", $.ui.slider, {
                 last: options.showMarkerLabels === "label" ? "label" : "pip",
                 labels: (isSingle && useResponseCaptions) ? allCaptionsArray : (allowDK ? dkCaptionsArray : (!isSingle ? items[0].allCaptions : false)),// / {"":"","":""} (array)
                 prefix: markerPrefix,
-                suffix: markerSuffix                
+                suffix: markerSuffix
             });
         //Set slider as droppable
 			$('.lineContainer').droppable({
-				//on drop 
+				//on drop
 				over: function( e, ui ) {
 					$(e.target).css('background-color','rgb(' + options.baseDropHoverColour + ')');
 				},
@@ -510,61 +509,63 @@ $.widget("ui.slider", $.ui.slider, {
 					$(e.target).css('background-color','');
 
                     $('.ui-slider-handle').css('display','');
-					
+
 					// show appropriate handle
 					$(ui.draggable).css({'visibility':'hidden','left':'','top':''});
 
 					var x = ((e.pageX - 1) - $(this).offset().left),
-						lengthOfBar = $(e.target).width() - 2,
-						sliderID = parseInt($(ui.draggable).data('index')) - 1,
-						nRange = parseInt(options.maxValue) - parseInt(options.minValue),
-						range = isSingle ? ( allowDK ? nRange : nRange ) : ( allowDK ? nRange + unitStep : nRange ),
-						val = Math.round(((x/lengthOfBar)*range));
-                    if ( !isSingle ) val = unitStep * Math.round(val/unitStep);
-					
-					var target = $('.ui-slider-handle').eq(sliderID);    
-					
+					lengthOfBar = $(e.target).width() - 2,
+					sliderID = parseInt($(ui.draggable).data('index')) - 1,
+					nRange = parseInt(options.maxValue) - parseInt(options.minValue),
+					range = isSingle ? ( allowDK ? nRange : nRange ) : ( allowDK ? nRange + unitStep : nRange ),
+					val = Math.round(((x/lengthOfBar)*range));
+          if ( !isSingle ) val = unitStep * Math.round(val/unitStep);
+
+					var target = $('.ui-slider-handle').eq(sliderID);
+
 					$input = items[sliderID].element;
-					if ( !isSingle && !allowDK ) { 
-                        $(".drop").slider('values',sliderID,valuesArray[val]);
-                    }
-                    else {
-                        $(".drop").slider('values',sliderID,val);
-                    }
-                    
-                    if (allowDK) {                                           
-                        if (document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].hasAttribute("checked")) {
-                            document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].removeAttribute("checked");
-                        }
-                    }
-                    
+					if ( !isSingle && !allowDK ) {
+              $(".drop").slider('values',sliderID,valuesArray[val]);
+          } else {
+              $(".drop").slider('values',sliderID,val);
+          }
+
+          if (allowDK) {
+              if (document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].hasAttribute("checked")) {
+                  document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].removeAttribute("checked");
+              }
+          }
+
 					if ( isSingle ) {
 						$input.val( allValuesArray[val] );
 						$(target).find('.value_text').text( allCaptionsArray[val] );
 					} else if ( allowDK && !isSingle ) {
-                        if (dkAllValuesArray[val] === dkValue ) {
-                            $input.val('');
-                    		document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].setAttribute("checked","checked");        
-							$(target).find('.value_text').text( dkText );
-                        } else {
-                            $input.val( dkAllValuesArray[val] );
-                        	$(target).find('.value_text').text(markerPrefix + dkAllValuesArray[val] + markerSuffix );    
-                        }						
+              if (dkAllValuesArray[val] === dkValue ) {
+                 $input.val('');
+          		   document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0].setAttribute("checked","checked");
+		             $(target).find('.value_text').text( dkText );
+              } else {
+                  $input.val( dkAllValuesArray[val] );
+              	$(target).find('.value_text').text(markerPrefix + dkAllValuesArray[val] + markerSuffix );
+              }
 					} else {
+            if (options.minValue > 0) {
+              val = val + options.minValue;
+            }
 						$input.val( val );
 						$(target).find('.value_text').text( markerPrefix + val + markerSuffix);
 					}
-                    if (window.askia 
-                        && window.arrLiveRoutingShortcut 
-                        && window.arrLiveRoutingShortcut.length > 0
-                        && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
-                        askia.triggerAnswer();
-                    }
-					
+          if (window.askia
+              && window.arrLiveRoutingShortcut
+              && window.arrLiveRoutingShortcut.length > 0
+              && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
+              askia.triggerAnswer();
+          }
+
 					$('.ui-slider-handle').eq( parseInt($(ui.draggable).attr('data-index')) - 1 ).css({'visibility':'visible'}).removeClass('ui-slider-handle-disabled');
-					
+
 					$(ui.draggable).attr('data-ontarget','true');
-					
+
 					/* adjust tooltip position */
 					var handle = $('.ui-slider-handle').eq(sliderID),
 						handleWidth = handle.outerWidth(),
@@ -572,13 +573,13 @@ $.widget("ui.slider", $.ui.slider, {
 						tooltipArrow = handle.find('.tooltip-arrow'),
 						tooltipInnerWidth = handle.find('.tooltip-inner').outerWidth(),
 						removeBtn = handle.find('.removeBtn');
-					
+
 					tooltip.css('margin-left',(handleWidth/2) - (tooltipInnerWidth/2)+'px');
 					tooltipArrow.css('left','50%');
 					removeBtn.css('left','');
-					
+
 					var tooltipLeft = tooltip.offset().left;
-															
+
 					if ( (tooltipLeft - $container.offset().left) < 0 ) { // and changing it won't make it negative again / check current vs future
 						tooltip.css('margin-left','0px');
 						tooltipArrow.css('left',(handleWidth/2)+'px');
@@ -588,72 +589,72 @@ $.widget("ui.slider", $.ui.slider, {
 						tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
 						removeBtn.css('left','-15px');
 					}
-					
+
 					/* show next response */
 					if ( stackResponses ) $('.responseItem[data-ontarget=false]:hidden:first').show();
-		  
+
 				}
 			});
-	
+
 			// set correct content to each tooltip
 			$container.find('.ui-slider-handle').each(function(index, element) {
 				var tooltip = '<div class="tooltip"><div class="tooltip-inner" data-index="' + index + '"><div class="removeBtn">X</div>' + $container.find('.responseItem').eq(index).html() + '<div class="value_text">' + 0 + '</div><div style="clear:both"></div></div><div class="tooltip-arrow"></div></div>';
 				$(this).html(tooltip);
 			});
             enableRemove();
-	
+
 			// Find biggest tooltip height and adjust space above slider
 			var maxTTHeight = Math.max.apply(null, $(".tooltip").map(
 				function () {
 					return $(this).outerHeight(true);
 				}).get());
-        
+
        		// Find biggest tooltip width and adjust space to the sides of slider
 			var maxTTWidth = Math.max.apply(null, $(".tooltip").map(
 				function () {
 					return $(this).outerWidth(true);
 				}).get());
 			$container.find('.slider').css('margin-top',maxTTHeight );
-            
+
 			// set position of bg
 			$('.lineContainer .bg').css('top',(($('.lineContainer').height() - $('.lineContainer .bg').outerHeight())/2) + 'px');
 
 		//}
-		
+
 		//check if has a value
-		$('.responseItem').each(function(index) { 
-			
+		$('.responseItem').each(function(index) {
+
 			var iteration = $(this).data('index')-1,
 				val = items[iteration].element.val();
-            
+
 			function dkCheck () {
                 if (allowDK) {
-                	return document.getElementsByName("M"+items[iteration].element[0].name.substr(1)+" -1")[0].hasAttribute("checked");    
+                	return document.getElementsByName("M"+items[iteration].element[0].name.substr(1)+" -1")[0].hasAttribute("checked");
                 } else {
                     return false;
                 }
             };
-            
+
 			if ( val !== '' || dkCheck()) {
-				
+
                 // SET VALUES TO SLIDER AND SHOW HANDLES
-				
+
 				// show appropriate handle
 				$(this).css({'visibility':'hidden','left':'','top':''});
-				
+
 				$('.ui-slider-handle').eq( index ).css('visibility','visible');
-				
+
 				$(this).attr('data-ontarget','true');
-				
+
 				var target = $('.ui-slider-handle').eq(index).find('.value_text');
 
 				if ( isSingle )
                     target.text(allCaptionsArray[convertedVals[iteration]]);
-				else {           
+				else {
                     if ( val === dkValue ) target.text(dkText);
                     else target.text(markerPrefix+val+markerSuffix);
                 }
-				
+
 				/* adjust tooltip position */
 				var handle = $('.ui-slider-handle').eq(index),
 					handleWidth = handle.outerWidth(),
@@ -677,14 +678,14 @@ $.widget("ui.slider", $.ui.slider, {
 					tooltipArrow.css('left',(tooltipInnerWidth - handleWidth/2)+'px');
 					removeBtn.css('left','-15px');
 				}
-                
+
 			} else {
                 $('.ui-slider-handle').eq( index ).addClass('ui-slider-handle-disabled').css('visibility','hidden');
                 $('.ui-slider-pip-selected-' + (index+1)).removeClass('ui-slider-pip-selected-' + (index+1));
             }
             // fix initial pip highlighting
             $('.ui-slider-pip-initial-' + (index+1)).removeClass('ui-slider-pip-initial-' + (index+1));
-			
+
 		});
 
 		if ( stackResponses ) {
@@ -692,11 +693,11 @@ $.widget("ui.slider", $.ui.slider, {
 			$('.responseItem[data-ontarget=false]').first().show();
 		}
 
-        
+
         // correct vertical alignment of base
         $('.ui-slider-horizontal.ui-slider-pips').css('margin-top',$('.ui-slider-horizontal.ui-slider-pips').css('margin-bottom') );
-		
-        
+
+
         if ( showTooltipOnHover ) {
             // collapse margin at top
             $container.find('.slider').css('margin-top','0px');
@@ -712,29 +713,29 @@ $.widget("ui.slider", $.ui.slider, {
 			}).get());
             $('.slider').css('margin-bottom',maxRCHeight+'px');
         }
-        
+
         // correct bottom spacing for mobile
         if ( isMobile ) {
             // correct bottom spacing for mobile
             var topMargin = parseInt(options.markerFontSize) + parseInt(options.markerDistance) + parseInt(options.markerTextDistance) + 20;
             $('.ui-slider-horizontal.ui-slider-pips').css({'margin-bottom':topMargin + "px",'margin-top':topMargin + "px"});
-            
+
             // correct bottom spacing for mobile
 			$('.lineContainer').css({'padding':  '0px ' + Math.round((handleWidth + 2)/2) + 'px'});
             $('.dropTargetLayer').css({'margin':  '0px ' + Math.round((handleWidth + 2)/2) + 'px','width':$('.lineContainer').width() + 'px'});
-            
+
             // Fix start area overlap
             $('.startArea').height( $('.responseItem').outerHeight(true) );
         } else {
             // add margin to labels
             $('.leftLabel').css({'margin-right': Math.round((handleWidth + 2)/2) + 'px'}); /*here */
-            $('.rightLabel').css({'margin-left': Math.round((handleWidth + 8)/2) + 'px'});       
+            $('.rightLabel').css({'margin-left': Math.round((handleWidth + 8)/2) + 'px'});
         }
-		
+
 		// adjust position of handles
 		var topPosition = Math.ceil((($container.find('.drop').outerHeight() - $container.find('.ui-slider-handle').eq(0).outerHeight())/2)-1);
 		$container.find('.ui-slider-handle').css('top', topPosition + 'px')
-        
+
         // Function to remove item
         function enableRemove() {
             $container.find('.removeBtn').off('mousedown').on('mousedown',function(e) {
@@ -751,8 +752,8 @@ $.widget("ui.slider", $.ui.slider, {
                 // remove value
                 $input = items[index].element;
                 $input.val( '' );
-                if (window.askia 
-                    && window.arrLiveRoutingShortcut 
+                if (window.askia
+                    && window.arrLiveRoutingShortcut
                     && window.arrLiveRoutingShortcut.length > 0
                     && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                     askia.triggerAnswer();
@@ -764,61 +765,61 @@ $.widget("ui.slider", $.ui.slider, {
                     $('.responseItem').hide();
                     $('.responseItem[data-ontarget=false]:hidden:first').show();
                 }
-                
+
             });
-            
+
              if ( tooltipWidth !== 'auto' ) {
                 // resize images if response width or height has been set
                 $container.find('.tooltip-inner').each(function(index, element) {
                     if ( $(this).width() < $(this).find('img').outerWidth() ) {
                         var imageWPadding = $(this).find('img').outerWidth() - $(this).find('img').width(),
                             ratio = $(this).find('img').width() / $(this).find('img').height();
-                        $(this).find('img').width( $(this).width() - imageWPadding );	
+                        $(this).find('img').width( $(this).width() - imageWPadding );
                         $(this).find('img').height( $(this).find('img').width()/ratio );
                     }
                 });
             }
-            
+
         }
-        
+
         function noDrag(target) {
-							
+
 			if ( !dragging ) {
-			
+
 				if ( !$(target).hasClass('responseItem') ) target = $(target).parent('.responseItem');
 				if ( $(target).hasClass('responseActive') ) {
 					clickActive = null;
 					$(target).removeClass('responseActive');
 				} else {
 					// deselect all others
-					$('.responseItem').each(function(index) { 
+					$('.responseItem').each(function(index) {
 						if ( index !== $(target).data('index') ) $(this).removeClass('responseActive');
 					});
-					
+
 					clickActive = $(target);
 					$(target).addClass('responseActive');
-					
+
 					$('.dropTargetLayer').unbind();
-		
+
 					$('.dropTargetLayer').bind('mouseup', function (e) {
-						setTarget(e, "dropTargetLayer");	
+						setTarget(e, "dropTargetLayer");
 					}).css({'visibility':'visible','display':'block'});
 
 				}
-				
+
 			}
-			
+
 		}
-        
+
 		function setTarget(e, destination ) {
-            
+
             e.stopPropagation();
             e.preventDefault();
-            
+
             $('.ui-slider-handle').css('display','');
-						
+
 			var target = $(e.target);
-												
+
 			if ( destination !== 'start' ) {
 
 				destination = "." + destination;
@@ -837,22 +838,22 @@ $.widget("ui.slider", $.ui.slider, {
 				// show appropriate handle
 				$container.find('.responseActive').css({'visibility':'hidden'});
 
-				var target = $('.ui-slider-handle').eq(sliderID);    
+				var target = $('.ui-slider-handle').eq(sliderID);
 
-				$input = items[sliderID].element;					
-				if ( !isSingle && !allowDK ) { 
+				$input = items[sliderID].element;
+				if ( !isSingle && !allowDK ) {
 					$(".drop").slider('values',sliderID,valuesArray[val]);
 				}
 				else {
                     $(".drop").slider('values',sliderID,val);
                 }
-			
-                
+
+
                 var dkCheck = document.getElementsByName("M"+$input[0].name.substr(1)+" -1")[0];
                 if(dkCheck.hasAttribute("checked")) {
                     dkCheck.removeAttribute("checked");
                 }
-                
+
 				if ( isSingle ) {
 					$input.val( allValuesArray[val] );
 					$(target).find('.value_text').text( allCaptionsArray[val] );
@@ -860,17 +861,17 @@ $.widget("ui.slider", $.ui.slider, {
                     if ( dkAllValuesArray[val] === dkValue ) {
                         $input.val('');
                         dkCheck.setAttribute("checked", "checked");
-                    	$(target).find('.value_text').text( dkText );    
+                    	$(target).find('.value_text').text( dkText );
                     } else {
                         $input.val( dkValuesArray[val] );
-                    	$(target).find('.value_text').text(markerPrefix + dkAllValuesArray[val] + markerSuffix );    
-                    }					
+                    	$(target).find('.value_text').text(markerPrefix + dkAllValuesArray[val] + markerSuffix );
+                    }
 				} else {
 					$input.val( valuesArray[val] );
 					$(target).find('.value_text').text( valuesArray[val] );
 				}
-                if (window.askia 
-                    && window.arrLiveRoutingShortcut 
+                if (window.askia
+                    && window.arrLiveRoutingShortcut
                     && window.arrLiveRoutingShortcut.length > 0
                     && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                     askia.triggerAnswer();
@@ -910,9 +911,9 @@ $.widget("ui.slider", $.ui.slider, {
 				$('.dropTargetLayer').css({'visibility':'hidden','display':'none'});
 
 			}
-			
+
 		}
-        
+
 
 
 		// Remove focus when not clicking on slider
@@ -940,23 +941,17 @@ $.widget("ui.slider", $.ui.slider, {
 		} else {
 			$container.css('visibility','visible');
 		}
-        
+
 		//Prevent DK label from having markers
         if (allowDK) {
         	var dkLabel = sliderDiv[0].lastElementChild.lastElementChild;
             if (dkLabel.innerHTML != dkText) {
                 dkLabel.innerHTML = dkText;
             }
-        }       
+        }
 
 		// Returns the container
 		return this;
 	};
 
 } (jQuery));
-
-
-
-
-
-
