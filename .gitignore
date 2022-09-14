@@ -33,3 +33,5 @@ gruntfile.js
 .eslintrc.json
 
 .adxstudio/workspace.json
+*.ps1
+*.tmp/

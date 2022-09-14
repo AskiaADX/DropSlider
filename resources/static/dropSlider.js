@@ -26,7 +26,7 @@ in mobile view - adjust placement of first and last labels
           };
       };
       // smartresize
-      jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+      jQuery.fn[sr] = function(fn){  return fn ? this.on('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
 
@@ -87,7 +87,7 @@ $.widget("ui.slider", $.ui.slider, {
 
         this._handleIndex = index;
 
-        closestHandle.addClass("ui-state-active").focus();
+        closestHandle.addClass("ui-state-active").trigger('focus');
 
         offset = closestHandle.offset();
         // Added extra condition to check if the handle currently under the mouse cursor is disabled.
@@ -318,7 +318,7 @@ $.widget("ui.slider", $.ui.slider, {
 						left:$('.responseItem').eq(index).outerWidth()/2
 					}
 				})
-                .bind('click', function(e) {
+                .on('click', function(e) {
                     noDrag(e.target);
 					e.stopPropagation();
                 })
@@ -799,9 +799,9 @@ $.widget("ui.slider", $.ui.slider, {
 					clickActive = $(target);
 					$(target).addClass('responseActive');
 
-					$('.dropTargetLayer').unbind();
+					$('.dropTargetLayer').off();
 
-					$('.dropTargetLayer').bind('mouseup', function (e) {
+					$('.dropTargetLayer').on('mouseup', function (e) {
 						setTarget(e, "dropTargetLayer");
 					}).css({'visibility':'visible','display':'block'});
 
@@ -917,7 +917,7 @@ $.widget("ui.slider", $.ui.slider, {
 
 
 		// Remove focus when not clicking on slider
-		$(document).click(function(e) {
+		$(document).on('click', function(e) {
 
 			if ( !($(e.target).hasClass('noUi-base') || $(e.target).hasClass('noUi-origin') || $(e.target).hasClass('noUiSlider') || $(e.target).hasClass('noUi-handle')) ) {
             	$('.focused').removeClass('focused');
@@ -928,7 +928,7 @@ $.widget("ui.slider", $.ui.slider, {
 		if ( total_images > 0 ) {
 			$container.find('img').each(function() {
 				var fakeSrc = $(this).attr('src');
-				$("<img/>").css('display', 'none').load(function() {
+				$("<img/>").css('display', 'none').on('load', function() {
 					images_loaded++;
 					if (images_loaded >= total_images) {
 
