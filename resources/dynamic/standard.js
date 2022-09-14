@@ -1,5 +1,5 @@
 /* standard.js */
-$(window).load(function() {
+$(window).on('load', function() {
 	$('#adc_{%= CurrentADC.InstanceId %}').adcDropSlider({
 		target : 'jsObj{%= CurrentADC.InstanceId%}',
 		width : 400,
@@ -50,7 +50,3 @@ $(window).load(function() {
 		]
 	});
 });
-
-
-
-
