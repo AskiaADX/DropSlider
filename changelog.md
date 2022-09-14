@@ -74,4 +74,5 @@ v3.0.0 - AvailableAnswers
 v3.0.3 - Fixed encoding caption
 v3.0.4 - Changed GUID cause duplicate with Slider
 v3.0.5 - Fixed value on handle tooltip
-v3.1.0 - libraries/plugins update
+v3.1.0 - libraries/plugins update,
+       - Share folder removed.

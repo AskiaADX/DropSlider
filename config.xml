@@ -41,22 +41,22 @@
       <content fileName="standard_numeric.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_single.html" type="html" mode="dynamic" position="none" />
       <content fileName="standard_numeric_loop.html" type="html" mode="dynamic" position="none" />
-      <content fileName="es5-shim.min.js" type="javascript" mode="share" position="head">
+      <content fileName="es5-shim.min.js" type="javascript" mode="static" position="head">
         <yield><![CDATA[<!--[if lt IE 10]>
-      	<script type="text/javascript" src="{%= CurrentADC.URLTo("share/es5-shim.min.js") %}"></script>
+      	<script type="text/javascript" src="{%= CurrentADC.URLTo("static/es5-shim.min.js") %}"></script>
       	<![endif]--> ]]></yield>
       </content>
-      <content fileName="jquery-3.6.0.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery-ui.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery.ui.touch-punch.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery-ui-slider-pips.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery-ui-slider-pips.min.css" type="css" mode="share" position="head" />
+      <content fileName="jquery-3.6.0.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="jquery-ui.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="jquery.ui.touch-punch.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="jquery-ui-slider-pips.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="jquery-ui-slider-pips.min.css" type="css" mode="static" position="head" />
       <content fileName="dropSlider.js" type="javascript" mode="static" position="head" />
       <content fileName="standard.js" type="javascript" mode="dynamic" position="foot" />
       <content fileName="standard_numeric.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="standard_single.js" type="javascript" mode="dynamic" position="none" />
       <content fileName="standard_numeric_loop.js" type="javascript" mode="dynamic" position="none" />
-      <content fileName="jquery-ui.min.css" type="css" mode="share" position="head" />
+      <content fileName="jquery-ui.min.css" type="css" mode="static" position="head" />
       <content fileName="clear.png" type="image" mode="static" position="none" />
     </output>
   </outputs>
