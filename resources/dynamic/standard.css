@@ -1,11 +1,9 @@
 /* standard.css */
 {%
 Dim responseColourPrimary =CurrentADC.PropValue("responseColourPrimary")
-Dim responseColourSecondary =CurrentADC.PropValue("responseColourSecondary")
 Dim fontColour =CurrentADC.PropValue("fontColour")
 Dim responseShadow =CurrentADC.PropValue("responseShadow")
 Dim responseSelectedColourPrimary =CurrentADC.PropValue("responseSelectedColourPrimary")
-Dim responseSelectedColourSecondary =CurrentADC.PropValue("responseSelectedColourSecondary")
 Dim responseSelectedFontColour =CurrentADC.PropValue("responseSelectedFontColour")
 Dim responseSelectedShadow =CurrentADC.PropValue("responseSelectedShadow")
 
@@ -24,7 +22,6 @@ Dim displayResponseText =CurrentADC.PropValue("displayResponseText")
 Dim responseTextPosition =CurrentADC.PropValue("responseTextPosition")
 
 Dim responseHoverColourPrimary =CurrentADC.PropValue("responseHoverColourPrimary")
-Dim responseHoverColourSecondary =CurrentADC.PropValue("responseHoverColourSecondary")
 Dim responseHoverFontColour =CurrentADC.PropValue("responseHoverFontColour")
 Dim responseHoverBorderColour =CurrentADC.PropValue("responseHoverBorderColour")
 Dim responseHoverBorderThickness =CurrentADC.PropValue("responseHoverBorderThickness")
@@ -46,9 +43,7 @@ Dim fontSize =CurrentADC.PropValue("fontSize")
 Dim responseHeight =CurrentADC.PropValue("responseHeight")
 Dim responseWidth =CurrentADC.PropValue("responseWidth")
 Dim labelColourPrimary =CurrentADC.PropValue("labelColourPrimary")
-Dim labelColourSecondary =CurrentADC.PropValue("labelColourSecondary")
 Dim labelShadow =CurrentADC.PropValue("labelShadow")
-Dim imageAlign =CurrentADC.PropValue("imageAlign")
 Dim displayLabelText =CurrentADC.PropValue("displayLabelText")
 
 Dim baseHeight =CurrentADC.PropValue("baseHeight")
@@ -57,23 +52,7 @@ Dim labelTextPadding =CurrentADC.PropValue("labelTextPadding")
 Dim labelTextLineHeight =CurrentADC.PropValue("labelTextLineHeight")
 
 Dim labelWidth =CurrentADC.PropValue("labelWidth")
-Dim sliderHeight =CurrentADC.PropValue("sliderHeight")
 Dim controlAlign =CurrentADC.PropValue("controlAlign")
-Dim sliderBasePrimaryColour =CurrentADC.PropValue("sliderBasePrimaryColour")
-Dim sliderBaseSecondaryColour =CurrentADC.PropValue("sliderBaseSecondaryColour")
-Dim sliderBaseBorderColour =CurrentADC.PropValue("sliderBaseBorderColour")
-Dim sliderBaseBorderThickness =CurrentADC.PropValue("sliderBaseBorderThickness")
-Dim sliderBaseBorderStyle =CurrentADC.PropValue("sliderBaseBorderStyle")
-Dim sliderBaseBorderRadius =CurrentADC.PropValue("sliderBaseBorderRadius")
-Dim sliderHandlePrimaryColour =CurrentADC.PropValue("sliderHandlePrimaryColour")
-Dim sliderHandleSecondaryColour =CurrentADC.PropValue("sliderHandleSecondaryColour")
-Dim sliderHandleBorderColour =CurrentADC.PropValue("sliderHandleBorderColour")
-Dim sliderHandleBorderThickness =CurrentADC.PropValue("sliderHandleBorderThickness")
-Dim sliderHandleBorderStyle =CurrentADC.PropValue("sliderHandleBorderStyle")
-Dim sliderHandleBorderRadius =CurrentADC.PropValue("sliderHandleBorderRadius")
-Dim sliderHandleDropShadow =CurrentADC.PropValue("sliderHandleDropShadow")
-Dim sliderSelectedPrimaryColour =CurrentADC.PropValue("sliderSelectedPrimaryColour")
-Dim sliderSelectedSecondaryColour =CurrentADC.PropValue("sliderSelectedSecondaryColour")
 Dim labelBorderRadius =CurrentADC.PropValue("labelBorderRadius")
 Dim labelFontColour =CurrentADC.PropValue("labelFontColour")
 Dim labelBorderColour =CurrentADC.PropValue("labelBorderColour")
@@ -81,32 +60,11 @@ Dim labelBorderThickness =CurrentADC.PropValue("labelBorderThickness")
 Dim labelBorderStyle =CurrentADC.PropValue("labelBorderStyle")
 
 Dim baseColourPrimary =CurrentADC.PropValue("baseColourPrimary")
-Dim baseColourSecondary =CurrentADC.PropValue("baseColourSecondary")
 Dim baseBorderColour =CurrentADC.PropValue("baseBorderColour")
 Dim baseBorderThickness =CurrentADC.PropValue("baseBorderThickness")
 Dim baseBorderStyle =CurrentADC.PropValue("baseBorderStyle")
 Dim baseBorderRadius =CurrentADC.PropValue("baseBorderRadius")
 
-Dim showValue =CurrentADC.PropValue("showValue")
-
-Dim sliderFocusPrimaryColour =CurrentADC.PropValue("sliderFocusPrimaryColour")
-Dim sliderFocusSecondaryColour =CurrentADC.PropValue("sliderFocusSecondaryColour")
-Dim sliderFocusBorderColour =CurrentADC.PropValue("sliderFocusBorderColour")
-Dim sliderFocusBorderThickness =CurrentADC.PropValue("sliderFocusBorderThickness")
-Dim handleFontColour =CurrentADC.PropValue("handleFontColour")
-
-Dim captionAlign =CurrentADC.PropValue("captionAlign")
-Dim captionPadding =CurrentADC.PropValue("captionPadding")
-
-Dim sliderBaseHeight =CurrentADC.PropValue("sliderBaseHeight")
-Dim sliderHandleHeight =CurrentADC.PropValue("sliderHandleHeight")
-Dim sliderHandleWidth =CurrentADC.PropValue("sliderHandleWidth")
-Dim halfHandleHeight = (sliderBaseHeight.ToNumber() - sliderHandleHeight.ToNumber())/2
-Dim halfHandleWidth = sliderHandleWidth.ToNumber()/2
-
-Dim imagePadding =CurrentADC.PropValue("imagePadding")
-
-Dim sliderBaseGradientDirection =CurrentADC.PropValue("sliderBaseGradientDirection")
 Dim handleColour =CurrentADC.PropValue("handleColour")
 Dim handleBorderColour =CurrentADC.PropValue("handleBorderColour")
 Dim handleBorderRadius =CurrentADC.PropValue("handleBorderRadius")
@@ -137,7 +95,6 @@ IF responseWidth = "" Then
 EndIF
 
 Dim tooltipWidth =CurrentADC.PropValue("tooltipWidth")
-Dim tooltipImageWidth =CurrentADC.PropValue("tooltipImageWidth")
 Dim tooltipBgColour =CurrentADC.PropValue("tooltipBgColour")
 Dim tooltipFontSize =CurrentADC.PropValue("tooltipFontSize")
 Dim tooltipFontColour =CurrentADC.PropValue("tooltipFontColour")
@@ -151,8 +108,6 @@ Dim showTooltipValue =CurrentADC.PropValue("showTooltipValue")
 Dim useResponseCaptions =CurrentADC.PropValue("useResponseCaptions")
 
 Dim unitStep =CurrentADC.PropValue("unitStep")
-Dim minValue =CurrentADC.PropValue("minValue")
-Dim maxValue =CurrentADC.PropValue("maxValue")
 Dim isSingle =(CurrentQuestion.Type = "single")
 Dim sLabelWidth = 2.4
 Dim sLabelAdjust = 1.2
@@ -164,13 +119,13 @@ EndIf
 %}
 
 /* General */
-#adc_{%= CurrentADC.InstanceId%} { 
+#adc_{%= CurrentADC.InstanceId%} {
 	text-align:{%= responseAlign%};
 }
 
 /* Reponses */
-#adc_{%= CurrentADC.InstanceId%} .responseItem {   
-	
+#adc_{%= CurrentADC.InstanceId%} .responseItem {
+
     cursor:pointer;
 	box-sizing:border-box;
 	/* Decoration */
@@ -178,24 +133,24 @@ EndIf
 		border: none;
 	{% Else %}
 		border: {%= borderThickness%} {%= borderStyle%} rgb({%= borderColour%});
-	{% EndIF %}	
-	background: rgb({%= responseColourPrimary%}); 
-	
+	{% EndIF %}
+	background: rgb({%= responseColourPrimary%});
+
 	/* Effects */
-	-webkit-border-radius:	{%= borderRadius%}; 
-	-moz-border-radius:		{%= borderRadius%}; 
-	-khtml-border-radius:	{%= borderRadius%}; 
+	-webkit-border-radius:	{%= borderRadius%};
+	-moz-border-radius:		{%= borderRadius%};
+	-khtml-border-radius:	{%= borderRadius%};
 	border-radius:			{%= borderRadius%};
-	
+
 	-webkit-box-shadow: {%= responseShadow%};
 	-moz-box-shadow: {%= responseShadow%};
 	box-shadow: {%= responseShadow%};
-	
+
 	text-align: center;
-		
+
 	height: {%= responseHeight%};
 	width: {%= responseWidth%};
-	
+
 	padding: {%= responsePadding%};
 	{% IF stackResponses = "1" And responseAlign = "center" Then %}
     	margin: {%= responseMargin%};
@@ -208,14 +163,14 @@ EndIf
     		display:inline-block;
 		{% Else %}
 			float:{%= responseAlign%};
-    	{% EndIF %}	
-	{% EndIF %}	
-	
+    	{% EndIF %}
+	{% EndIF %}
+
 	z-index: 1;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .responseItem:hover {
-	
+
 	/* Decoration */
 	{% IF showResponseHoverBorder = "1" Then %}
 		border: {%= responseHoverBorderThickness%} {%= responseHoverBorderStyle%} rgb({%= responseHoverBorderColour%});
@@ -228,7 +183,7 @@ EndIf
 	box-shadow: {%= responseHoverShadow%};
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem img {  
+#adc_{%= CurrentADC.InstanceId%} .responseItem img {
 	pointer-events:none;
 	margin:0px auto;
 	vertical-align:middle;
@@ -236,43 +191,43 @@ EndIf
 	padding:{%= responseImagePadding%};
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem .response_text { 
+#adc_{%= CurrentADC.InstanceId%} .responseItem .response_text {
 	pointer-events:none;
 	display:{%= displayResponseText%};
 	font-size:{%= fontSize%};
 	text-align:{%= responseTextAlign%};
 	color:rgb({%= fontColour%});
-	
+
 	padding:{%= responseTextPadding%};
 	line-height:{%= responseTextLineHeight%};
-	
+
 	{% IF responseTextPosition = "left" or responseTextPosition = "right" Then %}
 		float: {%= responseTextPosition%};
 	{% EndIF %}
-	
+
 	word-wrap: break-word;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text { 
+#adc_{%= CurrentADC.InstanceId%} .responseItem:hover .response_text {
 	{% IF showResponseHoverFontColour = "1" Then %}
 		color:rgb({%= responseHoverFontColour%}) !important;
 	{% EndIF %}
 }
 
-#adc_{%= CurrentADC.InstanceId%} .responseActive { 
-	/* Decoration */	
+#adc_{%= CurrentADC.InstanceId%} .responseActive {
+	/* Decoration */
 	{% IF responseSelectedBorderThickness = "none" Then %}
 		border: none !important;
 	{% Else %}
 		border: {%= responseSelectedBorderThickness%} {%= responseSelectedBorderStyle%} rgb({%= responseSelectedBorderColour%}) !important;
-	{% EndIF %}	
+	{% EndIF %}
 	background: rgb({%= responseSelectedColourPrimary%}) !important;
 }
 #adc_{%= CurrentADC.InstanceId%} .responseActive .response_text {
 	color:rgb({%= responseSelectedFontColour%}) !important;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .sliderContainer { 
+#adc_{%= CurrentADC.InstanceId%} .sliderContainer {
 	position:relative;
 	text-align:{%= controlAlign%};
 	{% IF controlAlign = "center" Then %}
@@ -282,17 +237,17 @@ EndIf
 		margin:0px;
 		width:auto;
 	{% EndIF %}
-	
+
 	margin-bottom:20px;
 	overflow:visible;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .slider { 
+#adc_{%= CurrentADC.InstanceId%} .slider {
 	position:relative;
 	clear:left;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .slider tr, #adc_{%= CurrentADC.InstanceId%} .slider tr td { 
+#adc_{%= CurrentADC.InstanceId%} .slider tr, #adc_{%= CurrentADC.InstanceId%} .slider tr td {
 	min-height:0;
 }
 
@@ -303,95 +258,79 @@ EndIf
     height:auto;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .sliderLabel { 
-	
+#adc_{%= CurrentADC.InstanceId%} .sliderLabel {
+
 	/* Decoration */
 	{% IF CurrentADC.PropValue("borderThickness") = "none" Then %}
 		border: none;
 	{% Else %}
 		border: {%= labelBorderThickness%} {%= labelBorderStyle%} rgb({%= labelBorderColour%});
-	{% EndIF %}	
+	{% EndIF %}
 
-	background: rgb({%= labelColourPrimary%}); 
-	
+	background: rgb({%= labelColourPrimary%});
+
 	/* Effects */
-	-webkit-border-radius:	{%= labelBorderRadius%}; 
-	-moz-border-radius:		{%= labelBorderRadius%}; 
-	-khtml-border-radius:	{%= labelBorderRadius%}; 
+	-webkit-border-radius:	{%= labelBorderRadius%};
+	-moz-border-radius:		{%= labelBorderRadius%};
+	-khtml-border-radius:	{%= labelBorderRadius%};
 	border-radius:			{%= labelBorderRadius%};
-	
+
 	-webkit-box-shadow: {%= labelShadow%};
 	-moz-box-shadow: {%= labelShadow%};
 	box-shadow: {%= labelShadow%};
-	
+
 	display:{%= displayLabelText%};
 	font-size:{%= fontSize%};
 	text-align:center;
 	color:rgb({%= labelFontColour%});
 	padding:{%= labelTextPadding%};
 	line-height:{%= labelTextLineHeight%};
-	
+
 	position:relative;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .left, #adc_{%= CurrentADC.InstanceId%} .right, .rightLabel, .leftLabel {
-	width: {%= labelWidth%};  
+	width: {%= labelWidth%};
 	position:relative;
 	display:block;
 }
 
 #adc_{%= CurrentADC.InstanceId%} { width:100%; }
 #adc_{%= CurrentADC.InstanceId%} .leftLabel {
-	position:relative; 
-	display:block;
-	margin: 0px; 
-    
-    width: {%= labelWidth%};  
-   	
-	{% IF CurrentADC.PropValue("textAlign") = "lr" OR CurrentADC.PropValue("textAlign") = "left" Then %}
-		text-align:left;
-	{% ElseIF CurrentADC.PropValue("textAlign") = "rl" OR CurrentADC.PropValue("textAlign") = "right" Then %}
-		text-align:right;
-	{% ElseIF CurrentADC.PropValue("textAlign") = "center" Then %}
-		text-align:center;
-	{% EndIF %}
-	
-	/* disable highlight text */
-	-moz-user-select: none; 
-	-webkit-user-select: none; 
-	-ms-user-select:none; 
-	user-select:none;
-}
-#adc_{%= CurrentADC.InstanceId%} .rightLabel { 
 	position:relative;
 	display:block;
 	margin: 0px;
-    
-    width: {%= labelWidth%};  
-	
-	{% IF CurrentADC.PropValue("textAlign") = "lr" OR CurrentADC.PropValue("textAlign") = "right" Then %}
-		text-align:right;
-	{% ElseIF CurrentADC.PropValue("textAlign") = "rl" OR CurrentADC.PropValue("textAlign") = "left" Then %}
-		text-align:left;
-	{% ElseIF CurrentADC.PropValue("textAlign") = "center" Then %}
-		text-align:center;
-	{% EndIF %}
-	
+
+    width: {%= labelWidth%};
+
 	/* disable highlight text */
-	-moz-user-select: none; 
-	-webkit-user-select: none; 
-	-ms-user-select:none; 
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select:none;
+	user-select:none;
+}
+#adc_{%= CurrentADC.InstanceId%} .rightLabel {
+	position:relative;
+	display:block;
+	margin: 0px;
+
+  width: {%= labelWidth%};
+
+	/* disable highlight text */
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select:none;
 	user-select:none;
 }
 #adc_{%= CurrentADC.InstanceId%} .leftLabel .sliderLabel {
 	position:relative;
 	display:block;
 	text-align:center;
-	
+
 	/* disable highlight text */
-	-moz-user-select: none; 
-	-webkit-user-select: none; 
-	-ms-user-select:none; 
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select:none;
 	user-select:none;
     z-index:0;
 }
@@ -399,27 +338,27 @@ EndIf
 	position:relative;
 	display:block;
 	text-align:center;
-	
+
 	/* disable highlight text */
-	-moz-user-select: none; 
-	-webkit-user-select: none; 
-	-ms-user-select:none; 
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select:none;
 	user-select:none;
     z-index:0;
-    
+
 }
 
 #adc_{%= CurrentADC.InstanceId%} .lineContainer { position:relative; }
-#adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content { 
-    
+#adc_{%= CurrentADC.InstanceId%} .lineContainer .ui-widget-content {
+
 	/* Decoration */
 	{% IF baseBorderThickness = "0" Then %}
 		border: none !important;
 	{% Else %}
     border: {%= baseBorderThickness%} {%= baseBorderStyle%} rgb({%= baseBorderColour%});
-	{% EndIF %}	
-    
-    background: rgb({%= baseColourPrimary%}); 
+	{% EndIF %}
+
+    background: rgb({%= baseColourPrimary%});
 }
 
 #adc_{%= CurrentADC.InstanceId%} .tooltip {
@@ -433,7 +372,7 @@ EndIf
     opacity: 1;
     text-align:{%= responseTextAlign%};
     width:{%= tooltipWidth.ToNumber() %}px;
-    
+
     {% IF showTooltipOnHover = "yes" Then %}
     	bottom:90%;
         opacity: 0;
@@ -446,10 +385,10 @@ EndIf
 }
 
 {% IF showTooltipOnHover = "yes" Then %}
-#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-active .tooltip, 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-focus .tooltip, 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-hover .tooltip, 
-#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle:focus .tooltip, 
+#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-active .tooltip,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-focus .tooltip,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle.ui-state-hover .tooltip,
+#adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle:focus .tooltip,
 #adc_{%= CurrentADC.InstanceId%} .ui-slider .ui-slider-handle:hover .tooltip {
     opacity: 1;
     bottom:120%;
@@ -459,22 +398,22 @@ EndIf
 }
 {% EndIF %}
 
-#adc_{%= CurrentADC.InstanceId%} .tooltip .response_text { 
+#adc_{%= CurrentADC.InstanceId%} .tooltip .response_text {
 	pointer-events:none;
 	font-size:{%= tooltipFontSize%};
 	text-align:{%= responseTextAlign%};
 	color:rgb({%= tooltipFontColour%});
 	padding:{%= tooltipTextPadding%};
 	line-height:{%= responseTextLineHeight%};
-    
+
     {% IF showTooltipCaption = "0" Then %}
     	display:none;
     {% EndIF %}
-	
+
 	{% IF responseTextPosition = "left" or responseTextPosition = "right" Then %}
 		float: {%= responseTextPosition%};
 	{% EndIF %}
-	
+
 	word-wrap: break-word;
 }
 
@@ -485,26 +424,26 @@ EndIf
 	color:rgb({%= tooltipFontColour%});
 	padding:{%= tooltipTextPadding%};
 	line-height:{%= responseTextLineHeight%};
-    
+
 {% IF showTooltipValue = "0" Then %}
     	display:none;
     {% EndIF %}
-	
+
 	{% IF responseTextPosition = "left" or responseTextPosition = "right" Then %}
 		float: {%= responseTextPosition%};
 	{% EndIF %}
-	
+
 	word-wrap: break-word;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .tooltip img
-{  
+{
 	pointer-events:none;
 	margin:0px auto;
 	vertical-align:middle;
 	float:{%= responseImageAlignment%};
 	padding:{%= tooltipImagePadding%};
-    
+
     {% IF showTooltipImage = "0" Then %}
     	display:none;
     {% EndIF %}
@@ -523,7 +462,7 @@ EndIf
 }
 
 #adc_{%= CurrentADC.InstanceId%} .tooltip-inner {
-    padding: 20px {%= tooltipPadding %} {%= tooltipPadding %} {%= tooltipPadding %};  
+    padding: 20px {%= tooltipPadding %} {%= tooltipPadding %} {%= tooltipPadding %};
     color: rgb({%= tooltipFontColour %});
     text-align:{%= responseTextAlign%};
     text-decoration: none;
@@ -533,7 +472,7 @@ EndIf
             border-radius: 4px;
 }
 
-#adc_{%= CurrentADC.InstanceId%} .tooltip-inner img { height:auto; width:{%= tooltipImageWidth %}px; }
+#adc_{%= CurrentADC.InstanceId%} .tooltip-inner img { height:auto; }
 
 #adc_{%= CurrentADC.InstanceId%} .sliderMob, #adc_{%= CurrentADC.InstanceId%} .sliderPC { display:none; }
 
@@ -608,13 +547,13 @@ EndIf
 .sliderContainer .ui-slider-pips .ui-slider-pip .ui-slider-label {
     color: rgb({%= markerFontColour %});
 }
- 
+
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip .ui-slider-line {
-  
+
     /* add height and other missing bits */
     height: {%= markerLineHeight%};
   	top: -3px;
-    
+
     /* if circles */
     {% IF markerType = "circle" Then %}
         width: 4px;
@@ -623,11 +562,11 @@ EndIf
         margin-left: -2px;
     {% EndIf %}
     z-index:1;
-    
+
     {% IF showMarkers = "no" Then %}
         display:none;
     {% EndIf %}
-    
+
 }
 .ui-slider-pips .ui-slider-pip .ui-slider-line {
 	background: rgb({%= markerColour %});
@@ -636,7 +575,7 @@ EndIf
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pips .ui-slider-label {
     top: {%= markerTextDistance %}px;
     text-align:center;
-    
+
     {% IF useResponseCaptions = "yes" Then %}
         width: {%= sLabelWidth%}em;
         margin-left: -{%= sLabelAdjust%}em;
@@ -647,7 +586,7 @@ EndIf
 {% IF alternateMarkers = "1" Then %}
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-pip .ui-slider-line {
 	  height: {%= markerLineHeight%}px;
-	  top: -3px; 
+	  top: -3px;
 
 	  /* if circles */
 	  {% IF markerType = "circle" Then %}
@@ -681,7 +620,7 @@ EndIf
 			border-radius: 4px;
 			margin-left: -2px;
 		{% EndIf %}
-	}              
+	}
 
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip {
 	  width: 34px;
@@ -693,9 +632,9 @@ EndIf
 	  line-height: 27px;
 	  height: 25px; }
 
-	#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:before, 
+	#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:before,
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-tip:after {
-		display: none; 
+		display: none;
 	}
 
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-active .ui-slider-tip,
@@ -703,11 +642,11 @@ EndIf
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover .ui-slider-tip,
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:focus .ui-slider-tip,
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle:hover .ui-slider-tip {
-	  top: -1px; 
+	  top: -1px;
 	}
 
 	#adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-focus, #adc_{%= CurrentADC.InstanceId%} .ui-slider-handle.ui-state-hover {
-	  z-index: 100; 
+	  z-index: 100;
 	}
 
 {% EndIf %}
@@ -722,7 +661,7 @@ EndIf
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-8 .ui-slider-label { color: #00BCD4; }
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-9 .ui-slider-label { color: #E91E63; }
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-initial-10 .ui-slider-label { color: #2196F3; }
-                    
+
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-1 .ui-slider-label,
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-2 .ui-slider-label,
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-3 .ui-slider-label,
@@ -739,7 +678,7 @@ EndIf
   padding: 4px 0;
   width: {%= sLabelWidth%}em;
   margin-left: -{%= sLabelAdjust%}em;
-  border-radius: 2px; 
+  border-radius: 2px;
 }
 
 #adc_{%= CurrentADC.InstanceId%} .ui-slider-pip-selected-1 .ui-slider-label { color: #F44336; }
