@@ -7,7 +7,7 @@
   <info>
     <name>DropSlider</name>
     <guid>f523e0b2-8f59-4fd3-9f5f-c67360b43044</guid>
-    <version>3.1.1</version>
+    <version>3.1.2</version>
     <date>2022-09-29</date>
     <description><![CDATA[DropSlider ADC]]></description>
     <company>Askia</company>
@@ -348,7 +348,20 @@
       </property>
       <property xsi:type="standardProperty" id="baseColourPrimary" name="Base Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
         <description><![CDATA[Background colour of the base]]></description>
+        <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="baseColourSecondary" name="Secondary Base Background Colour" type="color" mode="dynamic" require="false" visible="false" colorFormat="rgb">
+        <description><![CDATA[Background colour of the base]]></description>
         <value><![CDATA[{%= Theme.SecondaryColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="sliderBaseGradientDirection" name="Slider Base Gradient Direction" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[The direction of the gradient on the base]]></description>
+        <value><![CDATA[ltr]]></value>
+        <options>
+          <option value="" text="No Gradient" />
+          <option value="ltr" text="Left to Right" />
+          <option value="rtl" text="Right to Left" />
+        </options>
       </property>
       <property xsi:type="standardProperty" id="baseBorderRadius" name="Base Border Radius" type="string" mode="dynamic" require="false" visible="false">
         <description><![CDATA[The amount of curve on the base corners]]></description>

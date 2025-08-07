@@ -77,3 +77,4 @@ v3.0.5 - Fixed value on handle tooltip
 v3.1.0 - libraries/plugins update,
        - Share folder removed.
 v3.1.1 - Fixed - DOF runtime errors
+v3.1.2 - Added colour gradient options to ADC properties and standard.css

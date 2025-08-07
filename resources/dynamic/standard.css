@@ -60,6 +60,7 @@ Dim labelBorderThickness =CurrentADC.PropValue("labelBorderThickness")
 Dim labelBorderStyle =CurrentADC.PropValue("labelBorderStyle")
 
 Dim baseColourPrimary =CurrentADC.PropValue("baseColourPrimary")
+Dim baseColourSecondary =CurrentADC.PropValue("baseColourSecondary")
 Dim baseBorderColour =CurrentADC.PropValue("baseBorderColour")
 Dim baseBorderThickness =CurrentADC.PropValue("baseBorderThickness")
 Dim baseBorderStyle =CurrentADC.PropValue("baseBorderStyle")
@@ -357,8 +358,26 @@ EndIf
 	{% Else %}
     border: {%= baseBorderThickness%} {%= baseBorderStyle%} rgb({%= baseBorderColour%});
 	{% EndIF %}
+    
+{% IF CurrentADC.PropValue("sliderBaseGradientDirection") <> "" Then %}
+        
+		background: rgb({%= baseColourPrimary%});
+		background: -moz-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%, rgb({%= baseColourSecondary%}) 100%);
+		background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb({%= baseColourPrimary%})), color-stop(100%,rgb({%= baseColourSecondary%})));
+		background: -webkit-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%);
+		background: -o-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%);
+		background: -ms-linear-gradient(left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%);
+		{% IF CurrentADC.PropValue("sliderBaseGradientDirection") = "ltr" Then %}
+			background: linear-gradient(to right,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%);
+		{% Else %}
+			background: linear-gradient(to left,  rgb({%= baseColourPrimary%}) 0%,rgb({%= baseColourSecondary%}) 100%);
+		{% EndIF %}
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='{%= baseColourPrimary.ToHexa()%}', endColorstr='{%= baseColourSecondary.ToHexa()%}',GradientType=1 );
 
-    background: rgb({%= baseColourPrimary%});
+	{% Else %}
+		background: rgb({%= baseColourPrimary%});
+	{% EndIF %}    
+    
 }
 
 #adc_{%= CurrentADC.InstanceId%} .tooltip {
